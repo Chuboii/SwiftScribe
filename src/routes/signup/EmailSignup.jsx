@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-
+import { signUpWithEmail } from "../../utils/appwrite/firebase/firebase.utils";
 import './EmailSignup.scss'
 
 function EmailSignup() {

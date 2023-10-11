@@ -2,7 +2,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
-
+import { signInWithGoogle } from '../../utils/appwrite/firebase/firebase.utils';
 
 import './Signin.scss'
 

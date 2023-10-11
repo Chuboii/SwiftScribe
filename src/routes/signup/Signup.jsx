@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Signup.scss'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { signInWithGoogle } from '../../utils/appwrite/firebase/firebase.utils';
 
 
 export default function Signup() {
