@@ -10,8 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.13",
+    "@mui/material": "^5.14.13",
+    "appwrite": "^13.0.0",
+    "firebase": "^10.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.47.0",
+    "react-router-dom": "^6.16.0",
+    "sass": "^1.69.2",
+    "styled-components": "^6.0.8",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
