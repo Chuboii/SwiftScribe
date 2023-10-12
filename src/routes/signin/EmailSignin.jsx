@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { signInWithEmail } from '/src/utils/firebase/firebase.utils';
 import {useForm} from "react-hook-form"
@@ -13,7 +13,7 @@ function EmailSignin() {
    const {register,handleSubmit, formState:{errors}} = useForm({mode:"onChange"})
 const {setErrMsg, isErrToggled,setIsErrToggled} = useContext(ErrContext)
  const [isSuccess, setIsSuccess] = useState(false)
-
+const navigate = useNavigate()
  
   
 useEffect(()=>{
@@ -49,7 +49,7 @@ useEffect(()=>{
     setIsSuccess(true)
     
     setTimeout(()=>{
-      
+      navigate('/')
     },2000)
   }
   catch(e){

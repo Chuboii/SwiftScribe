@@ -3,33 +3,44 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import logo from '/src/assets/swiftscribe logo.jpg'
 import './HomeHeader.scss'
+import HomeSubHeader from '../home sub header/HomeSubHeader';
+import NavigationMenu from '../navigation menu/NavigationMenu';
+import { useContext, useState } from 'react';
+import {UserContext} from '/src/context/UserContext'
+import SearchInput from '../search input/SearchInput';
 function HomeHeader() {
-    return (
-      <>
+    const [toggleMenu, setToggleMenu] = useState(false)
+    const { currentUser } = useContext(UserContext)
+    
+    const enableMenu = () => {
+      setToggleMenu(!toggleMenu)
+console.log(currentUser.photoURL);
+}
+
+    return(
+        
+        <>
+           
+            
+            {toggleMenu && <NavigationMenu />}
       <header className='homeheader-container'>
 
-                <form className='homeheader-form'>
-                    <div className="homeheader-logo-box">
-                    <img src={logo} alt="logo" className='homeheader-logo'/>
-           <p className="homeheader-logo-text">SwiftScribe</p>
-                    </div>
-                    <div className="homeheader-search-box">
-                    <input type="search" className='homeheader-search-input' name="search swiftscribe" placeholder='Search SwiftScribe' id="search" />
-                        <SearchIcon className='homeheader-search-icon'/>
-                        </div>
-                </form>  
+        
+        <SearchInput/>
                 <div className="homeheader-second">
                     <NotificationsNoneOutlinedIcon className='homeheader-noti'/>
-                    <div className='homeheader-image'>
-                        <img src={logo} className='homeheader-dp' alt="" />
+                    <div className='homeheader-image' onClick={enableMenu}>
+                        <img src={currentUser.photoURL} className='homeheader-dp' alt="" />
                         <KeyboardArrowDownOutlinedIcon className='homeheader-arrow-down'/>
                         </div>
                     
                 </div>
 
-   </header>
+            </header>
+
+            <HomeSubHeader/>
       </>
-  )
+  ) 
 }
 
 export default HomeHeader

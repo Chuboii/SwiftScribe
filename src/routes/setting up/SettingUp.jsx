@@ -5,11 +5,13 @@ import {UserContext} from "/src/context/UserContext"
 import {useContext, useState, useRef} from "react"
 import {db, storage} from "/src/utils/appwrite/appwrite.utils"
 import { updateProfile } from 'firebase/auth'
+import { useNavigate } from "react-router-dom"
 export default function SettingUp(){
   const {currentUser} = useContext(UserContext)
   const [value, setValue] = useState(currentUser.displayName)
   const ref = useRef()
   const [fileName] = useState("uploader")
+  const navigate = useNavigate()
   
   const submitForm = async (e) =>{
     e.preventDefault()
@@ -17,19 +19,27 @@ export default function SettingUp(){
     const date = new Date()
     if (value ) {
       try {
-       await storage.createFile(
-          '6527ea2a83ff9adab8e7',
-           currentUser.uid,
-          document.getElementById(fileName).files[0]
-        )
+        if (currentUser.photoURL === null) {
+          await storage.createFile(
+            '6527ea2a83ff9adab8e7',
+            currentUser.uid,
+            document.getElementById(fileName).files[0]
+          )
 
-        const imageUrl = await storage.getFileView("6527ea2a83ff9adab8e7", currentUser.uid)
+          const imageUrl = await storage.getFileView("6527ea2a83ff9adab8e7", currentUser.uid)
         
-      await updateProfile(currentUser, {
-        displayName: value,
-        photoURL: imageUrl.href
+          await updateProfile(currentUser, {
+            displayName: value,
+            photoURL: imageUrl.href
+          }
+          )
         }
-      )
+        else {
+          await updateProfile(currentUser, {
+            displayName: value,
+          }
+          )
+        }
 
      const userInfo = {
        user: [JSON.stringify({
@@ -41,7 +51,9 @@ export default function SettingUp(){
 })]}
      
       await db.createDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid, userInfo)
-    }
+        navigate('/')
+
+      }
    catch(e){
      console.log(e)
    }

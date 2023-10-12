@@ -1,0 +1,16 @@
+.homesubheader-container{
+    padding: 1rem;
+    border-bottom: 1px solid  rgb(231, 231, 231);;
+    display: flex;
+    align-items: center;
+
+    .homesubheader-link{
+        margin: 0 1rem;
+        color: black;
+        transition: all .5s;
+        &:hover{
+            color: red;
+        }
+}
+
+}

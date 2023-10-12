@@ -13,7 +13,13 @@ export const UserProvider = ({children})=>{
  const [currentUser, setCurrentUser] = useState(getCurrentUser)
  const navigate = useNavigate()
  
- 
+ const triggerSignout = () =>{
+  signUserOut()
+  localStorage.setItem("currentUser", JSON.stringify(null))
+  setCurrentUser(null)
+}
+
+  
  useEffect(() => {
   const unsubscribe = onAuthChanged(async(user) => {
     
@@ -29,13 +35,10 @@ export const UserProvider = ({children})=>{
   return () => {
     unsubscribe(); 
   };
+
 }, []);
 
-const triggerSignout = () =>{
-  signUserOut()
-  localStorage.setItem("currentUser", JSON.stringify(null))
-  setCurrentUser(null)
-}
+
 
   const value = {currentUser, triggerSignout, setCurrentUser}
   

@@ -1,0 +1,84 @@
+@media screen and (min-width:0) and (max-width:700px) {
+    .homeheader-form{
+        display: flex;
+        align-items: center;
+    
+        .homeheader-search-box{
+            display: flex;
+            align-items: center;
+            .homeheader-search-input{
+                padding: 1rem .5rem;
+                border-radius: 40px;
+                border: 1px solid gray;
+                width: 250px;
+                display: none;
+                &::-webkit-search-cancel-button{
+                display: none;
+                }
+            }
+            .homeheader-search-icon{
+                position: absolute;
+                right: 10rem;
+                font-size: 36px;
+            }
+        }
+    
+        .homeheader-logo-box{
+            display: flex;
+            margin-right: .4rem;
+            align-items: center;
+        .homeheader-logo{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        .homeheader-logo-text{
+            font-size: 30px;
+            font-weight: 700;
+            display: none;
+        }
+    }
+    }
+}
+
+@media screen and (min-width:700px) {
+    .homeheader-form{
+        display: flex;
+        align-items: center;
+
+        
+        .homeheader-search-box{
+            display: flex;
+            align-items: center;
+            .homeheader-search-input{
+                padding: 1rem .5rem;
+                border-radius: 40px;
+                border: 1px solid gray;
+                width: 250px;
+            }
+            .homeheader-search-icon{
+                position: relative;
+                right: 2.5rem;
+                font-size: 30px;
+            }
+        }
+
+        .homeheader-logo-box{
+            display: flex;
+            margin-right: 1rem;
+            align-items: center;
+        .homeheader-logo{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        .homeheader-logo-text{
+            font-size: 30px;
+            font-weight: 700;
+       
+        }
+    }
+    }   
+}

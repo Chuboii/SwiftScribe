@@ -1,0 +1,115 @@
+@media screen and (min-width:0) and (max-width:700px) {
+    .navigationmenu-container{
+        position: absolute;
+    
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba($color: #000000, $alpha: .3);
+        background-color: white;
+        top: 5rem;
+        height: 380px;
+        padding: .5rem 0;
+        width: 250px;
+        right:1rem;
+
+
+        .nm-first,.nm-second,.nm-third{
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid  rgb(231, 231, 231);;
+            padding: 1rem 2rem;
+        
+            .nm-links{
+            margin: .8rem 0;
+            color: black;
+            display: flex;
+            align-items: center;
+            &:hover{
+                color: red;
+            }
+            }
+        }
+    
+        .nm-third{
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            width: 100%;
+           display: flex;
+           border-bottom: none;
+           flex-direction: column;
+           justify-content:flex-start;
+    padding-bottom: 1rem;
+      
+           .nm-signout-btn{
+            text-align: left;
+            background-color: transparent;
+            padding: .5rem 0;
+            font-size: 15px;
+        
+            &:hover{
+                color: red;
+               
+            }
+    
+           }
+        }
+    
+    }
+}
+
+@media screen and (min-width:700px) {
+    .navigationmenu-container{
+        position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba($color: #000000, $alpha: .3);
+        background-color: white;
+        top: 5rem;
+        height: 380px;
+        padding: .5rem 0;
+        width: 250px;
+        right: 1rem;
+
+        .nm-first,.nm-second,.nm-third{
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid  rgb(231, 231, 231);;
+            padding: 1rem 2rem;
+        
+            .nm-links{
+            margin: .8rem 0;
+            color: black;
+            display: flex;
+            align-items: center;
+            &:hover{
+                color: red;
+            }
+            }
+        }
+    
+        .nm-third{
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            width: 100%;
+           display: flex;
+           border-bottom: none;
+           flex-direction: column;
+           justify-content:flex-start;
+    padding-bottom: 1rem;
+      
+           .nm-signout-btn{
+            text-align: left;
+            background-color: transparent;
+            padding: .5rem 0;
+            font-size: 15px;
+        
+            &:hover{
+                color: red;
+               
+            }
+    
+           }
+        }
+    
+    }   
+}

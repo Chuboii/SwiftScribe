@@ -16,8 +16,8 @@ const {currentUser} = useContext(UserContext)
 const [isSuccess, setIsSuccess] = useState(false)
 const googleBtn = async() =>{
  try{
-  await signInWithGoogle()
-  await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+     const { user } = await signInWithGoogle()
+  await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", user.uid)
   }
   catch(e){
     console.log(e)
