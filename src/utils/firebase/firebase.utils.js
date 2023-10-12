@@ -26,7 +26,13 @@ export const auth = getAuth()
 const googleProvider = new GoogleAuthProvider()
 const facebookProvider = new FacebookAuthProvider()
 
+googleProvider.setCustomParameters({
+ params: "select_account"
+})
 export const signInWithGoogle = () => signInWithPopup(auth, googleProvider)
+
+export const signInWithFacebook = () => signInWithPopup(auth, facebookProvider)
+
 
 export const signUpWithEmail = async (email, password) => {
     if (!email || !password) return
@@ -42,4 +48,4 @@ export const signInWithEmail = async (email, password) => {
 
 export const onAuthChanged = (callback) => onAuthStateChanged(auth, callback)
 
-
+export const signUserOut = () => signOut(auth)

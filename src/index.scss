@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
+    outline:none;
     box-sizing: border-box;
 }
 body{
@@ -15,4 +16,5 @@ background-color: white;
 
 button{
     cursor: pointer;
+    border:none;
 }

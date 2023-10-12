@@ -1,0 +1,57 @@
+.setting-up-container{
+  display: flex;
+  flex-direction: column;
+align-items: center;
+
+.setting-up-form{
+  display: flex;
+  flex-direction: column;
+align-items: center;
+  justify-content: center;
+position:relative;
+top:5rem;
+padding:2rem;
+  .setting-up-input-group{
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+   margin-bottom:1rem;
+   max-width: 500px;
+   width:90%;
+    .setting-up-inp{
+    padding:.4rem;
+    border:none;
+    border-bottom:1px solid;
+    width:100%;
+    max-width:300px;
+    transition:all .5s;
+    
+    &:focus{
+      padding:1rem .4rem;
+    }
+    
+  }
+  .setting-up-inp-active{
+    padding:.4rem;
+    border:none;
+    border-bottom:1px solid red;
+    width:100%;
+    max-width:300px;
+    transition:all .5s;
+    
+    &:focus{
+      padding:1rem .4rem;
+    }
+  }
+  }
+  
+  .create-acct-btn{
+    background:green;
+    color:white;
+    padding:.7rem 1.5rem;
+    border-radius:25px;
+    margin-top:.5rem;
+  }
+}
+
+}

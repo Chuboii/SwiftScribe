@@ -15,12 +15,24 @@
         margin-bottom: 3rem;
         font-size:35px;
     }
+        .esu-input-active{
+          border: none;
+            outline: none;
+            transition: all .5s;
+            padding: .4rem 0;
+            border-bottom: 1px solid red;
+                    &:focus{
 
+            padding: 1rem 0;
+
+        }
+        }
     .emailsignup-group{
         display: flex;
         flex-direction: column;
         width: 100%;
         margin: 1rem 0;
+
         .esu-input{
             border: none;
             outline: none;

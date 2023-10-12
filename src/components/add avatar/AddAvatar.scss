@@ -1,0 +1,27 @@
+.addavatar-container{
+  display: flex;
+  
+  .addava-box{
+    display: flex;
+   
+    position:relative;
+    width:200px;
+    justify-content: center;
+    margin-bottom:1rem;
+  .addava-input{
+    
+    opacity:0;
+    z-index:1;
+    position:absolute;
+    top:50%;
+    transform: translateY(-50%);
+    
+  }
+  .addava-text{
+    position: relative;
+    top:1rem;
+    margin-left:.5rem;
+    
+  }
+  }
+}
