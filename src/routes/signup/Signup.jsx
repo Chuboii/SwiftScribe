@@ -6,13 +6,14 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { signInWithGoogle, signInWithFacebook } from '/src/utils/firebase/firebase.utils';
 import {UserContext} from "/src/context/UserContext"
-import {useContext} from "react"
-import {db} from "/src/utils/appwrite/appwrite.utils"
+import {useContext, useState} from "react"
+import { db } from "/src/utils/appwrite/appwrite.utils"
+import Success from "/src/components/alert/success/Success"
 
 export default function Signup() {
     const navigate = useNavigate()
-const {currentUser, setCurrentUser} = useContext(UserContext)
-
+const {currentUser} = useContext(UserContext)
+const [isSuccess, setIsSuccess] = useState(false)
 const googleBtn = async() =>{
  try{
   await signInWithGoogle()
@@ -21,21 +22,34 @@ const googleBtn = async() =>{
   catch(e){
     console.log(e)
        if(e.message === "Document with the requested ID could not be found."){
-      navigate("/swiftscribe/callback/setting-up")
+           setIsSuccess(true)
+           setTimeout(() => {
+            navigate("/swiftscribe/callback/setting-up")
+           }, 2000);
+         
        }
   }
 }
 const facebookBtn = async() =>{
 
  try{
-  await signInWithFacebook()
+     await signInWithFacebook()
+     await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+
   }
   catch(e){
-    console.log(e)
+     console.log(e)
+     if(e.message === "Document with the requested ID could not be found."){
+         setTimeout(() => {
+            navigate("/swiftscribe/callback/setting-up")
+
+        }, 2000);
+     }
   }
 }
     return (
         <>
+            {isSuccess && <Success/>}
             <div className="signup-container">
                 <h3 className='signup-title'>Join SwiftScribe</h3>
             

@@ -1,78 +1,163 @@
-.signup-container{
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-
-.signup-title{
-    margin-bottom: 3rem;
-    font-size: 30px;
-}
-
-.signup-options{
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0;
-    .signup-google{
-       background-color: transparent;
-       border: 1px solid gray;
-       width: 250px;
-       display: flex;
-       align-items: center;
-       border-radius: 50px;
-       padding:.6rem .5rem ;
-margin-bottom: 1rem;
-padding-left: .8rem;
-       .sug-text{
-        margin-left: 1rem;
-        font-size: 16px;
-       }
-    }
-    .signup-facebook{
-        background-color: transparent;
-        border: 1px solid gray;
-        width: 250px;
+@media screen and (min-width:0) and (max-width:700px) {
+    .signup-container{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        border-radius: 50px;
-        padding:.6rem .5rem ;
- margin-bottom: 1rem;
- padding-left: .8rem;
-        .suf-text{
-         margin-left: 1rem;
-         font-size: 16px;
-        }
-     }
-
-    .signup-email{
-        background-color: transparent;
-        border: 1px solid gray;
-        width: 250px;
-        display: flex;
-        align-items: center;
-        border-radius: 50px;
-        padding:.6rem .5rem ;
         
-        padding-left: .8rem;
- margin-bottom: 1rem;
-        .sue-text{
-         margin-left: 1rem;
-         font-size: 16px;
+        .signup-title{
+            margin-bottom: 3rem;
+            font-size: 30px;
         }
-     }
+        
+        .signup-options{
+            display: flex;
+            flex-direction: column;
+            margin: 1rem 0;
+            .signup-google{
+               background-color: transparent;
+               border: 1px solid gray;
+               width: 250px;
+               display: flex;
+               align-items: center;
+               border-radius: 50px;
+               padding:.6rem .5rem ;
+        margin-bottom: 1rem;
+        padding-left: .8rem;
+               .sug-text{
+                margin-left: 1rem;
+                font-size: 16px;
+               }
+            }
+            .signup-facebook{
+                background-color: transparent;
+                border: 1px solid gray;
+                width: 250px;
+                display: flex;
+                align-items: center;
+                border-radius: 50px;
+                padding:.6rem .5rem ;
+         margin-bottom: 1rem;
+         padding-left: .8rem;
+                .suf-text{
+                 margin-left: 1rem;
+                 font-size: 16px;
+                }
+             }
+        
+            .signup-email{
+                background-color: transparent;
+                border: 1px solid gray;
+                width: 250px;
+                display: flex;
+                align-items: center;
+                border-radius: 50px;
+                padding:.6rem .5rem ;
+                
+                padding-left: .8rem;
+         margin-bottom: 1rem;
+                .sue-text{
+                 margin-left: 1rem;
+                 font-size: 16px;
+                }
+             }
+        }
+        
+        .already-acct{
+            margin-top: 1rem;
+            font-size: 18px;
+            font-weight: 600;
+            a{
+                text-decoration: none;
+                color: red;
+            }
+        }
+        }
 }
 
-.already-acct{
-    margin-top: 1rem;
-    font-size: 18px;
-    font-weight: 600;
-    a{
-        text-decoration: none;
-        color: red;
-    }
-}
+@media screen and (min-width:700px) {
+    .signup-container{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+        
+        .signup-title{
+            margin-bottom: 3rem;
+            font-size: 40px;
+        }
+        
+        .signup-options{
+            display: flex;
+            flex-direction: column;
+            margin: 1rem 0;
+            .signup-google{
+               background-color: transparent;
+               border: 1px solid gray;
+               width: 350px;
+               display: flex;
+               align-items: center;
+               border-radius: 50px;
+               padding:1rem .5rem ;
+        margin-bottom: 1rem;
+        padding-left: .8rem;
+               .sug-text{
+                margin-left: 1rem;
+                font-size: 19px;
+               }
+            }
+            .signup-facebook{
+                background-color: transparent;
+                border: 1px solid gray;
+                width: 350px;
+                display: flex;
+                align-items: center;
+                border-radius: 50px;
+                padding:1rem .5rem ;
+         margin-bottom: 1rem;
+         padding-left: .8rem;
+                .suf-text{
+                 margin-left: 1rem;
+                 font-size: 19px;
+                }
+             }
+        
+            .signup-email{
+                background-color: transparent;
+                border: 1px solid gray;
+                width: 350px;
+                display: flex;
+                align-items: center;
+                border-radius: 50px;
+                padding:1rem .5rem ;
+                
+                padding-left: .8rem;
+         margin-bottom: 1rem;
+                .sue-text{
+                 margin-left: 1rem;
+                 font-size: 19px;
+                }
+             }
+        }
+        
+        .already-acct{
+            margin-top: 1rem;
+            font-size: 22px;
+            font-weight: 600;
+            a{
+                text-decoration: none;
+                color: red;
+            }
+        }
+        }
 }

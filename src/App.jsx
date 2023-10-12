@@ -4,6 +4,7 @@ import EmailSignup from "./routes/signup/EmailSignup"
 import Signin from "./routes/signin/Signin"
 import EmailSignin from "./routes/signin/EmailSignin"
 import SettingUp from "./routes/setting up/SettingUp"
+import HomeHeader from "./components/home header/HomeHeader"
 
 function App() {
 
@@ -18,6 +19,11 @@ function App() {
        
         <Route path="/swiftscribe/signin/email" element={<EmailSignin />} />
          <Route path="/swiftscribe/callback/setting-up" element={<SettingUp />} />
+     
+        <Route path="/" element={<HomeHeader/>}>
+        
+
+     </Route>
       </Routes>
     </>
   )

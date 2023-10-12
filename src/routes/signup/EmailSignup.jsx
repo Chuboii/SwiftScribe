@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { signUpWithEmail} from "/src/utils/firebase/firebase.utils";
 import {useForm} from "react-hook-form"
@@ -11,7 +11,7 @@ function EmailSignup() {
   const {register,handleSubmit, formState:{errors}} = useForm({mode:"onChange"})
   const {setErrMsg, isErrToggled,setIsErrToggled} = useContext(ErrContext)
  const [isSuccess, setIsSuccess] = useState(false)
- 
+ const navigate = useNavigate()
  useEffect(()=>{
  setIsErrToggled(false)
 },[])
@@ -47,7 +47,7 @@ if(password === confirmPassword){
     await signUpWithEmail(email, password)
     setIsSuccess(true)
     setTimeout(()=>{
-     
+        navigate("/swiftscribe/callback/setting-up")
     }, 2000)
   }
   catch(e){
