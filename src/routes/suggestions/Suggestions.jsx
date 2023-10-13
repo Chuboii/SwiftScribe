@@ -67,7 +67,7 @@ export default function Suggestions(){
       getUsers()
       setIsLoadedFromServer(true)
     }
- },[isLoadedFromServer])
+ },[isLoadedFromServer, users])
   
 
 
