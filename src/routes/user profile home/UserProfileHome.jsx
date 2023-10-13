@@ -1,32 +1,30 @@
-import "./Following.scss"
+import "./UserProfileHome.scss"
 import img from "/src/assets/swiftscribe logo.jpg"
-import HomeSubHeader from "/src/components/home sub header/HomeSubHeader"
-import {useState, useEffect, useContext} from "react"
-import {ToggleContext} from "/src/context/ToggleContext"
-export default function Following(){
-  const [toggleSubHeader, setToggleSubHeader] = useState(false)
-  const {setToggleMenu} = useContext(ToggleContext)
+import HomeHeader from "/src/components/home header/HomeHeader"
+import {useState, useEffect} from "react"
+
+export default function UserProfileHome(){
+  const [toggleHeader, setToggleHeader] = useState(false)
+  
   useEffect(()=>{
     
-
+console.log("hsuus")
     window.addEventListener("scroll", (e)=>{
       const targetElement = e.target || e.srcElement;
       //console.log(targetElement)
     })
     
-  }, [toggleSubHeader])
-  
+  }, [toggleHeader])
+
   
   return(
     <>
-   {toggleSubHeader && <HomeSubHeader/>}
-   <div className="foryou-container" onClick={() => setToggleMenu(false)}>
+   {toggleHeader && <HomeHeader/>}
+   <div className="foryou-container">
    <div className="fy-box">
    <header className="fy-header">
    <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
-   Joe Doe
-   </p>
+  
    <p className="fy-post-time">
    1 day ago
    </p>

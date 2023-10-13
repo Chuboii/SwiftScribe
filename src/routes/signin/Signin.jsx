@@ -64,7 +64,7 @@ const facebookBtn = async() =>{
 </button>
 </div>
 
-<div className="already-acct">No account?  <Link to={'/swiftscribe/signup'}>Sign up</Link></div>
+<div className="already-acct">No account?  <Link to={'/swiftscribe/signup'} className="a">Sign up</Link></div>
 </div>
 </>
   )

@@ -9,17 +9,12 @@
   .fy-header{
     display:flex;
     align-items: center;
-    .fy-header-img, .fy-name, .fy-post-time{
+    .fy-header-img, .fy-post-time{
       margin-right:.8rem;
       position:relative;
 
     }
-       .fy-name::after{
-        content:".";
-        position:absolute;
-        bottom:.2rem;
-        margin-left:.2rem;
-      }
+       
     .fy-header-img{
       width:30px;
       height:30px;

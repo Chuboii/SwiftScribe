@@ -1,20 +1,54 @@
-import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import logo from '/src/assets/swiftscribe logo.jpg'
 import './HomeHeader.scss'
 import HomeSubHeader from '../home sub header/HomeSubHeader';
 import NavigationMenu from '../navigation menu/NavigationMenu';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import {UserContext} from '/src/context/UserContext'
 import SearchInput from '../search input/SearchInput';
+import SearchIcon from '@mui/icons-material/Search';
+import {Outlet, Link, useNavigate} from "react-router-dom"
+import {ToggleContext} from "/src/context/ToggleContext"
+
+
 function HomeHeader() {
-    const [toggleMenu, setToggleMenu] = useState(false)
+    const {toggleMenu, setToggleMenu} = useContext(ToggleContext)
     const { currentUser } = useContext(UserContext)
-    
-    const enableMenu = () => {
+   const [toggleSearchInput, setToggleSearchInput] = useState(false)
+   const [deskstopSize, setDesktopSize] = useState(false)
+   const navigate= useNavigate()
+   
+   useEffect(()=>{
+     function resizeScreen(){
+    const screenWidth = window.innerWidth
+    const threshold = 700;
+
+  if (screenWidth < threshold) {
+    setDesktopSize(false)
+  } else {
+  setDesktopSize(true)
+  }
+     }
+     resizeScreen()
+   window.addEventListener("resize", resizeScreen)
+   
+   return window.removeEventListener("resize", resizeScreen)
+   },[deskstopSize])
+   
+   
+   
+   
+   
+   
+    const enableMenu = (e) => {
+      e.stopPropagation()
       setToggleMenu(!toggleMenu)
 console.log(currentUser.photoURL);
+}
+
+const toggleHome = () =>{
+  navigate("/")
 }
 
     return(
@@ -24,21 +58,30 @@ console.log(currentUser.photoURL);
             
             {toggleMenu && <NavigationMenu />}
       <header className='homeheader-container'>
+    <div className="homeheader-logo-box" onClick={toggleHome} >
 
-        
-        <SearchInput/>
+    <img src={logo} alt="logo" className='homeheader-logo'/>
+
+<p className="homeheader-logo-text">SwiftScribe</p>
+    </div>
+      <Link to={"/search"}> <SearchIcon className="homeheader-searc-icon"/></Link>
+       {deskstopSize && <SearchInput/>}
+       
                 <div className="homeheader-second">
-                    <NotificationsNoneOutlinedIcon className='homeheader-noti'/>
+                <Link to={"notification"}>
+               <NotificationsNoneOutlinedIcon className='homeheader-noti' style={{color:"black"}}/>
+               </Link>
                     <div className='homeheader-image' onClick={enableMenu}>
                         <img src={currentUser.photoURL} className='homeheader-dp' alt="" />
-                        <KeyboardArrowDownOutlinedIcon className='homeheader-arrow-down'/>
+
                         </div>
                     
                 </div>
 
             </header>
 
-            <HomeSubHeader/>
+<Outlet/>
+         
       </>
   ) 
 }
