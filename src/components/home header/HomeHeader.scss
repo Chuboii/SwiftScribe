@@ -6,6 +6,9 @@
         border-top: 2px solid rgb(231, 231, 231);
         border-bottom: 1px solid rgb(231, 231, 231);
     align-items: center;
+    z-index: 2;
+    width: 100%;
+    background-color: white;
   
     .homeheader-searc-icon{
       position:absolute;
@@ -63,6 +66,8 @@
         border-top: 2px solid rgb(231, 231, 231);
         border-bottom: 2px solid rgb(231, 231, 231);
     align-items: center;
+    z-index: 2;
+    background-color: white;
         .homeheader-searc-icon{
     display:none;
     }

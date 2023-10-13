@@ -7,6 +7,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import {ToggleContext} from "/src/context/ToggleContext"
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 function NavigationMenu() {
 const {currentUser} = useContext(UserContext)
@@ -14,7 +15,10 @@ const {setToggleMenu} = useContext(ToggleContext)
 
   return (
       <nav className="navigationmenu-container" onClick={() => setToggleMenu(false)}>
-<div className="nm-first">
+      <div className="nm-first">
+        
+        <Link className="nm-links" style={{color:"black", display:'flex', alignItems:"center"}}><DriveFileRenameOutlineOutlinedIcon />
+        <span style={{marginLeft:".7rem"}}>Write</span></Link>
 <Link to={'/profile'} className="nm-links"><PersonOutlineIcon sx={{marginRight:'.7rem'}}/>Profile</Link>
               <Link to={'/'} className="nm-links"><LibraryBooksIcon sx={{
                   marginRight: '.7rem'}}/>Stories</Link>

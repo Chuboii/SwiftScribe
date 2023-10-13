@@ -30,6 +30,7 @@ const {setToggleMenu} = useContext(ToggleContext)
    <>
    <div className="searchpage-container" onClick={() => setToggleMenu(false)}>
   {deskstopSize && <SearchInput/>}
+  <h1 className='sp-h1'>Search results for ...</h1>
   {searchData}
    </div>
    </>

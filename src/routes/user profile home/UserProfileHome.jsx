@@ -20,174 +20,174 @@ console.log("hsuus")
   return(
     <>
    {toggleHeader && <HomeHeader/>}
-   <div className="foryou-container">
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
+   <div className="userprofilehome-container">
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
   
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
-     <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
+     <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
    Joe Doe
    </p>
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
-   </footer>
-   </div>
- 
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
-   Joe Doe
-   </p>
-   <p className="fy-post-time">
-   1 day ago
-   </p>
-   </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
-   </main>
-   
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
  
- 
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
    Joe Doe
    </p>
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
    Joe Doe
    </p>
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
    Joe Doe
    </p>
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
    Joe Doe
    </p>
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="fy-box">
-   <header className="fy-header">
-   <img src={img} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
    Joe Doe
    </p>
-   <p className="fy-post-time">
+   <p className="uph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="fy-main">
-  <p className="fy-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="fy-main-img"/>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
    </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> improvement</p>
-   <p className="fy-read-time">6 min read </p>
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
+   </footer>
+   </div>
+ 
+ 
+   <div className="uph-box">
+   <header className="uph-header">
+   <img src={img} alt="profile-pic" className="uph-header-img"/>
+   <p className="uph-name">
+   Joe Doe
+   </p>
+   <p className="uph-post-time">
+   1 day ago
+   </p>
+   </header>
+   <main className="uph-main">
+  <p className="uph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="uph-main-img"/>
+   </main>
+   
+   <footer className="uph-footer">
+   <p className="uph-tag"> improvement</p>
+   <p className="uph-read-time">6 min read </p>
    </footer>
    </div>
  

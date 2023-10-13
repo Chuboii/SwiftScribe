@@ -1,10 +1,27 @@
-.notification-container{
-  padding:1rem;
-  .notification-h2{
-    padding:1rem 0;
-    border-bottom:1px solid gray;
+@media screen and (min-width:0) and (max-width:700px) {
+  .notification-container{
+    padding:1rem;
+    .notification-h2{
+      padding:1rem 0;
+      border-bottom:1px solid gray;
+    }
+    .notification-box{
+      padding-top:1rem;
+    }
   }
-  .notification-box{
-    padding-top:1rem;
+}
+
+@media screen and (min-width:700px) {
+  .notification-container{
+    padding:1rem 3.5rem;
+    width: 65%;
+    .notification-h2{
+      padding:1rem 0;
+      font-size: 40px;
+      border-bottom:1px solid gray;
+    }
+    .notification-box{
+      padding-top:1rem;
+    }
   }
 }

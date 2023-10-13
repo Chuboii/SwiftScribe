@@ -1,82 +1,170 @@
-.settings-container{
- padding:1rem;
- 
- .setting-h1{
-   margin:1rem 0;
- }
- 
- .setting-item{
-   
-   .setting-txt-box{
-     display:flex;
-     justify-content: space-between;
-  margin-top:1.5rem;
-  .setting-txt-t, .setting-txt-tt{
-    color:gray;
-  }
-  .setting-txt-t{
-    width:100px;
-    position:relative;
-    overflow:hidden;
-   
-  }
-  
-   }
-   
-   .setting-public{
+@media screen and (min-width:0) and (max-width:700px) {
+  .settings-container{
+    padding:1rem;
+    
+    .setting-h1{
+      margin:1rem 0;
+    }
+    
+    .setting-item{
+      
+      .setting-txt-box{
+        display:flex;
+        justify-content: space-between;
      margin-top:1.5rem;
-     display: flex;
-     align-items: center;
-   justify-content: space-between;
-   .setting-pub-text-box{
-         .setting-pub-edit{
-        font-size:14px;
-        color:orangered;
-        margin-top:.4rem;
-      }
-    .setting-pub-txt{
+     .setting-txt-t, .setting-txt-tt{
+       color:gray;
+     }
+     .setting-txt-t{
+       width:100px;
+       position:relative;
+       overflow:hidden;
+      
+     }
      
+      }
+      
+      .setting-public{
+        margin-top:1.5rem;
+        display: flex;
+        align-items: center;
+      justify-content: space-between;
+      .setting-pub-text-box{
+            .setting-pub-edit{
+           font-size:14px;
+           color:orangered;
+           margin-top:.4rem;
+         }
+       .setting-pub-txt{
+        
+       }
+      }
+       .setting-pub-user{
+         display:flex;
+         align-items: center ;
+         .setting-pub-img{
+         width:30px;
+         height:30px;
+         margin-left:.7rem;
+         border-radius:50%;
+       }
+       }
+      }
+      .setting-disable{
+        margin-top:1.5rem;
+        .setting-d-txt{
+          color:red;
+        }
+        .setting-d-t{
+          margin-top:.5rem;
+        }
+      }
+     
+        .setting-disable{
+        margin-top:1.5rem;
+        .setting-d-txt{
+          color:red;
+        }
+        .setting-d-t{
+          margin-top:.5rem;
+        }
+      }
+      
+         .setting-delete{
+        margin-top:1.5rem;
+        .setting-d-txt{
+          color:red;
+        }
+        .setting-d-t{
+          margin-top:.5rem;
+        }
+      }
     }
    }
-    .setting-pub-user{
-      display:flex;
-      align-items: center ;
-      .setting-pub-img{
-      width:30px;
-      height:30px;
-      margin-left:.7rem;
-      border-radius:50%;
-    }
-    }
-   }
-   .setting-disable{
-     margin-top:1.5rem;
-     .setting-d-txt{
-       color:red;
-     }
-     .setting-d-t{
-       margin-top:.5rem;
-     }
-   }
+}
+
+@media screen and (min-width:700px) {
+  .settings-container{
+    padding:1rem 3.5rem;
+    width: 65%;
   
-     .setting-disable{
+    .setting-h1{
+      margin:1rem 0;
+    }
+    
+    .setting-item{
+      
+      .setting-txt-box{
+        display:flex;
+        justify-content: space-between;
      margin-top:1.5rem;
-     .setting-d-txt{
-       color:red;
+     .setting-txt-t, .setting-txt-tt{
+       color:gray;
      }
-     .setting-d-t{
-       margin-top:.5rem;
+     .setting-txt-t{
+       width:100px;
+       position:relative;
+       overflow:hidden;
+      
      }
+     
+      }
+      
+      .setting-public{
+        margin-top:1.5rem;
+        display: flex;
+        align-items: center;
+      justify-content: space-between;
+      .setting-pub-text-box{
+            .setting-pub-edit{
+           font-size:14px;
+           color:orangered;
+           margin-top:.4rem;
+         }
+       .setting-pub-txt{
+        
+       }
+      }
+       .setting-pub-user{
+         display:flex;
+         align-items: center ;
+         .setting-pub-img{
+         width:30px;
+         height:30px;
+         margin-left:.7rem;
+         border-radius:50%;
+       }
+       }
+      }
+      .setting-disable{
+        margin-top:1.5rem;
+        .setting-d-txt{
+          color:red;
+        }
+        .setting-d-t{
+          margin-top:.5rem;
+        }
+      }
+     
+        .setting-disable{
+        margin-top:1.5rem;
+        .setting-d-txt{
+          color:red;
+        }
+        .setting-d-t{
+          margin-top:.5rem;
+        }
+      }
+      
+         .setting-delete{
+        margin-top:1.5rem;
+        .setting-d-txt{
+          color:red;
+        }
+        .setting-d-t{
+          margin-top:.5rem;
+        }
+      }
+    }
    }
-   
-      .setting-delete{
-     margin-top:1.5rem;
-     .setting-d-txt{
-       color:red;
-     }
-     .setting-d-t{
-       margin-top:.5rem;
-     }
-   }
- }
 }

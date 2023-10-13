@@ -6,7 +6,7 @@
     box-shadow: 0 0 10px 0 rgba($color: #000000, $alpha: .3);
         background-color: white;
         top: 5rem;
-        height: 380px;
+        height: 420px;
         padding: .5rem 0;
         width: 250px;
         right:1rem;
@@ -65,11 +65,11 @@
     box-shadow: 0 0 10px 0 rgba($color: #000000, $alpha: .3);
         background-color: white;
         top: 5rem;
-        height: 380px;
+        height: 420px;
         padding: .5rem 0;
         width: 250px;
         right: 1rem;
-
+z-index: 100;
         .nm-first,.nm-second,.nm-third{
             display: flex;
             flex-direction: column;

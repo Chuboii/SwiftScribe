@@ -1,0 +1,79 @@
+@media screen and (min-width:0) and (max-width:700px){
+    .aside-container{
+     display: none;
+    }
+}
+
+@media screen and (min-width:700px) {
+    .aside-container{
+        position: fixed;
+        right: 0;
+        top: 5rem;
+        width: 35%;
+        padding: 1rem 2rem;
+
+        .aside-recommend{
+            .r-txt-t{
+                margin: 1.5rem 0;
+            }
+
+            
+            .recommend-item{
+                display: flex;
+                flex-direction: column;
+
+                .r-header{
+                    display: flex;
+                    margin-bottom: 1rem;
+                    .r-img{
+                        width: 20px;
+                        height: 20px;
+                        border-radius:50%;
+                        margin-right: .5rem;
+                    }
+
+                }
+
+                .r-title{
+                    font-weight: 700;
+                    font-size: 18px;
+                    
+                }
+            }
+        }
+
+        .r-follow-box{
+          margin-top: 2rem;
+            .r-f-box{
+                display: flex;
+                margin-top: 2rem;
+                align-items: center;
+            .r-f-image{
+                margin-right: 1rem;
+            .r-f-img{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            }
+        }
+        .r-f-text{
+            .r-f-name{
+                font-weight: 700;
+                margin-bottom: .3rem;
+            }
+            .r-f-bio{
+                overflow: hidden;
+                height: 40px;
+            }
+        }
+
+        .r-f-btn{
+            background-color: orangered;
+            color: white;
+            padding: .5rem 1rem;
+            border-radius: 30px;
+        }
+        }
+        }
+    }
+}

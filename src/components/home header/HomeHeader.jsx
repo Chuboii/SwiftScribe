@@ -10,9 +10,11 @@ import SearchInput from '../search input/SearchInput';
 import SearchIcon from '@mui/icons-material/Search';
 import {Outlet, Link, useNavigate} from "react-router-dom"
 import {ToggleContext} from "/src/context/ToggleContext"
+import Aside from '../aside/Aside';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 
-function HomeHeader() {
+function HomeHeader({pos}) {
     const {toggleMenu, setToggleMenu} = useContext(ToggleContext)
     const { currentUser } = useContext(UserContext)
    const [toggleSearchInput, setToggleSearchInput] = useState(false)
@@ -57,7 +59,7 @@ const toggleHome = () =>{
            
             
             {toggleMenu && <NavigationMenu />}
-      <header className='homeheader-container'>
+      <header className='homeheader-container' style={{position:pos, top:"0"}}>
     <div className="homeheader-logo-box" onClick={toggleHome} >
 
     <img src={logo} alt="logo" className='homeheader-logo'/>
@@ -66,7 +68,7 @@ const toggleHome = () =>{
     </div>
       <Link to={"/search"}> <SearchIcon className="homeheader-searc-icon"/></Link>
        {deskstopSize && <SearchInput/>}
-       
+       {deskstopSize && <DriveFileRenameOutlineOutlinedIcon sx={{position:"absolute", right:"10rem", fontSize:"30px", cursor:"pointer"}}/>}
                 <div className="homeheader-second">
                 <Link to={"notification"}>
                <NotificationsNoneOutlinedIcon className='homeheader-noti' style={{color:"black"}}/>
@@ -81,7 +83,7 @@ const toggleHome = () =>{
             </header>
 
 <Outlet/>
-         
+         <Aside/>
       </>
   ) 
 }
