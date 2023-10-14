@@ -10,14 +10,14 @@ import {ToggleContext} from "/src/context/ToggleContext"
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 function NavigationMenu() {
-const {currentUser} = useContext(UserContext)
+const {currentUser, triggerSignout} = useContext(UserContext)
 const {setToggleMenu} = useContext(ToggleContext)
 
   return (
       <nav className="navigationmenu-container" onClick={() => setToggleMenu(false)}>
       <div className="nm-first">
         
-        <Link className="nm-links" style={{color:"black", display:'flex', alignItems:"center"}}><DriveFileRenameOutlineOutlinedIcon />
+        <Link className="nm-links" style={{color:"black", display:'flex', alignItems:"center"}} to={"/write-blog"}><DriveFileRenameOutlineOutlinedIcon />
         <span style={{marginLeft:".7rem"}}>Write</span></Link>
 <Link to={'/profile'} className="nm-links"><PersonOutlineIcon sx={{marginRight:'.7rem'}}/>Profile</Link>
               <Link to={'/'} className="nm-links"><LibraryBooksIcon sx={{
@@ -28,7 +28,7 @@ const {setToggleMenu} = useContext(ToggleContext)
               <Link to={'/'} className="nm-links"><HelpOutlineOutlinedIcon sx={{marginRight:'.7rem'}}/>Help</Link>
           </div>
           <div className="nm-third">
-              <button className="nm-signout-btn"> Sign out</button>
+              <button className="nm-signout-btn" onClick={triggerSignout}> Sign out</button>
               <p style={{ filter:"blur(2px)"}}>{currentUser.email}</p>
           </div>
      

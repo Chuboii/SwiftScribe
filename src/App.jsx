@@ -18,7 +18,7 @@ import UserProfile from "./routes/user profile/UserProfile"
 import UserProfileHome from "./routes/user profile home/UserProfileHome"
 import UserProfileAbout from "./routes/user profile about/UserProfileAbout"
 import Settings from "./routes/settings/Settings"
-
+import WritePost from "./routes/write post/WritePost"
 
 function App() {
 
@@ -32,7 +32,7 @@ function App() {
        
         <Route path="/swiftscribe/signin/email" element={<EmailSignin />} />
          <Route path="/swiftscribe/callback/setting-up" element={<SettingUp />} />
-
+<Route path="/write-blog" element={<WritePost/>}/>
   <Route path="/" element={<Home/>}>
      <Route path="notification" element={<Notification/>}/>
     <Route path="settings" element={<Settings/>}/>

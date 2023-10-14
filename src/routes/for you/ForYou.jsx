@@ -29,7 +29,7 @@ const [subHeaderTop, setSubHeaderTop] = useState(0)
    if (scrollPos <scrollYY) {
     setToggleHeader(true)
      setHeaderPos('fixed')
-     setSubHeaderTop(5)
+     setSubHeaderTop(4.5)
   }
   else {
     setToggleHeader(false)

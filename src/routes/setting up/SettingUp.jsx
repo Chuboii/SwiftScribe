@@ -8,16 +8,20 @@ import { updateProfile } from 'firebase/auth'
 import { useNavigate } from "react-router-dom"
 export default function SettingUp(){
   const {currentUser} = useContext(UserContext)
-  const [value, setValue] = useState(currentUser.displayName)
+  const [value, setValue] = useState({
+    name: currentUser.displayName,
+    bio: "",
+    username:""
+  })
   const ref = useRef()
   const [fileName] = useState("uploader")
   const navigate = useNavigate()
   
   const submitForm = async (e) =>{
     e.preventDefault()
-  
+  const {name, bio, username} = value
     const date = new Date()
-    if (value ) {
+    if (name && bio && username ) {
       try {
         if (currentUser.photoURL === null) {
           await storage.createFile(
@@ -29,22 +33,27 @@ export default function SettingUp(){
           const imageUrl = await storage.getFileView("6527ea2a83ff9adab8e7", currentUser.uid)
         
           await updateProfile(currentUser, {
-            displayName: value,
+            displayName: value.name,
             photoURL: imageUrl.href
           }
           )
         }
         else {
           await updateProfile(currentUser, {
-            displayName: value,
+            displayName: value.name,
           }
           )
         }
 
      const userInfo = {
        user: [JSON.stringify({
-         id: uuidv4,
+         id: uuidv4(),
          dateCreated: date,
+         username: value.username.toLowerCase(),
+         bio: value.bio,
+         followers: 0,
+         following:0,
+         isDisabled: false,
          displayName: currentUser.displayName,
          email: currentUser.email,
          photoURL: currentUser.photoURL
@@ -64,7 +73,12 @@ export default function SettingUp(){
   }
   
   const changeValue = (e) =>{
-    setValue(e.target.value)
+    setValue(prev =>{
+      return {
+        ...prev,
+        [e.target.name]: e.target.value
+      }
+    })
   }
   
   return(
@@ -77,9 +91,17 @@ export default function SettingUp(){
     <p style={{textAlign:"center", marginBottom:"2rem", fontSize:"18px", padding:"0 2rem"}}> Finish creating your account for the full SwiftScribe Experience. </p>
     <div className="setting-up-input-group">
     <label style={{display:"block", fontSize:"14px", color:'gray'}} htmlFor=""> Your full name</label>
-            <input value={value} className={value === "" ? "setting-up-inp-active" : "setting-up-inp"} name="fullName" onChange={changeValue}   ref={ref} />
+            <input value={value.name} className={value.name=== "" ? "setting-up-inp-active" : "setting-up-inp"} name="name" onChange={changeValue}   ref={ref} />
+    </div>
+     <div className="setting-up-input-group">
+    <label style={{display:"block", fontSize:"14px", color:'gray'}} htmlFor=""> Your username</label>
+            <input value={value.username} className={value.username === "" ? "setting-up-inp-active" : "setting-up-inp"} name="username" onChange={changeValue} />
     </div>
     
+    <div className="setting-up-input-group">
+    <label style={{display:"block", fontSize:"14px", color:'gray'}} htmlFor=""> Your bio</label>
+            <input value={value.bio} className={value.bio === "" ? "setting-up-inp-active" : "setting-up-inp"} name="bio" onChange={changeValue} />
+    </div>
         <div className="setting-up-input-group">
     <label style={{display:"block", fontSize:"14px", color:'gray', marginBottom:".5rem"}}  htmlFor=""> Your email</label>
     <p>{currentUser.email}</p>

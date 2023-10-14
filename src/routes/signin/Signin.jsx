@@ -4,21 +4,34 @@ import { Link, useNavigate } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { signInWithGoogle, signInWithFacebook} from '/src/utils/firebase/firebase.utils';
 import {UserContext} from "/src/context/UserContext"
-import {useContext} from "react"
+import {useContext, useState} from "react"
 import './Signin.scss'
-
+import Success from "/src/components/alert/success/Success"
+import { db } from "/src/utils/appwrite/appwrite.utils"
 
 function Signin() {
-    const navigate = useNavigate()
-    
+  const navigate = useNavigate()
+  const [isSuccess, setIsSuccess] = useState(false)
+ const {currentUser} = useContext(UserContext)
     const googleBtn = async() =>{
  try{
 const {user} =  await signInWithGoogle()
 //console.log(user)
-console.log(currentUser)
+await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", user.uid)
+ setIsSuccess(true)
+ setTimeout(() => {
+   navigate("/")
+      }, 2000);
   }
   catch(e){
     console.log(e)
+       if(e.message === "Document with the requested ID could not be found."){
+           setIsSuccess(true)
+           setTimeout(() => {
+            navigate("/swiftscribe/callback/setting-up")
+           }, 2000);
+         
+       }
   }
 }
 
@@ -26,10 +39,17 @@ const facebookBtn = async() =>{
   console.log("hdhdh")
  try{
   await signInWithFacebook()
-
+navigate("/")
+     await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
   }
   catch(e){
-    console.log(e)
+     console.log(e)
+     if(e.message === "Document with the requested ID could not be found."){
+         setTimeout(() => {
+            navigate("/swiftscribe/callback/setting-up")
+
+        }, 2000);
+     }
   }
 }
     
@@ -37,6 +57,7 @@ const facebookBtn = async() =>{
     
     return (
       <>
+       {isSuccess && <Success/>}
     <div className="signin-container">
                 <h3 className='signin-title'>Welcome back</h3>
 

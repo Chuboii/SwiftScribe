@@ -12,10 +12,10 @@
   
     .homeheader-searc-icon{
       position:absolute;
-      right:8rem;
+      right:7rem;
       font-size:30px;
       color:black;
-      top:1.8rem;
+      top:1.3rem;
     }
             .homeheader-logo-box{
 
@@ -24,8 +24,8 @@
             margin-right: .4rem;
             align-items: center;
         .homeheader-logo{
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height:40px;
             border-radius: 50%;
             margin-right: 1rem;
         }
@@ -42,9 +42,9 @@
                 display: flex;
                 align-items: center;
             .homeheader-dp{
-                width: 50px;
-    
-                height: 50px;
+                width: 40px;
+      object-fit:cover;
+                height: 40px;
                 border-radius: 50%;
             }
         }

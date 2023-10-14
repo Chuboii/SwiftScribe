@@ -6,7 +6,11 @@ import {ToggleContext} from "/src/context/ToggleContext"
 import { useContext, useState, useEffect } from "react"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import { UserContext } from "../../context/UserContext"
+import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
+import {useNavigate} from "react-router-dom"
+
 export default function Suggestions(){
+  const navigate = useNavigate()
   const [toggleSubHeader, setToggleSubHeader] = useState(false)  
   const { setToggleMenu } = useContext(ToggleContext)
     const [toggleHeader, setToggleHeader] = useState(false)
@@ -15,7 +19,7 @@ export default function Suggestions(){
     const [headerPos, setHeaderPos] = useState("relative")
   const [subHeaderTop, setSubHeaderTop] = useState(0)
   const [users, setUsers] = useState(null)
-  const {currentUser} = useContext(UserContext)
+  const {currentUser, setUsersProfile} = useContext(UserContext)
   const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)
     function scrollFunction() {
        const scrollPos = window.scrollY
@@ -33,7 +37,7 @@ export default function Suggestions(){
      if (scrollPos <scrollYY) {
       setToggleHeader(true)
        setHeaderPos('fixed')
-       setSubHeaderTop(5)
+       setSubHeaderTop(4.5)
     }
     else {
       setToggleHeader(false)
@@ -69,7 +73,19 @@ export default function Suggestions(){
     }
  },[isLoadedFromServer, users])
   
-
+const displayUserProfile = async(idx) =>{
+  navigate("/user")
+ setUsersProfile(null)
+  try{
+  const res = await db.getDocument('652755cdc76b42b46adb', '652755d73451dcffebde', idx)
+  localStorage.setItem("usersProfile", JSON.stringify(res))
+  setUsersProfile(res)
+  
+}
+catch(e){
+  console.log(e)
+}
+}
 
 
 
@@ -94,17 +110,23 @@ export default function Suggestions(){
         {
           users ? users.documents.map((user, id) => (
           
-        <div className = "suggestions-box" key={id}> 
+        <div onClick={() =>{
+        displayUserProfile(user.$id)
+}} className = "suggestions-box" key={JSON.parse(user.user).id}> 
+         <div style={{display:"flex", alignItems:"center"}}>
           <div className="suggestions-image">
             <img src={JSON.parse(user.user).photoURL} alt="profile-pic" className="suggestions-img" />
           </div>
           <div className="suggestions-text">
             <p className="suggestions-name"> {JSON.parse(user.user).displayName} </p>
-            <p className="suggestions-bio">i am a blogger</p>
+            <p className="suggestions-bio">{JSON.parse(user.user).bio}</p>
+          </div>
           </div>
           <button className="suggestions-btn"> Follow </button>
         </div>
-          )) : ''}
+          )) : (
+            <TextBasedLoader />
+            )}
     </div>
     </>
     )

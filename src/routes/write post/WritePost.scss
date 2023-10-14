@@ -1,0 +1,141 @@
+.writepost-container{
+  padding:1rem;
+  
+  .wp-publish-btn{
+    padding:.7rem 1.5rem ;
+    background:orangered;
+    color:white;
+    border-radius:7px;
+    position:absolute;
+    right:1rem;
+    top:10px;
+  }
+  .wp-title{
+    border:1px solid;
+    width:100%;
+    max-height:150px;
+    padding:1rem;
+    margin-top:3rem;
+ overflow: hidden;
+ height:70px;
+ font-size:30px;
+ font-weight:700;
+ &::before{
+   content:"Title";
+   font-size:30px;
+   color:gray;
+   font-weight:700;
+ }
+  }
+  
+  .wp-sub-title{
+   width:100%;
+   border:1px solid;
+    width:100%;
+    max-height:150px;
+    padding:1rem;
+ overflow: hidden;
+ height:50px;
+ 
+ margin-top:.5rem;
+ &::before{
+   content:"Sub Title";
+   font-size:18px;
+   color:gray;
+ }
+  }
+  
+  .wp-insert-cover{
+    width:70%;
+    height:100px;
+   margin:1rem auto;
+    border:1px solid;
+    position:relative;
+    border-radius:10px;
+    .wp-cover-icon{
+      position:absolute;
+      left:50%;
+      top:50%;
+      color:orangered;
+      transform:translate(-50%,-50%);
+    }
+    .wp-cover-inp{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      font-size:13px;
+      opacity:0;
+    }
+  }
+  
+  .wp-board{
+    border:1px solid;
+    padding:1rem;
+    margin-bottom:6rem;
+    &::before{
+      content:"Start writing...";
+      font-size:15px;
+    }
+  }
+  /*.wp-tags{
+    position: relative;
+    width:70%;
+    max-width:400px;
+    margin:1rem;
+    .wp-tag-board{
+      width:60%;
+      max-width:300px;
+      height:70px;
+      padding:.2rem;
+      border:1px solid;
+      
+    }
+    .wp-tag-btn{
+      position:absolute;
+      bottom:0;
+      right:0;
+      padding:.7rem 1rem;
+      border-radius:6px;
+      background:orangered;
+      color:white;
+    }
+  }*/
+  .wp-footer{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:black;
+    color:white;
+    display:flex;
+    padding:1rem;
+    .wp-bold, .wp-italic{
+     font-size:30px;
+     font-weight: 700;
+     margin-right:1.5rem;
+    }
+    .wp-italic{ 
+      font-style:italic;
+      font-family:Sans-Serif;
+    }
+    .wp-add-image{
+      overflow:hidden;
+      width:50px;
+      position: relative;
+      .wp-footer-icon{
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+      }
+      .wp-add-img{
+        opacity:0;
+      }
+    }
+    
+    
+  }
+  
+  
+}

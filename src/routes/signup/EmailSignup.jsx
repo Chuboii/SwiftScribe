@@ -82,6 +82,7 @@ else {
                         className="emailsignup-label"
                         htmlFor="esu-inp1">Password</label>
                     <input className={errors.password ? "esu-input-active": "esu-input"} id='esu-inp1' name="password"
+                    type="password"
                     {...register("password", registerOptions.password)}/>
                {errors.password && <span style={{color:'red', fontSize:"14px"}}>{errors.password.message}</span>}
                 </div>
@@ -93,6 +94,7 @@ else {
                         className="emailsignup-label"
                         htmlFor="esu-inp2">Confirm Password</label>
                     <input className={errors.confirmPassword ? "esu-input-active": "esu-input"} name="confirmPassword"
+                    type="password"
                     {...register("confirmPassword", registerOptions.confirmPassword)} id='esu-inp2'/>
                 </div>
                 
