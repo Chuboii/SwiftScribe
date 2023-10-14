@@ -1,141 +1,327 @@
-.writepost-container{
-  padding:1rem;
-  
-  .wp-publish-btn{
-    padding:.7rem 1.5rem ;
-    background:orangered;
-    color:white;
-    border-radius:7px;
-    position:absolute;
-    right:1rem;
-    top:10px;
-  }
-  .wp-title{
-    border:1px solid;
-    width:100%;
-    max-height:150px;
+@media  screen and (min-width:0) and (max-width:700px) {
+  .writepost-container{
     padding:1rem;
-    margin-top:3rem;
- overflow: hidden;
- height:70px;
- font-size:30px;
- font-weight:700;
- &::before{
-   content:"Title";
-   font-size:30px;
-   color:gray;
-   font-weight:700;
- }
-  }
-  
-  .wp-sub-title{
-   width:100%;
-   border:1px solid;
-    width:100%;
-    max-height:150px;
-    padding:1rem;
- overflow: hidden;
- height:50px;
- 
- margin-top:.5rem;
- &::before{
-   content:"Sub Title";
-   font-size:18px;
-   color:gray;
- }
-  }
-  
-  .wp-insert-cover{
-    width:70%;
-    height:100px;
-   margin:1rem auto;
-    border:1px solid;
-    position:relative;
-    border-radius:10px;
-    .wp-cover-icon{
-      position:absolute;
-      left:50%;
-      top:50%;
-      color:orangered;
-      transform:translate(-50%,-50%);
-    }
-    .wp-cover-inp{
-      position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      font-size:13px;
-      opacity:0;
-    }
-  }
-  
-  .wp-board{
-    border:1px solid;
-    padding:1rem;
-    margin-bottom:6rem;
-    &::before{
-      content:"Start writing...";
-      font-size:15px;
-    }
-  }
-  /*.wp-tags{
-    position: relative;
-    width:70%;
-    max-width:400px;
-    margin:1rem;
-    .wp-tag-board{
-      width:60%;
-      max-width:300px;
-      height:70px;
-      padding:.2rem;
-      border:1px solid;
-      
-    }
-    .wp-tag-btn{
-      position:absolute;
-      bottom:0;
-      right:0;
-      padding:.7rem 1rem;
-      border-radius:6px;
+    
+    .wp-publish-btn{
+      padding:.7rem 1.5rem ;
       background:orangered;
       color:white;
+      border-radius:7px;
+      position:absolute;
+      right:1rem;
+      top:10px;
     }
-  }*/
-  .wp-footer{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    background:black;
-    color:white;
-    display:flex;
-    padding:1rem;
-    .wp-bold, .wp-italic{
+    .wp-title{
+      background-color: rgb(233, 233, 233);
+      width:100%;
+      max-height:150px;
+      border-radius: 5px;
+      padding:1rem;
+      margin-top:3rem;
+   overflow: hidden;
+   height:70px;
+   font-size:30px;
+   font-weight:700;
+   &::before{
+     content:"Title";
      font-size:30px;
-     font-weight: 700;
-     margin-right:1.5rem;
+     color:gray;
+     font-weight:700;
+   }
     }
-    .wp-italic{ 
-      font-style:italic;
-      font-family:Sans-Serif;
+    
+    .wp-sub-title{
+     width:100%;
+      width:100%;
+      max-height:150px;
+      padding:1rem;
+   overflow: hidden;
+   border-radius: 5px;
+   background-color: rgb(233, 233, 233);
+
+   height:50px;
+   
+   margin-top:.5rem;
+   &::before{
+     content:"Sub Title";
+     font-size:18px;
+     color:gray;
+   }
     }
-    .wp-add-image{
-      overflow:hidden;
-      width:50px;
-      position: relative;
-      .wp-footer-icon{
-        position: absolute;
+    
+    .wp-insert-cover{
+      width:70%;
+      height:100px;
+     margin:2rem auto;
+      border:1px solid;
+      position:relative;
+      border-radius:10px;
+      max-width: 300px;
+  
+      .wp-cover-icon{
+        position:absolute;
         left:50%;
         top:50%;
+        color:orangered;
         transform:translate(-50%,-50%);
       }
-      .wp-add-img{
+      .wp-cover-inp{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:13px;
         opacity:0;
       }
     }
     
+    .wp-board{
+      border-radius: 5px;
+      background-color: rgb(233, 233, 233);
+      padding:1rem;
+      margin-bottom:6rem;
+      &::before{
+        content:"Start writing...";
+        font-size:15px;
+      }
+    }
+    /*.wp-tags{
+      position: relative;
+      width:70%;
+      max-width:400px;
+      margin:1rem;
+      .wp-tag-board{
+        width:60%;
+        max-width:300px;
+        height:70px;
+        padding:.2rem;
+        border:1px solid;
+        
+      }
+      .wp-tag-btn{
+        position:absolute;
+        bottom:0;
+        right:0;
+        padding:.7rem 1rem;
+        border-radius:6px;
+        background:orangered;
+        color:white;
+      }
+    }*/
+    .wp-footer{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:black;
+      color:white;
+
+      padding:1rem;
+      .wp-footer-box{
+        display:flex;
+        align-items: center;
+
+      .wp-bold, .wp-italic{
+       font-size:30px;
+       font-weight: 700;
+       margin-right:1.5rem;
+      }
+      .wp-italic{ 
+        font-style:italic;
+        font-family:'Courier New', Courier, monospace
+      }
+      .wp-add-image{
+        overflow:hidden;
+        width:50px;
+        position: relative;
+        .wp-footer-icon{
+          position: absolute;
+          left:50%;
+          top:50%;
+          transform:translate(-50%,-50%);
+        }
+        .wp-add-img{
+          opacity:0;
+        }
+      }
+      
+      .wp-footer-url{
+        font-size: 30px;
+        margin-left: 1rem;
+      }
+    }
+  }
     
   }
+}
+
+@media screen and (min-width:700px) {
+  .writepost-container{
+    padding:1rem;
+    display: flex;
+    justify-content: space-between;
+
+    .wp-first{
+      width: 70%;
+      padding: 1rem;
+      position: relative;
+      padding-right: 3rem;
+    }
+    .wp-second{
+      width: 30%;
+    }
+    .wp-publish-btn{
+      padding:.7rem 1.5rem ;
+      background:orangered;
+      color:white;
+      border-radius:7px;
+      position:absolute;
+      right:1rem;
+      top:10px;
+    }
+    .wp-title{
+      border-radius: 5px;
+      background-color: rgb(233, 233, 233);
+      width:100%;
+      max-height:150px;
+      padding:1rem;
+      margin-top:3rem;
+   overflow: hidden;
+   height:70px;
+   font-size:30px;
+   font-weight:700;
+   &::before{
+     content:"Title";
+     font-size:30px;
+     color:gray;
+     font-weight:700;
+   }
+    }
+    
+    .wp-sub-title{
+     width:100%;
+     border-radius: 5px;
+     background-color: rgb(233, 233, 233);
+      width:100%;
+      max-height:150px;
+      padding:1rem;
+   overflow: hidden;
+   height:50px;
+   
+   margin-top:.5rem;
+   &::before{
+     content:"Sub Title";
+     font-size:18px;
+     color:gray;
+   }
+    }
+    
+    .wp-insert-cover{
+      width:300px;
+      height:100px;
+     margin:2rem auto;
+      border:1px solid;
+      position:relative;
+      border-radius:10px;
+      cursor: pointer;
+      .wp-cover-icon{
+        position:absolute;
+        left:50%;
+        top:50%;
+        color:orangered;
+        transform:translate(-50%,-50%);
+      }
+      .wp-cover-inp{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:13px;
+        opacity:0;
+      }
+    }
+    
+    .wp-board{
+      border-radius: 5px;
+      background-color: rgb(233, 233, 233);
+      padding:1rem;
+      margin-bottom:6rem;
+      &::before{
+        content:"Start writing...";
+        font-size:15px;
+      }
+    }
+    /*.wp-tags{
+      position: relative;
+      width:70%;
+      max-width:400px;
+      margin:1rem;
+      .wp-tag-board{
+        width:60%;
+        max-width:300px;
+        height:70px;
+        padding:.2rem;
+        border:1px solid;
+        
+      }
+      .wp-tag-btn{
+        position:absolute;
+        bottom:0;
+        right:0;
+        padding:.7rem 1rem;
+        border-radius:6px;
+        background:orangered;
+        color:white;
+      }
+    }*/
+    .wp-footer{
   
-  
+     height: 50dvh;
+      background:black;
+      color:white;
+      padding:1rem;
+      border-radius: 10px;
+
+      .wp-footer-box{
+        display: flex;  
+        align-items: center;
+      .wp-bold, .wp-italic{
+       font-size:30px;
+       font-weight: 700;
+       margin-right:1.5rem;
+       cursor: pointer;
+      }
+      .wp-italic{ 
+        font-style:italic;
+        font-family:Sans-Serif;
+      }
+      .wp-add-image{
+        overflow:hidden;
+        width:50px;
+        display: block;
+        height: 30px;
+        position: relative;
+        .wp-footer-icon{
+          position: absolute;
+          left:50%;
+          cursor: pointer;
+          top:50%;
+          transform:translate(-50%,-50%);
+        }
+        .wp-add-img{
+          opacity:0;
+        }
+      }
+      .wp-footer-url{
+        font-size: 30px;
+        cursor: pointer;
+        margin-left: 1rem;
+      }
+      
+      
+    }
+  }
+    
+    
+  }
 }

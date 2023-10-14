@@ -68,7 +68,7 @@ const toggleHome = () =>{
     </div>
       <Link to={"/search"}> <SearchIcon className="homeheader-searc-icon"/></Link>
        {deskstopSize && <SearchInput/>}
-       {deskstopSize && <DriveFileRenameOutlineOutlinedIcon sx={{position:"absolute", right:"10rem", fontSize:"30px", cursor:"pointer"}}/>}
+       {deskstopSize && <DriveFileRenameOutlineOutlinedIcon onClick={() => navigate('/write-blog')} sx={{position:"absolute", right:"10rem", fontSize:"30px", cursor:"pointer"}}/>}
                 <div className="homeheader-second">
                 <Link to={"notification"}>
                <NotificationsNoneOutlinedIcon className='homeheader-noti' style={{color:"black"}}/>

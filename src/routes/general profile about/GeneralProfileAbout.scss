@@ -6,3 +6,16 @@
    margin-top:1rem;
  }
 }
+
+
+@media screen and (min-width:700px){
+  .generalprofileabout-container{
+    padding:1rem;
+   margin-top:1rem;
+   width: 60%;
+   
+   .gpa-member{
+     margin-top:1rem;
+   }
+  }
+}

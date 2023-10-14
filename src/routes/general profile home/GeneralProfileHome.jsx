@@ -20,174 +20,174 @@ export default function GeneralProfileHome(){
   return(
     <>
    {toggleHeader && <HomeHeader/>}
-   <div className="generalprofile-container">
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
+   <div className="generalprofilehome-container">
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
   
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
-     <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
+     <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
    Joe Doe
    </p>
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
-   </footer>
-   </div>
- 
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
-   Joe Doe
-   </p>
-   <p className="gp-post-time">
-   1 day ago
-   </p>
-   </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
-   </main>
-   
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
  
- 
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
    Joe Doe
    </p>
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
    Joe Doe
    </p>
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
    Joe Doe
    </p>
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
    Joe Doe
    </p>
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
  
  
-   <div className="gp-box">
-   <header className="gp-header">
-   <img src={img} alt="profile-pic" className="gp-header-img"/>
-   <p className="gp-name">
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
    Joe Doe
    </p>
-   <p className="gp-post-time">
+   <p className="gph-post-time">
    1 day ago
    </p>
    </header>
-   <main className="gp-main">
-  <p className="gp-title"> How to be a Millionaire? </p>
-  <img src={img} alt="title-img" className="gp-main-img"/>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
    </main>
    
-   <footer className="gp-footer">
-   <p className="gp-tag"> improvement</p>
-   <p className="gp-read-time">6 min read </p>
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
+   </footer>
+   </div>
+ 
+ 
+   <div className="gph-box">
+   <header className="gph-header">
+   <img src={img} alt="profile-pic" className="gph-header-img"/>
+   <p className="gph-name">
+   Joe Doe
+   </p>
+   <p className="gph-post-time">
+   1 day ago
+   </p>
+   </header>
+   <main className="gph-main">
+  <p className="gph-title"> How to be a Millionaire? </p>
+  <img src={img} alt="title-img" className="gph-main-img"/>
+   </main>
+   
+   <footer className="gph-footer">
+   <p className="gph-tag"> improvement</p>
+   <p className="gph-read-time">6 min read </p>
    </footer>
    </div>
  

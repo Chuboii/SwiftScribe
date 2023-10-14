@@ -1,0 +1,190 @@
+@media screen and (min-width:0) and (max-width:700px){
+.confirmpublish-container{
+    background-color: rgb(32, 32, 32);
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+    left: 0;
+    color: white;
+    right: 0;
+    padding: 1rem 0;
+    
+
+    .cp-first{
+        display: flex;
+        border-bottom: 2px solid black;
+        padding: 1rem ;
+        align-items: center;
+        .cp-first-img{
+            width: 50px;
+            margin-right: 1rem;
+            height: 50px;
+            border-radius: 50%;
+
+        }
+        .cp-first-name{
+            margin-top: .3rem;
+        }
+
+        .cp-first-txtt{
+            font-size: 19px;
+            font-weight: 700;
+
+
+        }
+    }
+
+    .cp-second{
+        display: flex;
+        border-bottom: 2px solid black;
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        max-height: 700px;
+        transition: all .5s;
+        
+        .cp-main-tags{
+            padding: .5rem;
+            background-color: gray;
+            border-radius: 40px;
+            margin:.5rem 0;
+            margin-top: .2rem;
+            margin-right: .7rem;
+            display: block;
+            
+        }
+        .cp-second-txt{
+
+            .cp-second-txtt{
+                font-weight: 700;
+                font-size: 119px;
+               
+            }
+        }
+        .cp-second-inp-box{
+            display: flex;
+            flex-direction: column;
+            margin: 2rem 0;
+            background-color: black;
+        
+            .cp-second-inp{
+                padding:2rem 1rem;
+                border-radius: 10px;
+
+            }
+        }
+    }
+
+    .cp-btn-box{
+   
+    .cp-btn{
+        width: 70%;
+        padding: 1.3rem;
+        margin-top: 1rem;
+position: relative;
+left: 50%;
+background-color: orangered;
+color: white;
+border-radius: 10px;
+transform: translate(-50%);
+}
+    }
+}
+}
+
+@media screen and (min-width:700px){
+    .confirmpublish-container{
+        background-color: rgb(32, 32, 32);
+        position: absolute;
+        left: 50%;
+        z-index: 2;
+        color: white;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        padding: 1.5rem 0;
+        width: 90%;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+        max-width: 600px;
+        border-radius: 10px;
+    
+        .cp-first{
+            display: flex;
+            border-bottom: 2px solid black;
+            padding: 1rem ;
+            align-items: center;
+            .cp-first-img{
+                width: 50px;
+                margin-right: 1rem;
+                height: 50px;
+                border-radius: 50%;
+    
+            }
+            .cp-first-name{
+                margin-top: .3rem;
+            }
+    
+            .cp-first-txtt{
+                font-size: 19px;
+                font-weight: 700;
+    
+    
+            }
+        }
+    
+        .cp-second{
+            display: flex;
+            border-bottom: 2px solid black;
+            padding: 1rem 1.5rem;
+            flex-direction: column;
+            height: 100px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .5s;
+
+                  
+        .cp-main-tags{
+            padding: .5rem;
+            background-color: gray;
+            border-radius: 40px;
+            margin:.5rem 0;
+            margin-top: .2rem;
+            margin-right: .7rem;
+            display: block;
+            
+        }
+    
+            .cp-second-txt{
+    
+                .cp-second-txtt{
+                    font-weight: 700;
+                    font-size: 119px;
+                }
+            }
+            .cp-second-inp-box{
+                display: flex;
+                flex-direction: column;
+                margin: 2rem 0;
+    
+                .cp-second-inp{
+                    padding:2rem 1rem;
+                    border-radius: 10px;
+    
+                }
+            }
+        }
+    
+        .cp-btn{
+            width: 70%;
+            padding: 1.3rem;
+            margin-top: 1rem;
+    position: relative;
+    left: 50%;
+    background-color: orangered;
+    color: white;
+    border-radius: 10px;
+    transform: translate(-50%);
+    }
+    }   
+}

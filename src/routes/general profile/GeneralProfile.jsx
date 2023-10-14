@@ -29,7 +29,7 @@ export default function GeneralProfile(){
     <img src={img} className="cover-image" alt="cover-image" />
     </div>
     <div className="gp-box">
-    <header className="gpp-header">
+    <header className="gp-header">
     <div className="gp-header-top">
     <img src={usersProfile ? parsedUser.photoURL : (       <Skeleton animation="wave"/>) } className="gp-header-img"/>
     <div className="gp-header-user">
