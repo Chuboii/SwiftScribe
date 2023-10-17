@@ -3,7 +3,9 @@ import "./ConfirmPublish.scss"
 import img from '/src/assets/swiftscribe logo.jpg'
 import { UserContext } from "../../context/UserContext"
 import CloseIcon from '@mui/icons-material/Close';
+import {v4 as uuidv4} from 'uuid'
 import {db} from "/src/utils/appwrite/appwrite.utils"
+import { useNavigate } from "react-router-dom";
 
 function ConfirmPublish({setTToggleBox, title, subTitle, mainPost, titImg}) {
     const [toggleTagBox, setToggleTagBox] = useState(false)
@@ -11,7 +13,7 @@ function ConfirmPublish({setTToggleBox, title, subTitle, mainPost, titImg}) {
 const [value, setValue] = useState('')
     const [tags, setTags] = useState([])
     const [increHeight, setIncreHeight] = useState(200)
-    
+    const navigate = useNavigate()
     const enableTags = () => {
     setToggleTagBox(!toggleTagBox)
     }
@@ -28,7 +30,8 @@ const [value, setValue] = useState('')
 
     useEffect(() => {
         setValue("")
-        console.log(mainPost)
+      console.log(title)
+        console.log(subTitle);;
 }, [tags])
 
 const sendPost = async () => {
@@ -41,7 +44,8 @@ const sendPost = async () => {
    const getData = await db.getDocument("652755cdc76b42b46adb","652755d73451dcffebde", currentUser.uid)
   const userBlog = 
      {
-      blog: [JSON.stringify({
+    blog: [JSON.stringify({
+        id: uuidv4(),
         displayName: JSON.parse(getData.user).username,
         photo: currentUser.photoURL,
         datePosted: date,
@@ -50,16 +54,52 @@ const sendPost = async () => {
         blogTitleImg: titImg,
         blogPost: mainPost,
         tag: tags,
-        readTime:wordCount / wordPerMin,
+        readTime:Math.floor(wordCount / wordPerMin),
       })]
      }
     
-   
-  await db.createDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid,userBlog)
-  console.log("done")
+  await db.createDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", uuidv4(), userBlog)
+  
+  await db.createDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid, userBlog)
+    console.log("done")
+    navigate('/')
   }
   catch(e){
     console.log(e)
+    if (e.type === "document_already_exists") {
+      try {
+        
+       const getUsername = await db.getDocument("652755cdc76b42b46adb","652755d73451dcffebde", currentUser.uid)
+
+        const getData = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid)
+      
+        const userBlog = {
+          id: uuidv4(),
+          displayName: getUsername.user.username,
+          photo: currentUser.photoURL,
+          datePosted: date,
+          blogTitle: title,
+          blogSubTitle: subTitle,
+          blogTitleImg: titImg,
+          blogPost: mainPost,
+          tag: tags,
+          likes: 0,
+          comments: [],
+          replies: [],
+          readTime: Math.floor(wordCount / wordPerMin),
+        }
+      
+        getData.blog.push(JSON.stringify(userBlog))
+
+        await db.updateDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid, getData.blog)
+      
+        console.log('done');
+      }
+      catch (e) {
+        console.log(e);
+      }
+    }
+
   }
 }
 

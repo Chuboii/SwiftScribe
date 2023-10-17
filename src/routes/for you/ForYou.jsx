@@ -58,17 +58,21 @@ const navigate = useNavigate()
   useEffect(()=>{
     if(!isDataLoaded){
     const getBlog = async ()=>{
-      const res = await db.getDocument("652755cdc76b42b46adb","652c619059614689c161", currentUser.uid)
+      const res = await db.listDocuments("652755cdc76b42b46adb","652ebb6ad8417bfdac54")
 
       setBlogPreview(res)
+
       setIsDataLoaded(false)
     }
-    getBlog()
+      getBlog()
+      
     }
-  },[isDataLoaded, blogPreview])
+  },[isDataLoaded])
  
- const enableUserPost = () =>{
-   navigate("user/post")
+  const enableUserPost = (idx) => {
+   localStorage.setItem('userPostId', idx)
+     navigate("user/post")
+    console.log(idx);
  }
   return(
     <>
@@ -76,25 +80,39 @@ const navigate = useNavigate()
       {toggleHeader && <HomeHeader pos={headerPos}/>}
       {toggleSubHeader && <HomeSubHeader pos={subHeaderPos } t={subHeaderTop} />}
    <div className="foryou-container" onClick={() => setToggleMenu(false)}>
- {blogPreview ?   blogPreview.blog.map(doc =>(
- <div className="fy-box" onClick={enableUserPost}>
-   <header className="fy-header">
-   <img src={JSON.parse(doc).photo} alt="profile-pic" className="fy-header-img"/>
-   <p className="fy-name">
-   @{JSON.parse(doc).displayName}
-   </p>
-   </header>
-   <main className="fy-main">
-  <p className="fy-title">{JSON.parse(doc).blogTitle}</p>
-  <img src={JSON.parse(doc).blogTitleImg} alt="title-img" className="fy-main-img"/>
- 
-   </main>
+        {
+          blogPreview ? blogPreview.documents.map(el => {
+         
+          return (
+            <div key={el.$id} className="fy-box" onClick={() => {
+              enableUserPost(el.$id)
+            }}>
+              {
+                el.blog.map(doc => (
+            <>
+            <header className="fy-header">
+              <img src={JSON.parse(doc).photo} alt="profile-pic" className="fy-header-img" />
+              <p className="fy-name">
+                @{JSON.parse(doc).displayName}
+              </p>
+            </header>
+            <main className="fy-main">
+              <p className="fy-title">{JSON.parse(doc).blogTitle}</p>
+              <img src={JSON.parse(doc).blogTitleImg} alt="title-img" className="fy-main-img" />
+            </main>
    
-   <footer className="fy-footer">
-   <p className="fy-tag"> {JSON.parse(doc).tag[0]}</p>
-   <p className="fy-read-time">{JSON.parse(doc).readTime}mins </p>
-   </footer>
-   </div>)) : ""}
+            <footer className="fy-footer">
+              <p className="fy-tag"> {JSON.parse(doc).tag[0]}</p>
+              <p className="fy-read-time">{JSON.parse(doc).readTime}mins </p>
+                    </footer>
+                    </>
+           )) }
+            </div>
+          
+          )    
+            }) : ""
+        }
+      
    
 
    </div>

@@ -22,7 +22,7 @@ const {setToggleMenu} = useContext(ToggleContext)
      resizeScreen()
    window.addEventListener("resize", resizeScreen)
    
-   return window.removeEventListener("resize", resizeScreen)
+   
    },[deskstopSize])
  
  

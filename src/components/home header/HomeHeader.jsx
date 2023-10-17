@@ -35,7 +35,6 @@ function HomeHeader({pos}) {
      resizeScreen()
    window.addEventListener("resize", resizeScreen)
    
-   return window.removeEventListener("resize", resizeScreen)
    },[deskstopSize])
    
    
@@ -55,9 +54,7 @@ const toggleHome = () =>{
 
     return(
         
-        <>
-           
-            
+        <>         
             {toggleMenu && <NavigationMenu />}
       <header className='homeheader-container' style={{position:pos, top:"0"}}>
     <div className="homeheader-logo-box" onClick={toggleHome} >

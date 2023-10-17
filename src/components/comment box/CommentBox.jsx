@@ -7,11 +7,11 @@ import img from "/src/assets/swiftscribe logo.jpg"
 import {useState} from "react"
 
 export default function CommentBox({toggle}){
-  const [isToggled, setIsToggled] = useState(false)
+ 
   
   
   const toggleCommentBox = () =>{
-    
+    toggle(false)
   }
   
   
@@ -32,8 +32,8 @@ export default function CommentBox({toggle}){
 <header className="cb-main-header">
 <img src={img} className="cb-main-img"/>
 <div className="cb-main-pro">
-<p className="cb-main-name"> Joe Doe </p>
-<p className="cb-main-time"> 2 days ago </p>
+<p className="cb-main-name" style={{fontWeight:"600"}}> Joe Doe </p>
+                <p className="cb-main-time" style={{ fontSize:"17px"}}> 2 days ago </p>
 </div>
 <MoreHorizIcon sx={{position:"absolute", right:"1rem;"}} />
 </header>

@@ -3,15 +3,38 @@ import ShareSharpIcon from '@mui/icons-material/ShareSharp';
 import CommentBox from "/src/components/comment box/CommentBox"
 import img from '/src/assets/swiftscribe logo.jpg'
 import LikeBox from "/src/components/like box/LikeBox"
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import {db} from '/src/utils/appwrite/appwrite.utils'
+
+
+function getPostId() {
+  const storage = localStorage.getItem("userPostId")
+  return storage ? JSON.parse(storage) : null
+}
 
 export default function UserPost(){
   const [toggleCommentBox, setToggleCommentBox] = useState(false)
+  const [postId] = useState(getPostId)
+  const [isDataLoaded, setIsDataLoaded] = useState(false)
   
   const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
-   return (
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      const getData = async() => {
+        const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", postId)
+
+        console.log(res)
+     setIsDataLoaded(false) 
+      }
+
+    }
+    }, [isDataLoaded])
+
+
+  return (
     <>
     {toggleCommentBox && <CommentBox toggle={setToggleCommentBox}/>}
     <div className="userpost-container">

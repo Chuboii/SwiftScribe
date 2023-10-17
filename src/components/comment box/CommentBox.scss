@@ -1,4 +1,5 @@
-
+@media screen and (min-width:0) and (max-width:700px) {
+  
 .commentbox-container{
   padding:1rem;
   position:fixed;
@@ -101,4 +102,117 @@
   }
   
   
+}
+}
+
+@media screen and (min-width:700px) {
+  
+.commentbox-container{
+  padding:1rem;
+  position:fixed;
+  bottom:0;
+  background:white;
+  z-index:2;
+  left:0;
+  right:0;
+  overflow-y:scroll;
+  height:90vh;
+  box-shadow:0 0 10px 0 rgba(0,0,0,.3);
+ border-top-left-radius: 20px; 
+ border-top-right-radius: 20px; 
+ 
+ 
+  .cb-header{
+    display:flex;
+    justify-content: space-between;
+  
+ 
+ .cb-header-response{
+   font-size:40px;
+   font-weight:700;
+ }
+  }
+  
+  .cb-main{
+    margin-top:2rem;
+    .cb-main-box{
+     
+      padding:1rem 0;
+      margin-top:1rem;
+      border-bottom:1px solid gray;
+    .cb-main-header{
+      display:flex;
+      font-size: 20px;
+      align-items: center;
+      position: relative;
+      .cb-main-img{
+        width:45px;
+        height:45px;
+        border-radius:50%;
+        object-fit: cover;
+        margin-right:1rem;
+      }
+    }
+    .cb-main-text{
+      margin:2rem 0;
+      font-size: 20px;
+    }
+    
+    .cb-footer-icons{
+      display: flex;
+      align-items: center;
+      .cb-footer-like{
+        display:flex;
+      align-items: center;
+      margin-right:.7rem;
+      font-size: 20px;
+      }
+      .cb-footer-comment{
+        display:flex;
+      align-items: center;
+      font-size: 20px;
+      }
+    }
+  }
+  }
+  
+  
+  .cb-replies-box{
+ margin:2rem 0;
+ margin-left:1rem;
+ padding:1rem 0;
+ padding-left:1.5rem;
+ border-left:3px solid gray;
+    .cb-replies-header{
+      display:flex;
+      align-items: center;
+      position: relative;
+      .cb-replies-img{
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        object-fit: cover;
+        margin-right:.5rem;
+      }
+    }
+    .cb-replies-text{
+      margin:1.5rem 0;
+    }
+    
+    .cb-replies-footer-icons{
+      display: flex;
+      align-items: center;
+      margin-top:.7rem;
+      .cb-replies-footer-like{
+        display:flex;
+      align-items: center;
+      
+      margin-right:.7rem;
+      }
+
+    }
+  }
+  
+  
+}
 }

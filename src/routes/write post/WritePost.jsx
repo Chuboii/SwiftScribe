@@ -60,7 +60,7 @@ const [titleImg, setTitleImg] = useState("")
   const insertTitleImg =  (e) =>{
      const file = e.target.files[0]
      
-   const storageRef = ref(firebaseStorage, `${currentUser.displayName}${currentUser.uid}`);
+   const storageRef = ref(firebaseStorage, `${currentUser.displayName}${uuidv4()}`);
 
 const uploadTask = uploadBytesResumable(storageRef, file);
 uploadTask.on('state_changed', 
@@ -107,7 +107,7 @@ const img = document.createElement("img")
 
          const file = e.target.files[0]
 
-const storageRef = ref(firebaseStorage, `${currentUser.displayName}${currentUser.uid}`);
+const storageRef = ref(firebaseStorage, `${currentUser.displayName}${uuidv4()}`);
 
 const uploadTask = uploadBytesResumable(storageRef, file);
 uploadTask.on('state_changed', 
@@ -125,6 +125,7 @@ uploadTask.on('state_changed',
     }
   }, 
   (error) => {
+    console.log(error);
     // Handle unsuccessful uploads
   }, 
   () => {
@@ -133,17 +134,18 @@ uploadTask.on('state_changed',
 const img = document.createElement("img")
    const board = document.querySelector(".wp-board")
  const span = document.createElement("span")
-  img.setAttribute("contentEditable", false)
+      img.setAttribute("contentEditable", false)
+      img.setAttribute("src", downloadURL)
   board.setAttribute("contentEditable", false)
-span.setAttribute("contentEditable", false)
+      span.setAttribute("contentEditable", false)
+    img.setAttribute("class", "wp-blog-img")
    board.append(img)
   // span.innerText = downloadURL
   // board.append(span)
    span.classList.add("board-span")
  setStartWritingValue(board.innerHTML)
    img.classList.add("board-img")
- //  console.log(startWritingValue)
-       img.src =downloadURL
+ //  console.log(startWritingValue
        setIsImageAvailable(true)
       console.log('File available at', downloadURL);
     });
