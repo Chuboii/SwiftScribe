@@ -3,7 +3,9 @@ import "./ConfirmPublish.scss"
 import img from '/src/assets/swiftscribe logo.jpg'
 import { UserContext } from "../../context/UserContext"
 import CloseIcon from '@mui/icons-material/Close';
-function ConfirmPublish() {
+import {db} from "/src/utils/appwrite/appwrite.utils"
+
+function ConfirmPublish({setTToggleBox, title, subTitle, mainPost, titImg}) {
     const [toggleTagBox, setToggleTagBox] = useState(false)
     const {currentUser} = useContext(UserContext)
 const [value, setValue] = useState('')
@@ -26,16 +28,47 @@ const [value, setValue] = useState('')
 
     useEffect(() => {
         setValue("")
+        console.log(mainPost)
 }, [tags])
 
-
+const sendPost = async () => {
+  const date = new Date()
+  try{
+    const wordPerMin = 250
+    const wordCount = mainPost.length
+    
+    
+   const getData = await db.getDocument("652755cdc76b42b46adb","652755d73451dcffebde", currentUser.uid)
+  const userBlog = 
+     {
+      blog: [JSON.stringify({
+        displayName: JSON.parse(getData.user).username,
+        photo: currentUser.photoURL,
+        datePosted: date,
+        blogTitle: title,
+        blogSubTitle: subTitle,
+        blogTitleImg: titImg,
+        blogPost: mainPost,
+        tag: tags,
+        readTime:wordCount / wordPerMin,
+      })]
+     }
+    
+   
+  await db.createDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid,userBlog)
+  console.log("done")
+  }
+  catch(e){
+    console.log(e)
+  }
+}
 
 
   return (
       <>
         
           <div className="confirmpublish-container">
-              <CloseIcon sx={{ position: "absolute", right: "1rem", color: "white", background: "orangered", fontSize: "30px", borderRadius: "5px", cursor: "pointer" }} onClick={() => setTTagBox(false) } />
+              <CloseIcon sx={{ position: "absolute", right: "1rem", color: "white", background: "orangered", fontSize: "30px", borderRadius: "5px", cursor: "pointer" }} onClick={() => setTToggleBox(false) } />
  <div className="cp-first">
                   <img src={currentUser ? currentUser.photoURL : ''} alt="" className="cp-first-img"/>                
                   <div className="cp-first-txt">
@@ -58,7 +91,7 @@ const [value, setValue] = useState('')
                   </div>
               </div>
               <div className="cp-btn-box">
-                  <button className="cp-btn">PUBLISH NOW</button>
+                  <button onClick={sendPost} className="cp-btn">PUBLISH NOW</button>
                   </div>
  </div>
       </>

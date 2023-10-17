@@ -1,0 +1,26 @@
+    .usp-like-box{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .usp-lc{
+        display:flex;
+        align-items: center;
+        .usp-likes, .usp-comment{
+          display:flex;
+          align-items: center;
+          margin-right:1rem;
+        }
+      }
+    }
+    
+    .usp-share-more{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .usp-s{
+        margin-right:"6rem";
+        .usp-more{
+          
+        }
+      }
+    }

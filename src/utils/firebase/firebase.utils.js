@@ -2,11 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInWithPopup, createUserWithEmailAndPassword, FacebookAuthProvider, GoogleAuthProvider} from 'firebase/auth'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Create a reference to the file we want to download
+
 const firebaseConfig = {
   apiKey: "AIzaSyDy7i5Jln3xpMlfLLM16qiYAPRekSMq220",
   authDomain: "swiftscribe-ee6a0.firebaseapp.com",
@@ -49,3 +48,5 @@ export const signInWithEmail = async (email, password) => {
 export const onAuthChanged = (callback) => onAuthStateChanged(auth, callback)
 
 export const signUserOut = () => signOut(auth)
+
+export const firebaseStorage = getStorage();
