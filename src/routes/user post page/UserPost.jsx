@@ -9,7 +9,7 @@ import {db} from '/src/utils/appwrite/appwrite.utils'
 
 function getPostId() {
   const storage = localStorage.getItem("userPostId")
-  return storage ? JSON.parse(storage) : null
+  return storage ? storage : null
 }
 
 export default function UserPost(){
