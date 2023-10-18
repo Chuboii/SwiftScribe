@@ -6,6 +6,7 @@ import HomeHeader from "/src/components/home header/HomeHeader"
 import {useState, useEffect, useContext} from "react"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import { UserContext } from "../../context/UserContext"
+import {useNavigate} from "react-router-dom"
 
 export default function UserProfileHome() {
   const [toggleSubHeader, setToggleSubHeader] = useState(false)
@@ -17,7 +18,8 @@ export default function UserProfileHome() {
   const [subHeaderTop, setSubHeaderTop] = useState(0)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [blogPreview, setBlogPreview] = useState(null)
-  const {currentUser} =useContext(UserContext)
+  const {currentUser, setFriendsId} =useContext(UserContext)
+  const navigate = useNavigate()
   
   function scrollFunction() {
     const scrollPos = window.scrollY
@@ -72,7 +74,11 @@ export default function UserProfileHome() {
     }
   },[isDataLoaded])
  
-  
+  const viewBlog = (idx) =>{
+    setFriendsId(idx)
+    localStorage.setItem("friendsId", idx)
+    navigate("/user/post")
+  }
   return(
     <>
  {toggleHeader && <HomeHeader pos={headerPos}/>}
@@ -80,7 +86,9 @@ export default function UserProfileHome() {
 
    <div className="userprofilehome-container">
         {blogPreview ? blogPreview.blog.map(doc => (
-          <div className="uph-box">
+          <div className="uph-box" onClick={()=> {
+           viewBlog(JSON.parse(doc).id)
+          }}>
           <header className="uph-header">
             <img src={JSON.parse(doc).photo} alt="profile-pic" className="uph-header-img" />
             <p className="uph-name">
@@ -94,7 +102,7 @@ export default function UserProfileHome() {
    
           <footer className="uph-footer">
             <p className="uph-tag"> {JSON.parse(doc).tag[0]}</p>
-            <p className="uph-read-time">{JSON.parse(doc).readTime} </p>
+            <p className="uph-read-time">{JSON.parse(doc).readTime}mins </p>
           </footer>
 
         </div>

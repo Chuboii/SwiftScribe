@@ -7,6 +7,7 @@ import HomeHeader from "../../components/home header/HomeHeader"
 import {db} from "/src/utils/appwrite/appwrite.utils"
 import { UserContext } from "../../context/UserContext"
 import {useNavigate} from "react-router-dom"
+import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 
 export default function ForYou(){
   const [toggleSubHeader, setToggleSubHeader] = useState(false)
@@ -16,7 +17,7 @@ export default function ForYou(){
   const [subHeaderPos, setSubHeaderPos] = useState('relative')
   const [headerPos, setHeaderPos] = useState("relative")
 const [subHeaderTop, setSubHeaderTop] = useState(0)
-const {currentUser} = useContext(UserContext)
+const {currentUser, setUsersProfile} = useContext(UserContext)
 const [isDataLoaded, setIsDataLoaded] = useState(false)
 const navigate = useNavigate()
  const [blogPreview, setBlogPreview] = useState(null)
@@ -70,9 +71,10 @@ const navigate = useNavigate()
   },[isDataLoaded])
  
   const enableUserPost = (idx) => {
-   localStorage.setItem('userPostId', idx)
+   localStorage.setItem('usersProfile', idx)
+   setUsersProfile(idx)
      navigate("user/post")
-    console.log(idx);
+   // console.log(idx);
  }
   return(
     <>
@@ -110,7 +112,9 @@ const navigate = useNavigate()
             </div>
           
           )    
-            }) : ""
+            }) : <TextBasedLoader/>
+            
+
         }
       
    

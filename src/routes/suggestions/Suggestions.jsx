@@ -64,7 +64,7 @@ export default function Suggestions(){
         const res = await db.listDocuments('652755cdc76b42b46adb', '652755d73451dcffebde')
 
         setUsers(res)
-        console.log(res);
+        //console.log(res);
 
       }
 
@@ -74,17 +74,20 @@ export default function Suggestions(){
  },[isLoadedFromServer, users])
   
 const displayUserProfile = async(idx) =>{
-  navigate("/user")
- setUsersProfile(null)
-  try{
+  //navigate("/user")
+  console.log(idx)
+ setUsersProfile(idx)
+ localStorage.setItem("usersProfile", JSON.stringify(idx))
+ navigate("/user")
+  /*try{
   const res = await db.getDocument('652755cdc76b42b46adb', '652755d73451dcffebde', idx)
-  localStorage.setItem("usersProfile", JSON.stringify(res))
+  
   setUsersProfile(res)
   
 }
 catch(e){
   console.log(e)
-}
+}*/
 }
 
 

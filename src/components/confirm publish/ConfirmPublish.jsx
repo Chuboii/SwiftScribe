@@ -68,14 +68,16 @@ const sendPost = async () => {
     console.log(e)
     if (e.type === "document_already_exists") {
       try {
-        
+        const wordPerMin = 250
+    const wordCount = mainPost.length
+    
        const getUsername = await db.getDocument("652755cdc76b42b46adb","652755d73451dcffebde", currentUser.uid)
-
+console.log(getUsername)
         const getData = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid)
       
         const userBlog = {
           id: uuidv4(),
-          displayName: getUsername.user.username,
+          displayName: JSON.parse(getUsername.user).username,
           photo: currentUser.photoURL,
           datePosted: date,
           blogTitle: title,
@@ -90,9 +92,12 @@ const sendPost = async () => {
         }
       
         getData.blog.push(JSON.stringify(userBlog))
-
-        await db.updateDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid, getData.blog)
-      
+       const updatedBlog = {
+         blog: getData.blog
+       }
+       // console.log(getData.blog)
+        await db.updateDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid, updatedBlog)
+      navigate("/")
         console.log('done');
       }
       catch (e) {

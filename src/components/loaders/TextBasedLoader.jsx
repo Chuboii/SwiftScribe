@@ -6,7 +6,11 @@ export default function TextBasedLoader(){
    <>
    {
      arr.map(el =>(
-       <Skeleton sx={{marginTop:".5rem"}} animation="wave"/>
+  <div style={{margin:"1rem 0"}}>
+<Skeleton variant="circular" animation="wave" width={40} height={40} />
+ <Skeleton variant="text" animation="wave" sx={{ fontSize: '1rem' }} />
+<Skeleton animation="wave" variant="rectangular" height={60} />
+</div>
        ))
    }
    </>

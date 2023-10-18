@@ -12,13 +12,17 @@ function getCurrentUser(){
 
 function getUsersProfile(){
   const storage = localStorage.getItem("usersProfile")
-  return storage ? JSON.parse(storage) : null
+  return storage ? storage : null
+}
+function getFriendsId() {
+  const storage = localStorage.getItem("friendsId")
+  return storage ? storage : null
 }
 
 export const UserProvider = ({children})=>{
  const [currentUser, setCurrentUser] = useState(getCurrentUser)
  const [usersProfile, setUsersProfile] = useState(getUsersProfile)
- 
+ const [friendsId, setFriendsId] = useState(getFriendsId)
  const navigate = useNavigate()
  
  const triggerSignout = () =>{
@@ -48,7 +52,7 @@ export const UserProvider = ({children})=>{
 
 
 
-  const value = {currentUser, triggerSignout, setCurrentUser, usersProfile, setUsersProfile}
+  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile, setUsersProfile}
   
   return (
     <UserContext.Provider value={value}>
