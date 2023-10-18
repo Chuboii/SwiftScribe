@@ -28,14 +28,17 @@ export default function GeneralProfileHome(){
   useEffect(() => {
     //console.log(usersProfile)
     if (!isDataLoaded && usersProfile) {
-   //  console.log(usersProfile)
+      //  console.log(usersProfile)
+      console.log(usersProfile);
      
       const getData = async() => {
         try{
-        const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", usersProfile)
+          const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", usersProfile)
+          
+          console.log(res)
 setData(res)
 
-        //console.log(res)
+          
      setIsDataLoaded(false) 
       }
       catch(e){
@@ -51,7 +54,7 @@ getData()
 
   
 const viewBlog = (idx) =>{
-    setFriendsId(idx)
+  setFriendsId(idx)
     localStorage.setItem("friendsId", idx)
     navigate("/user/post")
   }
@@ -60,7 +63,7 @@ const viewBlog = (idx) =>{
    {toggleHeader && <HomeHeader/>}
    <div className="generalprofilehome-container">
   {data ? data.blog.map(doc =>(
-  <div className="gph-box" onClick={() =>{
+  <div key={JSON.parse(doc).id} className="gph-box" onClick={() =>{
     viewBlog(JSON.parse(doc).id)
   }}>
   <header className="gph-header">

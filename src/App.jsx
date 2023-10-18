@@ -20,6 +20,10 @@ import UserProfileAbout from "./routes/user profile about/UserProfileAbout"
 import Settings from "./routes/settings/Settings"
 import WritePost from "./routes/write post/WritePost"
 import UserPost from "./routes/user post page/UserPost"
+import UserProfilePost from "./routes/user profile home post/UserProfilePost"
+
+
+
 function App() {
 
   return (
@@ -32,9 +36,12 @@ function App() {
        
         <Route path="/swiftscribe/signin/email" element={<EmailSignin />} />
          <Route path="/swiftscribe/callback/setting-up" element={<SettingUp />} />
-<Route path="/write-blog" element={<WritePost/>}/>
+        <Route path="/write-blog" element={<WritePost />} />
+        
+
   <Route path="/" element={<Home/>}>
-  <Route path="user/post" element={<UserPost/>}/>
+          <Route path="user/post" element={<UserPost />} />
+          <Route path="user/profile/post" element={<UserProfilePost/>}/>
      <Route path="notification" element={<Notification/>}/>
     <Route path="settings" element={<Settings/>}/>
      

@@ -18,14 +18,16 @@ export default function UserPost(){
   const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
-//console.log(postId)
+ 
 
   useEffect(() => {
    // console.log(usersProfile)
     if (!isDataLoaded) {
+    
       const forYouData = async() => {
         try{
-        const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
+          const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
+          //localStorage.setItem("friendsId", null)
 setData(res)
 const blog = document.querySelector(".usp-content")
 blog.innerHTML = JSON.parse(res.blog[0]).blogPost
@@ -35,7 +37,7 @@ blog.innerHTML = JSON.parse(res.blog[0]).blogPost
       }
       catch(e){
         
-       // console.log(e)
+       console.log(e)
       }
       }
 forYouData()
@@ -46,38 +48,16 @@ const suggestionFriendsHomePage = async() => {
    const filtered = res.blog.filter(el => {
      return JSON.parse(el).id === friendsId
    })
-  //console.log(filtered)
-  const arr = {
-    blog: filtered
-  }
-setData(arr)
-const blog = document.querySelector(".usp-content")
-blog.innerHTML = JSON.parse(arr.blog[0]).blogPost
-//console.log(JSON.parse(res.blog[0]).blogPost)
-        //console.log(res)
-     setIsDataLoaded(false) 
-      }
-      catch(e){
-        
-        console.log(e)
-      }
-}
-suggestionFriendsHomePage()
 
-const profilePageHome = async() => {
-        try{
-        const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", `${currentUser.uid}`)
-   const filtered = res.blog.filter(el => {
-     return JSON.parse(el).id === friendsId
-   })
-  console.log(filtered)
+          //console.log(filtered)
   const arr = {
     blog: filtered
   }
 setData(arr)
 const blog = document.querySelector(".usp-content")
 blog.innerHTML = JSON.parse(arr.blog[0]).blogPost
-//console.log(JSON.parse(res.blog[0]).blogPost)
+      //console.log(JSON.parse(res.blog[0]).blogPost)
+          
         //console.log(res)
      setIsDataLoaded(false) 
       }
@@ -86,7 +66,8 @@ blog.innerHTML = JSON.parse(arr.blog[0]).blogPost
         console.log(e)
       }
 }
-profilePageHome()
+      
+suggestionFriendsHomePage()
     }
     }, [isDataLoaded])
 
@@ -96,7 +77,7 @@ profilePageHome()
     {toggleCommentBox && <CommentBox toggle={setToggleCommentBox}/>}
     <div className="userpost-container">
    {data ? data.blog.map(doc => (
-  <div>
+  <div key={JSON.parse(doc).id}>
    <div className="usp-titles">
     <h1 className="usp-tit">{JSON.parse(doc).blogTitle}</h1>
     <p className="usp-sub-tit"> {JSON.parse(doc).blogSubTitle} </p>

@@ -30,9 +30,8 @@ const [value, setValue] = useState('')
 
     useEffect(() => {
         setValue("")
-      console.log(title)
-        console.log(subTitle);;
-}, [tags])
+    }, [tags])
+  
 
 const sendPost = async () => {
   const date = new Date()

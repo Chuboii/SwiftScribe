@@ -77,8 +77,8 @@ const displayUserProfile = async(idx) =>{
   //navigate("/user")
   console.log(idx)
  setUsersProfile(idx)
- localStorage.setItem("usersProfile", JSON.stringify(idx))
- navigate("/user")
+  localStorage.setItem("usersProfile", idx)
+  navigate("/user")
   /*try{
   const res = await db.getDocument('652755cdc76b42b46adb', '652755d73451dcffebde', idx)
   

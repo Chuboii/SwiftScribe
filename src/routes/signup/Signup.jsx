@@ -18,7 +18,13 @@ const googleBtn = async() =>{
  try{
      const { user } = await signInWithGoogle()
   await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", user.uid)
-  }
+  setIsSuccess(true)
+  setTimeout(() => {
+    navigate('/') 
+  }, 2000);
+
+ 
+ }
   catch(e){
     console.log(e)
        if(e.message === "Document with the requested ID could not be found."){

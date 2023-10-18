@@ -74,7 +74,7 @@ const navigate = useNavigate()
    localStorage.setItem('usersProfile', idx)
    setUsersProfile(idx)
      navigate("user/post")
-   // console.log(idx);
+   console.log(idx);
  }
   return(
     <>
@@ -91,7 +91,7 @@ const navigate = useNavigate()
             }}>
               {
                 el.blog.map(doc => (
-            <>
+            <div key={JSON.parse(doc).id}>
             <header className="fy-header">
               <img src={JSON.parse(doc).photo} alt="profile-pic" className="fy-header-img" />
               <p className="fy-name">
@@ -107,7 +107,7 @@ const navigate = useNavigate()
               <p className="fy-tag"> {JSON.parse(doc).tag[0]}</p>
               <p className="fy-read-time">{JSON.parse(doc).readTime}mins </p>
                     </footer>
-                    </>
+                    </div>
            )) }
             </div>
           

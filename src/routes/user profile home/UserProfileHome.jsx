@@ -77,8 +77,12 @@ export default function UserProfileHome() {
   const viewBlog = (idx) =>{
     setFriendsId(idx)
     localStorage.setItem("friendsId", idx)
-    navigate("/user/post")
+    console.log(idx);
+   navigate("/user/profile/post")
   }
+
+
+
   return(
     <>
  {toggleHeader && <HomeHeader pos={headerPos}/>}
@@ -86,7 +90,7 @@ export default function UserProfileHome() {
 
    <div className="userprofilehome-container">
         {blogPreview ? blogPreview.blog.map(doc => (
-          <div className="uph-box" onClick={()=> {
+          <div key={JSON.parse(doc).id} className="uph-box" onClick={()=> {
            viewBlog(JSON.parse(doc).id)
           }}>
           <header className="uph-header">
