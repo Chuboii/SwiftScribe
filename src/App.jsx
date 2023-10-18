@@ -21,7 +21,7 @@ import Settings from "./routes/settings/Settings"
 import WritePost from "./routes/write post/WritePost"
 import UserPost from "./routes/user post page/UserPost"
 import UserProfilePost from "./routes/user profile home post/UserProfilePost"
-
+import ErrPage from "./routes/err page/ErrPage"
 
 
 function App() {
@@ -29,7 +29,8 @@ function App() {
   return (
     <>
       
-<Routes>
+      <Routes>
+        <Route path='/err-code' element={<ErrPage/>}/>
         <Route  path="/swiftscribe/signup" element={<Signup/>}/>
 <Route path="/swiftscribe/signup/email" element={<EmailSignup/>}/>
         <Route path="/swiftscribe/signin" element={<Signin />} />

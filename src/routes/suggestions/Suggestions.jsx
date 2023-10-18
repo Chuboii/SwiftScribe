@@ -60,16 +60,33 @@ export default function Suggestions(){
   useEffect(() => {
    
     if (!isLoadedFromServer) {
+    
       const getUsers = async () => {
-        const res = await db.listDocuments('652755cdc76b42b46adb', '652755d73451dcffebde')
+        try {
+          const res = await db.listDocuments('652755cdc76b42b46adb', '652755d73451dcffebde')
 
-        setUsers(res)
-        //console.log(res);
-
+          const filtered = res.documents.filter(el => {
+            return el.$id !== currentUser.uid
+          })
+          setUsers(filtered)
+          console.log(filtered);
+        }
+      catch (e) {
+          if (e.code === 500) {
+           // console.log("navigatiing")
+          navigate('/err-code')
+          }
+          else if(e.code === 503) {
+            navigate('/err-code')
+          }
+          else if (e.code === 400) {
+            navigate("/err-code")
+          }
+        }
       }
-
-      getUsers()
-      setIsLoadedFromServer(true)
+        getUsers()
+        setIsLoadedFromServer(true)
+      
     }
  },[isLoadedFromServer, users])
   
@@ -90,7 +107,16 @@ catch(e){
 }*/
 }
 
-
+  const followBtn = async (el,id) => {
+    const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+    const otherUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", id)
+  
+    console.log(JSON.parse(currUser.user)); 
+console.log(JSON.parse(otherUser.user));
+    const updateCurrUserFollowers = {
+    user:[]
+  }
+}
 
 
   
@@ -111,7 +137,7 @@ catch(e){
   <h3 className="suggestions-h3"> Who to follow </h3>
   
         {
-          users ? users.documents.map((user, id) => (
+          users ? users.map((user, id) => (
           
         <div onClick={() =>{
         displayUserProfile(user.$id)
@@ -125,7 +151,10 @@ catch(e){
             <p className="suggestions-bio">{JSON.parse(user.user).bio}</p>
           </div>
           </div>
-          <button className="suggestions-btn"> Follow </button>
+              <button className="suggestions-btn" onClick={(e) => {
+               e.stopPropagation()
+                followBtn(JSON.parse(user.user), user.$id)
+              }}> Follow </button>
         </div>
           )) : (
             <TextBasedLoader />

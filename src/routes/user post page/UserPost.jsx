@@ -94,7 +94,8 @@ suggestionFriendsHomePage()
   
     
     <main className="usp-main">
-    <div className="usp-titleImage"> <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg"/></div>
+         <div className="usp-titleImage">
+           <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
     <div className="usp-content"> </div>
 <LikeBox enable={enableCommentBox}/>
