@@ -1,7 +1,7 @@
 import Skeleton from '@mui/material/Skeleton';
 
 export default function TextBasedLoader(){
-  const arr = [0,0,0,0,0,0,0,0,0,0,0]
+  const arr = [0,0,0,0]
   return(
    <>
    {

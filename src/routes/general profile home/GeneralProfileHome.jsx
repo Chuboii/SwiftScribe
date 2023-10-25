@@ -35,17 +35,19 @@ export default function GeneralProfileHome(){
         try{
           const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", usersProfile)
           
-          console.log(res)
-setData(res)
+          //console.log(res)
+       setData(res)
 
           
      setIsDataLoaded(false) 
       }
       catch(e){
         if(e.type === "document_not_found"){
-          setData(null)
+          setData({
+            blog:[]
+          })
         }
-        console.log(e.type)
+     //   console.log(e.type)
       }
       }
 getData()
@@ -58,11 +60,13 @@ const viewBlog = (idx) =>{
     localStorage.setItem("friendsId", idx)
     navigate("/user/post")
   }
+// console.log(data)
   return(
     <>
    {toggleHeader && <HomeHeader/>}
    <div className="generalprofilehome-container">
-  {data ? data.blog.map(doc =>(
+  {
+    data ? data.blog.map(doc =>(
   <div key={JSON.parse(doc).id} className="gph-box" onClick={() =>{
     viewBlog(JSON.parse(doc).id)
   }}>
@@ -83,7 +87,8 @@ const viewBlog = (idx) =>{
    <p className="gph-read-time">{JSON.parse(doc).readTime} mins read </p>
    </footer>
    </div>
- )) : <TextBasedLoader/> }
+ )) : <TextBasedLoader/>
+ }
  
    </div>
     </>

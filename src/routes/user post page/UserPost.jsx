@@ -7,28 +7,32 @@ import {useEffect, useState, useContext} from "react"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {UserContext} from "/src/context/UserContext"
-
-
+import {v4 as uuidv4} from "uuid"
+function getUserDocId() {
+  const storage = localStorage.getItem("userDocId")
+  return storage ? JSON.parse(storage) : null
+}
 export default function UserPost(){
   const [toggleCommentBox, setToggleCommentBox] = useState(false)
   //const [postId] = useState(getPostId)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [data, setData] = useState(null)
-  const {usersProfile, friendsId, currentUser} = useContext(UserContext)
+  const {usersProfile,postUserId, friendsId, currentUser} = useContext(UserContext)
   const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
- 
+  const [isFollowed, setIsFollowed] = useState(false)
+  const [reload , setReload] = useState(false)
+ const [userDocId, setUserDocId] = useState(getUserDocId)
 
   useEffect(() => {
-   // console.log(usersProfile)
     if (!isDataLoaded) {
-    
       const forYouData = async() => {
         try{
           const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
           //localStorage.setItem("friendsId", null)
 setData(res)
+//console.log(users)
 const blog = document.querySelector(".usp-content")
 blog.innerHTML = JSON.parse(res.blog[0]).blogPost
 //console.log(JSON.parse(res.blog[0]).blogPost)
@@ -63,7 +67,7 @@ blog.innerHTML = JSON.parse(arr.blog[0]).blogPost
       }
       catch(e){
         
-        console.log(e)
+    //    console.log(e)
       }
 }
       
@@ -72,6 +76,252 @@ suggestionFriendsHomePage()
     }, [isDataLoaded])
 
 //console.log(data)
+
+useEffect(() =>{
+    
+    const getData = async() =>{
+   try{
+      const res = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
+     // setData(res)
+      }catch(e){
+        console.log(e)
+      }
+      try{
+      const followingRes = await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
+      
+      const a = followingRes.following.map(el =>{
+      return JSON.parse(el).id.includes(userDocId.id)
+    } )
+    
+    const b = a.some(el => el === true)
+    console.log(a)
+    setIsFollowed(b)
+}
+catch(e){
+  console.log(e)
+}
+      
+     }
+    getData()
+  }, [isFollowed, reload])
+  
+
+
+
+
+
+const enableFollow = async() => {
+    
+ //   console.log(enableFollowing)
+ console.log("clicked")
+    try{
+      
+    const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+    console.log(postUserId)
+   // console.log(usersProfile)
+   const otherUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
+   // console.log(otherUser)
+const followingObj = JSON.parse(otherUser.user)
+ const followingData = {
+     following:[JSON.stringify(followingObj)]
+   }
+ 
+ await db.createDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, followingData)
+ setIsFollowed(true)
+ console.log("following created successfully")
+ 
+ const date = new Date()
+ const notifyData = {
+   uid: currentUser.uid,
+   id: uuidv4(),
+   photo: currentUser.photoURL, 
+   name: currentUser.displayName,
+   task: "Just followed you",
+   time: date
+ }
+ const notice ={
+   notify: [JSON.stringify(notifyData)]
+ }
+ 
+ await db.createDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notice)
+// setReload("yeah")
+ console.log("notified")
+    }
+    catch(e){
+  console.log(e)
+   
+    if(e.code === 409){
+      
+      try{
+    
+     const getNotify = await db.getDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId)
+     console.log(getNotify)
+     const date = new Date()
+ //    const data = JSON.parse(getNotify.notify)
+     const duplicate = getNotify.notify.some(el => JSON.parse(el).uid === currentUser.uid)
+ if(!duplicate){
+     const nData = {
+    uid: currentUser.uid,
+     id: uuidv4(),
+   photo: currentUser.photoURL, 
+   name: currentUser.displayName,
+   task: "Just followed you",
+   time: date
+     }
+     
+     getNotify.notify.push(JSON.stringify(nData))
+  // const data = JSON.parse()
+     const notifyData = {
+       notify: getNotify.notify
+     }
+     console.log(notifyData)
+    await db.updateDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notifyData)
+     console.log("notify updated")
+ }
+ else{
+   console.log("notify exists already ")
+ }
+      }
+      catch(e){
+        console.log(e)
+      }
+      
+        try{
+        const otherUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
+       
+        const existingFollowingDoc = await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
+
+const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+
+
+   if(existingFollowingDoc){
+    const data = JSON.parse(otherUser.user)
+
+ const duplicate = existingFollowingDoc.following.some(el => JSON.parse(el).id === JSON.parse(otherUser.user).id)
+ if(!duplicate){
+ existingFollowingDoc.following.push(JSON.stringify(data))
+    
+      const updatedData = {  
+         following: existingFollowingDoc.following
+         }
+     await db.updateDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, updatedData)
+  //   console.log("following updated")
+
+    
+  const existingFollowingDoc2 =  await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
+ 
+const followingMap =  [JSON.parse(currUser.user)].map(el =>{
+   return JSON.stringify({...el, following: existingFollowingDoc2.following.length})
+})
+ 
+ const parsedUpdatedFollowingUser = JSON.parse(followingMap)
+ 
+ const updateFollowingUser ={
+   user:[JSON.stringify(parsedUpdatedFollowingUser)]
+ }
+    await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid, updateFollowingUser)
+  console.log('following user updated')
+  
+  
+     
+ setIsFollowed(true)
+ }
+ else {
+   console.log("following exists already")
+ }
+   }
+        }
+ catch(e){
+  console.log(e)
+ }
+}
+}
+    
+    
+    
+ //Followers async 
+    
+  try{
+    const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+    const clickedUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
+    const followersObj = JSON.parse(currUser.user)
+
+    const followersData = {
+  followers: [JSON.stringify(followersObj)]
+}
+    await db.createDocument("652755cdc76b42b46adb", "6530077807326e78f379",postUserId, followersData)
+console.log("follower created successfully")
+
+const existingFollowersDoc2 =  await db.getDocument("652755cdc76b42b46adb", "6530077807326e78f379", postUserId)
+ 
+const followersMap =  [JSON.parse(clickedUser.user)].map(el =>{
+   return JSON.stringify({...el, followers: existingFollowersDoc2.followers.length})
+})
+ 
+ const parsedUpdatedFollowersUser = JSON.parse(followersMap)
+ 
+ const updatedFollowersUser ={
+   user:[JSON.stringify(parsedUpdatedFollowersUser)]
+ }
+ 
+ await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId, updatedFollowersUser)
+ console.log("follower user updated successfuly")
+setReload(!reload)
+// window.location.reload() 
+}
+catch(e){
+  console.log(e)
+  if(e.code === 409){
+    try{
+  const existingFollowersDoc = await db.getDocument("652755cdc76b42b46adb", "6530077807326e78f379", postUserId)
+  const clickedUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
+const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+
+  if(existingFollowersDoc){
+  const data = JSON.parse(currUser.user)
+//console.log(existingFollowersDoc)
+ const duplicate = existingFollowersDoc.followers.some(el => JSON.parse(el).id === JSON.parse(currUser.user).id)
+ console.log(duplicate)
+
+ if(!duplicate){
+   existingFollowersDoc.followers.push(JSON.stringify(data))
+    
+      const updatedFollowersData = {  
+         followers: existingFollowersDoc.followers
+         }
+     await db.updateDocument("652755cdc76b42b46adb", "6530077807326e78f379", postUserId,updatedFollowersData)
+       console.log("follower updated successfully")
+const existingFollowersDoc2 =  await db.getDocument("652755cdc76b42b46adb", "6530077807326e78f379", usersProfile)
+ 
+const followersMap =  [JSON.parse(clickedUser.user)].map(el =>{
+   return JSON.stringify({...el, followers: existingFollowersDoc2.followers.length})
+})
+ 
+ const parsedUpdatedFollowersUser = JSON.parse(followersMap)
+ 
+ const updatedFollowersUser ={
+   user:[JSON.stringify(parsedUpdatedFollowersUser)]
+ }
+ 
+ await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile, updatedFollowersUser)
+ setReload(!reload)
+ console.log("follower user updated successfuly")
+ }
+ else{
+  console.log("follower added already!")
+ }
+}
+}
+catch(e){
+  console.log(e)
+}
+}
+}
+}
+
+
+
+
   return (
     <>
     {toggleCommentBox && <CommentBox toggle={setToggleCommentBox}/>}
@@ -85,7 +335,8 @@ suggestionFriendsHomePage()
     <header className="usp-header">
     <img src={JSON.parse(doc).photo} className="usp-header-pro"/>
     <div className="usp-header-text">
-    <p className="usp-header-name"><span >{JSON.parse(doc).displayName}</span> <span style={{color:"orangered", marginLeft:".5rem"}}> Follow </span>  </p>
+    <p className="usp-header-name"><span >{JSON.parse(doc).displayName}</span>
+    <span style={{color:"orangered",display:'block', marginLeft:".5rem"}} onClick={enableFollow} className="gp-header-fbtn"> {isFollowed ? "Following" : "Follow"} </span>  </p>
     <p className="usp-header-mins"><span style={{marginRight:".5rem"}}> {JSON.parse(doc).readTime} mins read </span> <span> 9 days ago </span> </p>
 
     </div>

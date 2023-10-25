@@ -20,11 +20,10 @@ const {setToggleMenu} = useContext(ToggleContext)
         <Link className="nm-links" style={{color:"black", display:'flex', alignItems:"center"}} to={"/write-blog"}><DriveFileRenameOutlineOutlinedIcon />
         <span style={{marginLeft:".7rem"}}>Write</span></Link>
 <Link to={'/profile'} className="nm-links"><PersonOutlineIcon sx={{marginRight:'.7rem'}}/>Profile</Link>
-              <Link to={'/'} className="nm-links"><LibraryBooksIcon sx={{
-                  marginRight: '.7rem'}}/>Stories</Link>
+            
           </div>
           <div className="nm-second">
-              <Link to={'settings'} className="nm-links"><SettingsIcon sx={{marginRight:'.7rem'}}/>Settings</Link>
+              <Link to={'/settings'} className="nm-links"><SettingsIcon sx={{marginRight:'.7rem'}}/>Settings</Link>
               <Link to={'/'} className="nm-links"><HelpOutlineOutlinedIcon sx={{marginRight:'.7rem'}}/>Help</Link>
           </div>
           <div className="nm-third">

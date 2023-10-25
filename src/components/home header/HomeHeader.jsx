@@ -67,7 +67,7 @@ const toggleHome = () =>{
        {deskstopSize && <SearchInput/>}
        {deskstopSize && <DriveFileRenameOutlineOutlinedIcon onClick={() => navigate('/write-blog')} sx={{position:"absolute", right:"10rem", fontSize:"30px", cursor:"pointer"}}/>}
                 <div className="homeheader-second">
-                <Link to={"notification"}>
+                <Link to={"/notification"}>
                <NotificationsNoneOutlinedIcon className='homeheader-noti' style={{color:"black"}}/>
                </Link>
                     <div className='homeheader-image' onClick={enableMenu}>

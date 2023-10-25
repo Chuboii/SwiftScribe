@@ -54,6 +54,10 @@ const tapHome = () =>{
     <div className="up-name-box">
     <p className="up-name"> {currentUser.displayName} </p>
     <p className="up-username" style={{display:"flex", alignItems:"center"}}> <span>@</span>{user ? JSON.parse(user.user).username.toLowerCase() : (  <Skeleton sx={{width:"100px"}} animation="wave"/>)}</p>
+    <div className="followers-box"> 
+    <p className="up-followers">{user ? JSON.parse(user.user).followers : ""} Followers</p>
+    <p className="up-following">{user ? JSON.parse(user.user).following : ""} Following</p>
+    </div>
     </div>
     <MoreHorizIcon sx={{position:"absolute", right:"1rem"}}/>
      </div>

@@ -5,7 +5,9 @@ export const ToggleContext = createContext()
 export const ToggleProvider = ({children}) =>{
   const [toggleSubHeader, setToggleSubHeader] = useState(true)
   const [toggleMenu, setToggleMenu] = useState(false)
-  const value = {toggleMenu, setToggleMenu}
+  const [toggleEdit, setToggleEdit] = useState(false)
+
+  const value = {toggleMenu,toggleEdit, setToggleEdit ,setToggleMenu}
   return(
     <ToggleContext.Provider value={value}>
     {children}

@@ -17,7 +17,7 @@ export default function ForYou(){
   const [subHeaderPos, setSubHeaderPos] = useState('relative')
   const [headerPos, setHeaderPos] = useState("relative")
 const [subHeaderTop, setSubHeaderTop] = useState(0)
-const {currentUser, setUsersProfile} = useContext(UserContext)
+const {currentUser, setPostUserId, setUsersProfile} = useContext(UserContext)
 const [isDataLoaded, setIsDataLoaded] = useState(false)
 const navigate = useNavigate()
  const [blogPreview, setBlogPreview] = useState(null)
@@ -58,23 +58,67 @@ const navigate = useNavigate()
   
   useEffect(()=>{
     if(!isDataLoaded){
+     
     const getBlog = async ()=>{
+      try{
       const res = await db.listDocuments("652755cdc76b42b46adb","652ebb6ad8417bfdac54")
 
       setBlogPreview(res)
 
       setIsDataLoaded(false)
     }
-      getBlog()
+    
+    catch(e){
+      console.log(e)
+    }
+    
+    try{
+        const globalUsers = await db.listDocuments("652755cdc76b42b46adb", "652755d73451dcffebde")
+       // console.log(JSON.parse(globalUsers.documents))
+       const data = {
+          users: [JSON.stringify(globalUsers.documents)]
+        }
+     //   console.log(JSON.stringify(users.documents))
+        const localUsers = await db.createDocument("652755cdc76b42b46adb", "653198b4521b75edcbaf", currentUser.uid, data)
+        console.log("created")
+
+     }
+     catch (e){
+     console.log(e)
+    if(e.code === 409){
+      const getDoc = await db.listDocuments("652755cdc76b42b46adb","652755d73451dcffebde")
+   //   console.log(getDoc.documents)
+     const parsedData = JSON.stringify(getDoc.documents)
+     
+      const updateLocalUsers = {
+        users: [parsedData]
+      }
+      await db.updateDocument("652755cdc76b42b46adb", "653198b4521b75edcbaf", currentUser.uid, updateLocalUsers)
+      console.log("updated")
+      const res = db.getDocument("652755cdc76b42b46adb", "653198b4521b75edcbaf", currentUser.uid)
+      
+     
+    }
+    }
+ 
+      
       
     }
+    getBlog()
+    }
+    
+    
   },[isDataLoaded])
  
-  const enableUserPost = (idx) => {
+  const enableUserPost = (idx, el) => {
    localStorage.setItem('usersProfile', idx)
+   localStorage.setItem('postUserId', JSON.parse(el.blog).userId)
+   localStorage.setItem('postDetails', el.blog)
+   const storage = localStorage.getItem('postUserId') 
+   setPostUserId(storage)
    setUsersProfile(idx)
      navigate("user/post")
-   console.log(idx);
+ //  console.log(JSON.parse(el.blog));
  }
   return(
     <>
@@ -87,7 +131,7 @@ const navigate = useNavigate()
          
           return (
             <div key={el.$id} className="fy-box" onClick={() => {
-              enableUserPost(el.$id)
+              enableUserPost(el.$id, el)
             }}>
               {
                 el.blog.map(doc => (

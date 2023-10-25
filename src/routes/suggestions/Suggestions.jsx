@@ -9,6 +9,12 @@ import { UserContext } from "../../context/UserContext"
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {useNavigate} from "react-router-dom"
 
+
+function getUserDocId(){
+  const storage = localStorage.getItem("userDocId")
+  return storage ? JSON.parse(storage) : null
+}
+
 export default function Suggestions(){
   const navigate = useNavigate()
   const [toggleSubHeader, setToggleSubHeader] = useState(false)  
@@ -21,6 +27,11 @@ export default function Suggestions(){
   const [users, setUsers] = useState(null)
   const {currentUser, setUsersProfile} = useContext(UserContext)
   const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)
+  const [userDocId] = useState(getUserDocId)
+  const [isFollowing, setIsFollowing] = useState(false)
+  
+  
+  
     function scrollFunction() {
        const scrollPos = window.scrollY
      
@@ -62,16 +73,37 @@ export default function Suggestions(){
     if (!isLoadedFromServer) {
     
       const getUsers = async () => {
-        try {
+      try {
           const res = await db.listDocuments('652755cdc76b42b46adb', '652755d73451dcffebde')
 
           const filtered = res.documents.filter(el => {
             return el.$id !== currentUser.uid
           })
+        console.log(filtered)
+
           setUsers(filtered)
-          console.log(filtered);
+    
+          /*
+         const followingRes = await db.getDocument('652755cdc76b42b46adb','653007869312ccf2fa4c', currentUser.uid)
+   setIsFollowing(JSON.parse(followingRes.following))
+   */
+     //    console.log(followingRes)
+/* const mapFollowing = followingRes.following.map(el => {
+     return JSON.parse(el).id.includes(userDocId.id)
+});
+console.log(mapFollowing)
+
+console.log(isFollowingPresent)
+if(isFollowingPresent){
+  setIsFollowing(isFollowingPresent)
+}*/
+      //   console.log(filterFollowing)
+     
+     //    console.log(followingRes)
+         // console.log(filtered);
         }
       catch (e) {
+        console.log(e)
           if (e.code === 500) {
            // console.log("navigatiing")
           navigate('/err-code')
@@ -90,32 +122,18 @@ export default function Suggestions(){
     }
  },[isLoadedFromServer, users])
   
-const displayUserProfile = async(idx) =>{
+const displayUserProfile = async(idx, user) =>{
   //navigate("/user")
-  console.log(idx)
+//  console.log(idx)
  setUsersProfile(idx)
   localStorage.setItem("usersProfile", idx)
+  localStorage.setItem("userDocId", user.user)
   navigate("/user")
-  /*try{
-  const res = await db.getDocument('652755cdc76b42b46adb', '652755d73451dcffebde', idx)
-  
-  setUsersProfile(res)
-  
-}
-catch(e){
-  console.log(e)
-}*/
 }
 
-  const followBtn = async (el,id) => {
-    const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
-    const otherUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", id)
-  
-    console.log(JSON.parse(currUser.user)); 
-console.log(JSON.parse(otherUser.user));
-    const updateCurrUserFollowers = {
-    user:[]
-  }
+  const followBtn = async (el,id, idx) => {
+
+    
 }
 
 
@@ -140,7 +158,7 @@ console.log(JSON.parse(otherUser.user));
           users ? users.map((user, id) => (
           
         <div onClick={() =>{
-        displayUserProfile(user.$id)
+        displayUserProfile(user.$id, user)
 }} className = "suggestions-box" key={JSON.parse(user.user).id}> 
          <div style={{display:"flex", alignItems:"center"}}>
           <div className="suggestions-image">
@@ -151,10 +169,10 @@ console.log(JSON.parse(otherUser.user));
             <p className="suggestions-bio">{JSON.parse(user.user).bio}</p>
           </div>
           </div>
-              <button className="suggestions-btn" onClick={(e) => {
-               e.stopPropagation()
-                followBtn(JSON.parse(user.user), user.$id)
-              }}> Follow </button>
+              <button className="suggestions-btn" onClick={() => {
+              
+                followBtn(user, user.$id, id)
+              }}> View Profile</button>
         </div>
           )) : (
             <TextBasedLoader />

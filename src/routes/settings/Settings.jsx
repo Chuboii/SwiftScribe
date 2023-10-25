@@ -4,14 +4,15 @@ import {db} from '/src/utils/appwrite/appwrite.utils'
 import { UserContext } from "../../context/UserContext"
 import Skeleton from '@mui/material/Skeleton';
 import {useContext, useEffect, useState} from "react"
-
-
-
+import EditProfile from "/src/components/edit profile/EditProfile"
+import {ToggleContext} from "/src/context/ToggleContext"
 export default function Settings(){
   const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)
  const {currentUser} = useContext(UserContext)
  const [user, setUser] = useState(null)
  const parsedUser = user ? JSON.parse(user.user) : ""
+ const {toggleEdit, setToggleEdit} = useContext(ToggleContext)
+  
   useEffect(() => {
    
     if (!isLoadedFromServer) {
@@ -20,7 +21,7 @@ export default function Settings(){
 
         setUser(res)
         console.log(res);
-
+      localStorage.setItem("userDocId", res.user)
       }
 
       getUsers()
@@ -31,6 +32,7 @@ export default function Settings(){
  
   return (
     <>
+   {toggleEdit && <EditProfile/>}
     <div className="settings-container">
     <h1 className="setting-h1"> Settings</h1>
     <div className="setting-item"> 
@@ -45,7 +47,7 @@ export default function Settings(){
 <div className="setting-public">
 <div className="setting-pub-text-box">
 <p className="setting-pub-txt"> Public Information</p>
-<p className="setting-pub-edit"> Edit your photo, email, bio, etc</p>
+<p className="setting-pub-edit" onClick={()=> setToggleEdit(true)}> Edit your photo, email, bio, etc</p>
 </div>
 <div className="setting-pub-user">
 <p className="setting-pub-name"> {user ? parsedUser.displayName : ( <Skeleton sx={{width:"100px"}} animation="wave"/>)} </p>
@@ -60,7 +62,7 @@ export default function Settings(){
 
 
 <div className="setting-delete">
-<p className="setting-d-txt"> Deactivate account</p>
+<p className="setting-d-txt"> Delete account</p>
 <p className="setting-d-t">Permanently delete your account and all of your content.</p>
 </div>
 </div>

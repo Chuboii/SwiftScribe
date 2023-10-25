@@ -6,8 +6,10 @@ import {useContext, useState, useRef} from "react"
 import {db, storage} from "/src/utils/appwrite/appwrite.utils"
 import { updateProfile } from 'firebase/auth'
 import { useNavigate } from "react-router-dom"
+
+
 export default function SettingUp(){
-  const {currentUser} = useContext(UserContext)
+  const {currentUser,isEmail, isGoogleSignupAvatar} = useContext(UserContext)
   const [value, setValue] = useState({
     name: currentUser.displayName,
     bio: "",
@@ -16,7 +18,7 @@ export default function SettingUp(){
   const ref = useRef()
   const [fileName] = useState("uploader")
   const navigate = useNavigate()
-  
+   
   const submitForm = async (e) =>{
     e.preventDefault()
   const {name, bio, username} = value
@@ -31,6 +33,7 @@ export default function SettingUp(){
           )
 
           const imageUrl = await storage.getFileView("6527ea2a83ff9adab8e7", currentUser.uid)
+       
         
           await updateProfile(currentUser, {
             displayName: value.name,
@@ -39,10 +42,28 @@ export default function SettingUp(){
           )
         }
         else {
+         try{ 
+          await storage.createFile(
+            '6527ea2a83ff9adab8e7',
+            currentUser.uid,
+            document.getElementById(fileName).files[0]
+          )
+
+          const imageUrl = await storage.getFileView("6527ea2a83ff9adab8e7", currentUser.uid)
+         
           await updateProfile(currentUser, {
             displayName: value.name,
-          }
-          )
+            photoURL: imageUrl.href === null ? currentUser.photoURL : imageUrl.href
+          })
+         } catch(e){
+           if(e.message === `Missing required parameter: "file""`){
+             await updateProfile(currentUser, {
+            displayName: value.name,
+            photoURL:  currentUser.photoURL
+          })
+           }
+         }
+          
         }
 
      const userInfo = {
@@ -54,6 +75,7 @@ export default function SettingUp(){
          followers: 0,
          following:0,
          isDisabled: false,
+         isFollowing: false,
          displayName: currentUser.displayName,
          email: currentUser.email,
          photoURL: currentUser.photoURL
@@ -61,6 +83,7 @@ export default function SettingUp(){
      
       await db.createDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid, userInfo)
         navigate('/')
+     
 
       }
    catch(e){
@@ -106,7 +129,10 @@ export default function SettingUp(){
     <label style={{display:"block", fontSize:"14px", color:'gray', marginBottom:".5rem"}}  htmlFor=""> Your email</label>
     <p>{currentUser.email}</p>
     </div>
-          {currentUser.photoURL ? "" : <AddAvatar fileID={fileName} />}
+    {isGoogleSignupAvatar && <p style={{fontSize:"13px",display:"flex", flexDirection:"column", justifyContent:"center", alignItem:"center", textAlign:"center"}}> It appears you are using google to signup, you can change your avatar here
+      <AddAvatar fileID={fileName} />
+        </p>}
+    {isEmail && <AddAvatar fileID={fileName} />}
     <button className="create-acct-btn"> Create account </button>
    </form>
     </div>

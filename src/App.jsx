@@ -22,8 +22,8 @@ import WritePost from "./routes/write post/WritePost"
 import UserPost from "./routes/user post page/UserPost"
 import UserProfilePost from "./routes/user profile home post/UserProfilePost"
 import ErrPage from "./routes/err page/ErrPage"
-
-
+import SearchPosts from "./routes/search posts/SearchPosts"
+import SearchPeople from "./routes/search people/SearchPeople"
 function App() {
 
   return (
@@ -62,7 +62,10 @@ function App() {
    <ForYou/> </>}/>
 <Route path="following" element={<><HomeSubHeader/> <Following/> </>} />
 <Route path="following/suggestions" element={<> <HomeSubHeader/> <Suggestions/> </>}/>
-    <Route path="search" element={<SearchPage/>}/>
+    <Route path="search" element={<SearchPage/>}>
+    <Route index element={<SearchPeople/>}/>
+    <Route path="posts" element={<SearchPosts/>}/>
+    </Route>
      </Route>
      
      

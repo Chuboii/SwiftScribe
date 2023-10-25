@@ -7,9 +7,13 @@ import Success from "/src/components/alert/success/Success"
 import {ErrContext} from "/src/context/ErrContext"
 import {useContext, useState, useEffect} from "react"
 import Err from "/src/components/alert/err/Err"
+import {UserContext} from "/src/context/UserContext"
+
+
 function EmailSignup() {
   const {register,handleSubmit, formState:{errors}} = useForm({mode:"onChange"})
   const {setErrMsg, isErrToggled,setIsErrToggled} = useContext(ErrContext)
+  const { setIsGoogleSignupAvatar, setIsEmail} = useContext(UserContext)
  const [isSuccess, setIsSuccess] = useState(false)
  const navigate = useNavigate()
  useEffect(()=>{
@@ -41,6 +45,8 @@ function EmailSignup() {
 }
 
 const submitForm = async (data) =>{
+  setIsGoogleSignupAvatar(false)
+  setIsEmail(true)
   const {email, password, confirmPassword} = data
 if(password === confirmPassword){
   try{

@@ -9,11 +9,14 @@ import {UserContext} from "/src/context/UserContext"
 import {useContext, useState} from "react"
 import { db } from "/src/utils/appwrite/appwrite.utils"
 import Success from "/src/components/alert/success/Success"
+import {ErrContext} from "/src/context/ErrContext"
+import Err from "/src/components/alert/err/Err"
 
 export default function Signup() {
     const navigate = useNavigate()
-const {currentUser} = useContext(UserContext)
+const {currentUser,setIsEmail, setIsGoogleSignupAvatar} = useContext(UserContext)
 const [isSuccess, setIsSuccess] = useState(false)
+const {errMsg, setErrMsg, isErrToggled, setIsErrToggled} = useContext(ErrContext)
 const googleBtn = async() =>{
  try{
      const { user } = await signInWithGoogle()
@@ -31,8 +34,14 @@ const googleBtn = async() =>{
            setIsSuccess(true)
            setTimeout(() => {
             navigate("/swiftscribe/callback/setting-up")
+            setIsGoogleSignupAvatar(true)
+            setIsEmail(false)
            }, 2000);
          
+       }
+       else if(e.code === "auth/popup-closed-by-user"){
+         setIsErrToggled(true)
+         setErrMsg("Connection Timeout")
        }
   }
 }
@@ -56,6 +65,7 @@ const facebookBtn = async() =>{
     return (
         <>
             {isSuccess && <Success/>}
+            {isErrToggled && <Err/> }
             <div className="signup-container">
                 <h3 className='signup-title'>Join SwiftScribe</h3>
             

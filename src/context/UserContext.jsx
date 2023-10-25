@@ -19,11 +19,28 @@ function getFriendsId() {
   return storage ? storage : null
 }
 
+function getPostUserId() {
+  const storage = localStorage.getItem("postUserId")
+  return storage ? storage : null
+}
+
+function getPost() {
+  const storage = localStorage.getItem("postDetails")
+  return storage ? JSON.parse(storage) : null
+}
+
+
 export const UserProvider = ({children})=>{
  const [currentUser, setCurrentUser] = useState(getCurrentUser)
  const [usersProfile, setUsersProfile] = useState(getUsersProfile)
  const [friendsId, setFriendsId] = useState(getFriendsId)
  const navigate = useNavigate()
+ const [isGoogleSignupAvatar, setIsGoogleSignupAvatar]
+ = useState(false)
+ const [isEmail, setIsEmail] = useState(true)
+ const [postUserId, setPostUserId] = useState(getPostUserId)
+ const [commentCount, setCommentCount] = useState(0)
+ const [postDetails] = useState(getPost)
  
  const triggerSignout = () =>{
   signUserOut()
@@ -38,6 +55,7 @@ export const UserProvider = ({children})=>{
     if(user){
      setCurrentUser(user);
      localStorage.setItem("currentUser", JSON.stringify(user))
+     
     }
     else{
       navigate("/swiftscribe/signup")
@@ -49,10 +67,10 @@ export const UserProvider = ({children})=>{
   };
 
 }, []);
+//triggerSignout()
 
 
-
-  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile, setUsersProfile}
+  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile,setPostUserId, setUsersProfile, isGoogleSignupAvatar, setIsGoogleSignupAvatar, isEmail, postUserId, setIsEmail, setCommentCount, postDetails, commentCount}
   
   return (
     <UserContext.Provider value={value}>

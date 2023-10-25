@@ -6,7 +6,27 @@
       border-bottom:1px solid gray;
     }
     .notification-box{
-      padding-top:1rem;
+      padding:1.5rem .5rem;
+     border-radius:5px;
+      align-items: center;
+      display:flex;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    background: rgba(255,255,255,0.4);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.2);
+      margin-top:1rem;
+      .n-name{
+        width:250px;
+       
+      }
+      .n-img{    
+        object-fit:cover;
+        margin-right:.9rem;
+        width:40px;
+        height:40px;
+        border-radius:50%;
+      }
     }
   }
 }
