@@ -9,19 +9,41 @@ import {db} from "/src/utils/appwrite/appwrite.utils"
 import {useState, useRef, useEffect, useContext} from "react"
 import {UserContext} from "/src/context/UserContext"
 import {v4 as uuidv4} from "uuid"
+import {useLocation} from "react-router-dom"
+import Bg from "/src/components/bg/Bg"
+import {NotificationContext} from "/src/context/NotificationContext"
+
+
 export default function CommentBox({toggle}){
  const [value, setValue] = useState("")
-  const {usersProfile,postDetails, postUserId, setCommentCount, currentUser} = useContext(UserContext)
+  const {usersProfile,postDetails, postUserId, setCommentCount, linkId, currentUser} = useContext(UserContext)
   const [blogPosted, setBlogPosted] = useState(null)
  const [comments, setComments] = useState(null)
  const [createMargin, setCreateMargin] = useState("3rem")
  const elementToScroll = useRef()
+  const location = useLocation()
+ const {setNotifyUser} = useContext(NotificationContext)
+ 
   const toggleCommentBox = () =>{
     toggle(false)
   }
   
   useEffect(()=>{
     const getComments = async () =>{
+      
+      try{
+        
+ 
+    const getComment = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId)
+    
+   setComments(JSON.parse(getComment.blog).comments)
+
+   setCommentCount(JSON.parse(getComment.blog).comments.length)
+      }
+      catch(e){
+        console.log(e)
+      }
+     /*
       try{
       const getComment = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
      
@@ -32,17 +54,17 @@ export default function CommentBox({toggle}){
       }
       catch(e){
         console.log(e)
-      }
+      }*/
     }
     getComments()
   },[blogPosted])
- // console.log(comments.length)
- // console.log("hdh")
-  //console.log(comments)
+
+
+
+
   const handleComment = async(e)=> {
     e.preventDefault()
     if(value){
- console.log(postUserId)
  
  try{
   const date = new Date()
@@ -61,44 +83,41 @@ export default function CommentBox({toggle}){
  }
  
  await db.createDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notice)
-
- console.log("notified")
+setNotifyUser(res)
+// console.log("notified")
 
  }
   catch(e){
-       // console.log(e)
-  /*  if (e.code === 409){
-     const getNotify = await db.getDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId)
-
-     const date = new Date()
-
-     const nData = {
-    uid: currentUser.uid,
-     id: uuidv4(),
+    if(e.code === 409){
+     const prev = await db.getDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId)
+const date = new Date()
+       const notifyData = {
+   uid: currentUser.uid,
+   id: uuidv4(),
    photo: currentUser.photoURL, 
    name: currentUser.displayName,
    task: "Just commented on your post",
+   time: date,
    post:postDetails.blogTitle,
    postImg: postDetails.blogTitleImg,
-   time: date
-     }
-     
-     getNotify.notify.push(JSON.stringify(nData))
-  // const data = JSON.parse()
-     const notifyData = {
-       notify: getNotify.notify
-     }
-  //   console.log(notifyData)
-    await db.updateDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notifyData)
-     console.log("notify updated")
-     
-
+ }
  
-  }*/
+prev.notify.push(JSON.stringify(notifyData))
+//console.log(prev.notify)
+ const notice ={
+   notify: [...prev.notify]
+ }
+// console.log(notice)
+const res = await db.updateDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notice)
+setNotifyUser(res)
+// console.log("updated notify")
       }
+      
+  }      
+      
   
       try{
-    const getComment = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
+    const getComment = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId)
      const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
     
     const mapped = [JSON.parse(getComment.blog)].map(el =>{
@@ -109,7 +128,8 @@ export default function CommentBox({toggle}){
        userId: currUser.$id,
        commentLike:[],
        commentLikeCount: 0,
-       replies: []
+       replies: [],
+       time:""
       })
    return {...el, comments:arr, commentsCount: arr.length}
 
@@ -120,12 +140,11 @@ export default function CommentBox({toggle}){
    blog: [JSON.stringify(mapped[0])]
   }
 //console.log(updateLikes)
- const res =  await db.updateDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile, updateComments)
+ const res =  await db.updateDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId, updateComments)
  setBlogPosted(JSON.parse(res.blog))
- console.log(JSON.parse(res.blog))
+ 
  setValue("")
- //setCreateMargin("5rem")
-// elementToScroll.current.scrollY = "50px"
+
 }
 catch (e){
   console.log(e)
@@ -147,7 +166,7 @@ catch (e){
     }}>
     <header className="cb-header">
     <p className="cb-header-response"> Responses ({comments ? comments.length : ""})</p>
-<CloseIcon onClick={toggleCommentBox}/>
+<CloseIcon sx={{zIndex:6,opacity:1}} onClick={toggleCommentBox}/>
     </header>
     
 <main className="cb-main">
@@ -157,15 +176,15 @@ catch (e){
 <img src={el.photoURL} className="cb-main-img"/>
 <div className="cb-main-pro">
 <p className="cb-main-name" style={{fontWeight:"600"}}> @{el.username} </p>
-                <p className="cb-main-time" style={{ fontSize:"17px"}}> 2 days ago </p>
+             {/*   <p className="cb-main-time" style={{ fontSize:"17px"}}> {el.time} </p>*/}
 </div>
 <MoreHorizIcon sx={{position:"absolute", right:"1rem;"}} />
 </header>
-<section className="cb-main-text"> {el.comment}</section>
+<section className="cb-main-text"> {el.comment}</section>{/*
 <section className="cb-footer-icons">
 <p className="cb-footer-like"> <FavoriteBorderIcon sx={{marginRight:".3rem"}}/> 60 </p>
 <p className="cb-footer-comment"> <CommentIcon sx={{marginRight:".3rem"}}/> 60 replies </p>
-</section>
+</section>*/}
 {/*
 <section className="cb-replies-box">
 <header className="cb-replies-header">
@@ -182,7 +201,7 @@ catch (e){
 
 </section>
 </section>*/}
-</div>)) : ""}
+</div>)) : <Bg/>}
 </main>
 <form onSubmit={handleComment} className="cb-form">
 <input value={value} onChange={changeValues} type="text" className="cb-form-input"/>

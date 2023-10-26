@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom"
 export default function GeneralProfileHome(){
   const [toggleHeader, setToggleHeader] = useState(false)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
-  const {usersProfile, setUsersProfile, setFriendsId} = useContext(UserContext)
+  const {usersProfile,setLinkId, setPostDetails, setPostUserId, setUsersProfile, setFriendsId} = useContext(UserContext)
   const [data, setData] = useState(null)
   const navigate = useNavigate()
   
@@ -29,14 +29,20 @@ export default function GeneralProfileHome(){
     //console.log(usersProfile)
     if (!isDataLoaded && usersProfile) {
       //  console.log(usersProfile)
-      console.log(usersProfile);
+  //    console.log(usersProfile);
      
       const getData = async() => {
         try{
-          const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", usersProfile)
-          
-          //console.log(res)
-       setData(res)
+          const res = await db.listDocuments("652755cdc76b42b46adb", "652ebb6ad8417bfdac54")
+      //  console.log(res.documents)
+      const filtered = res.documents.filter(el =>{
+          return JSON.parse(el.blog).userId === usersProfile
+        })
+       
+      // console.log(filtered)
+     
+    setData(filtered)
+     
 
           
      setIsDataLoaded(false) 
@@ -47,7 +53,7 @@ export default function GeneralProfileHome(){
             blog:[]
           })
         }
-     //   console.log(e.type)
+        console.log(e.type)
       }
       }
 getData()
@@ -55,10 +61,28 @@ getData()
     }, [isDataLoaded])
 
   
-const viewBlog = (idx) =>{
-  setFriendsId(idx)
-    localStorage.setItem("friendsId", idx)
-    navigate("/user/post")
+const viewBlog = (idx, el) =>{
+ // console.log(idx)
+ setFriendsId(idx)
+ console.log(el.$id)
+   localStorage.setItem("friendsId", idx)
+ //  console.log(data.$id)
+ //  console.log(JSON.parse(el))
+  // console.log(el)
+  localStorage.setItem('postDetails', el.blog)
+  localStorage.setItem('suggestId', el.$id)
+  const storage2 = localStorage.getItem('suggestId') 
+ setLinkId(storage2)
+  localStorage.setItem('postUserId', JSON.parse(el.blog).userId)
+    localStorage.setItem('usersProfile', el.$id)
+
+
+   const storage4= localStorage.getItem('postUserId') 
+   setPostUserId(storage4)
+   const storage3 = localStorage.getItem('postDetails') 
+ //  console.log(data)
+   setPostDetails(JSON.parse(storage3))
+ navigate(`post/${el.$id}`)
   }
 // console.log(data)
   return(
@@ -66,25 +90,25 @@ const viewBlog = (idx) =>{
    {toggleHeader && <HomeHeader/>}
    <div className="generalprofilehome-container">
   {
-    data ? data.blog.map(doc =>(
-  <div key={JSON.parse(doc).id} className="gph-box" onClick={() =>{
-    viewBlog(JSON.parse(doc).id)
+    data ? data.map(doc =>(
+  <div key={JSON.parse(doc.blog).id} className="gph-box" onClick={() =>{
+    viewBlog(JSON.parse(doc.blog).id, doc)
   }}>
   <header className="gph-header">
-   <img src={JSON.parse(doc).photo} alt="profile-pic" className="gph-header-img"/>
+   <img src={JSON.parse(doc.blog).photo} alt="profile-pic" className="gph-header-img"/>
   
    <p className="gph-post-time">
    1 day ago
    </p>
    </header>
    <main className="gph-main">
-  <p className="gph-title"> {JSON.parse(doc).blogTitle} </p>
-  <img src={JSON.parse(doc).blogTitleImg} alt="title-img" className="gph-main-img"/>
+  <p className="gph-title"> {JSON.parse(doc.blog).blogTitle} </p>
+  <img src={JSON.parse(doc.blog).blogTitleImg} alt="title-img" className="gph-main-img"/>
    </main>
    
    <footer className="gph-footer">
-   <p className="gph-tag"> {JSON.parse(doc).tag[0]}</p>
-   <p className="gph-read-time">{JSON.parse(doc).readTime} mins read </p>
+   <p className="gph-tag"> {JSON.parse(doc.blog).tag[0]}</p>
+   <p className="gph-read-time">{JSON.parse(doc.blog).readTime} mins read </p>
    </footer>
    </div>
  )) : <TextBasedLoader/>

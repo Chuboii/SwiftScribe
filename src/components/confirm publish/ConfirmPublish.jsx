@@ -6,6 +6,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import {v4 as uuidv4} from 'uuid'
 import {db} from "/src/utils/appwrite/appwrite.utils"
 import { useNavigate } from "react-router-dom";
+import Bg from "/src/components/bg/Bg"
+import Err from "/src/components/alert/err/Err"
+import {ErrContext} from "/src/context/ErrContext"
+
 
 function ConfirmPublish({setTToggleBox, title, subTitle, mainPost, titImg}) {
     const [toggleTagBox, setToggleTagBox] = useState(false)
@@ -14,6 +18,11 @@ const [value, setValue] = useState('')
     const [tags, setTags] = useState([])
     const [increHeight, setIncreHeight] = useState(200)
     const navigate = useNavigate()
+    const [isImageLoaded,setIsImageLoaded] = useState(false)
+    const {isErrToggled, setIsErrToggled, setErrMsg} = useContext(ErrContext)
+ 
+ 
+    
     const enableTags = () => {
     setToggleTagBox(!toggleTagBox)
     }
@@ -24,6 +33,7 @@ const [value, setValue] = useState('')
         if (e.nativeEvent.data === ',') {
             setTags([...tags, value])
             setValue('')
+            
             setIncreHeight(prev => prev + 10)
         } 
     }
@@ -34,6 +44,9 @@ const [value, setValue] = useState('')
   
 
 const sendPost = async () => {
+ if(title && tags){
+  setIsImageLoaded(true)
+  
   const date = new Date()
   try{
     const wordPerMin = 250
@@ -67,6 +80,7 @@ const sendPost = async () => {
   await db.createDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid, userBlog)
     console.log("done")
     navigate('/')
+    setIsImageLoaded(false)
   }
   catch(e){
     console.log(e)
@@ -102,20 +116,26 @@ console.log(getUsername)
        // console.log(getData.blog)
         await db.updateDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid, updatedBlog)
       navigate("/")
+      setIsImageLoaded(false)
         console.log('done');
       }
       catch (e) {
         console.log(e);
       }
     }
-
+}
+  }
+  else{
+    setIsErrToggled(true)
+    setErrMsg("Title and tag(s) seems empty")
   }
 }
 
 
   return (
       <>
-        
+        {isImageLoaded && <Bg/>}
+        {isErrToggled && <Err/>}
           <div className="confirmpublish-container">
               <CloseIcon sx={{ position: "absolute", right: "1rem", color: "white", background: "orangered", fontSize: "30px", borderRadius: "5px", cursor: "pointer" }} onClick={() => setTToggleBox(false) } />
  <div className="cp-first">

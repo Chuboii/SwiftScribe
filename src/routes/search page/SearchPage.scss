@@ -8,6 +8,25 @@
             margin-top: 4rem;
             font-size:23px;
         }
+        .sp-header-last{
+          
+        position:relative;
+        top:1rem;
+        border-bottom:1px solid gray;
+        padding-bottom:.5rem;
+        .gp-link{
+          color: black;
+          margin-right:1rem;
+          &:first-child{
+          border-bottom:2px solid;
+          padding-bottom:.5rem;
+          }
+          &:last-child{
+          border-bottom:2px solid;
+          padding-bottom:.5rem;
+          }
+        }
+        }
     }
 }
 

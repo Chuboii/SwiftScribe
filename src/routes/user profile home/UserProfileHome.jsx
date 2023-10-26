@@ -18,7 +18,7 @@ export default function UserProfileHome() {
   const [subHeaderTop, setSubHeaderTop] = useState(0)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [blogPreview, setBlogPreview] = useState(null)
-  const {currentUser, setFriendsId} =useContext(UserContext)
+  const {currentUser,setLinkId, setPostDetails, setFriendsId} =useContext(UserContext)
   const navigate = useNavigate()
   
   function scrollFunction() {
@@ -74,11 +74,17 @@ export default function UserProfileHome() {
     }
   },[isDataLoaded])
  
-  const viewBlog = (idx) =>{
+  const viewBlog = (idx, el) =>{
     setFriendsId(idx)
     localStorage.setItem("friendsId", idx)
-    console.log(idx);
-   navigate("/user/profile/post")
+   // console.log(idx);
+   localStorage.setItem('postDetails', el)
+ //  console.log(el)
+   const storage2 = localStorage.getItem('friendsId') 
+   setLinkId(storage2)
+   const storage3 = localStorage.getItem('postDetails') 
+   setPostDetails(JSON.parse(storage3))
+   navigate(`/user/profile/${idx}`)
   }
 
 
@@ -91,7 +97,7 @@ export default function UserProfileHome() {
    <div className="userprofilehome-container">
         {blogPreview ? blogPreview.blog.map(doc => (
           <div key={JSON.parse(doc).id} className="uph-box" onClick={()=> {
-           viewBlog(JSON.parse(doc).id)
+           viewBlog(JSON.parse(doc).id, doc)
           }}>
           <header className="uph-header">
             <img src={JSON.parse(doc).photo} alt="profile-pic" className="uph-header-img" />

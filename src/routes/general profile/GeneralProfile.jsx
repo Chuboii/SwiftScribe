@@ -7,6 +7,7 @@ import {useContext, useState, useEffect} from "react"
 import {UserContext} from "/src/context/UserContext"
 import {db} from "/src/utils/appwrite/appwrite.utils"
 import {v4 as uuidv4} from "uuid"
+import Bg from "/src/components/bg/Bg"
 function getUserDocId() {
   const storage = localStorage.getItem("userDocId")
   return storage ? JSON.parse(storage) : null
@@ -23,6 +24,9 @@ export default function GeneralProfile(){
   const [isFollowed, setIsFollowed] = useState(false)
   const [userDocId, setUserDocId] = useState(getUserDocId)
   const [reload , setReload] = useState(false)
+  const [isImageLoaded,setIsImageLoaded] = useState(false)
+  
+  
   const tapHome = () =>{
     setIsHomeClicked("2px solid")
     setIsAboutClicked("none")
@@ -64,7 +68,7 @@ catch(e){
   
   
   const enableFollow = async () => {
-  
+  setIsImageLoaded(true)
  //   console.log(enableFollowing)
  
     try{
@@ -77,6 +81,7 @@ const followingObj = JSON.parse(otherUser.user)
    }
  
  await db.createDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, followingData)
+ setIsImageLoaded(false)
  setIsFollowed(true)
  console.log("following created successfully")
  
@@ -98,6 +103,7 @@ const followingObj = JSON.parse(otherUser.user)
  await db.createDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", usersProfile, notice)
 // setReload("yeah")
  console.log("notified")
+ 
     }
     catch(e){
    //console.log(e)
@@ -158,8 +164,8 @@ const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffe
          }
      await db.updateDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, updatedData)
   //   console.log("following updated")
-
-    
+setIsImageLoaded(false)
+    setIsFollowed(true)
   const existingFollowingDoc2 =  await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
  
 const followingMap =  [JSON.parse(currUser.user)].map(el =>{
@@ -202,7 +208,7 @@ catch(e){
   console.log(e)
 }*/
      
- setIsFollowed(true)
+ 
  }
  else {
    console.log("following exists already")
@@ -314,7 +320,7 @@ catch(e){
    <MoreHorizIcon sx={{position:"absolute", right:"1rem;"}}/>
     </div>
     <div className="gp-header-middle">
-    <button onClick={enableFollow} className="gp-header-fbtn" style={{border: isFollowed ? "1px solid orangered" :"", background: isFollowed ? "transparent" : "orangered", color: isFollowed ? "orangered" : "white"}}> {isFollowed ? "Following" : "Follow"} </button>
+    <button onClick={enableFollow} className="gp-header-fbtn" style={{border: isFollowed ? "1px solid orangered" :"", background: isFollowed ? "transparent" : "orangered", color: isFollowed ? "orangered" : "white"}}> {isFollowed ? "Following" : "Follow"} {isImageLoaded && <Bg/>} </button>
     </div>
     <div className="gp-header-last">
     <Link to={"/user"} style={{borderBottom:isHomeClicked}} onClick={tapHome} className="gp-link"> Home </Link>

@@ -27,13 +27,14 @@ export default function UserProfilePost(){
         const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", currentUser.uid)
     
           const filtered = res.blog.filter(el => {
-     return JSON.parse(el).id === friendsId
+            
+    return JSON.parse(el).id === friendsId
    })
-  console.log(res)
+ //console.log(filtered)
   const arr = {
     blog: filtered
   }
-          setData(res)
+          setData(filtered)
  // console.log(JSON.parse(arr.blog[0]).blogPost)
 const blog = document.querySelector(".usp-content")
 blog.innerHTML = JSON.parse(res.blog[0]).blogPost
@@ -56,7 +57,7 @@ profilePageHome()
     <>
     {toggleCommentBox && <CommentBox toggle={setToggleCommentBox}/>}
     <div className="userpost-container">
-   {data ? data.blog.map(doc => (
+   {data ? data.map(doc => (
   <div key={JSON.parse(doc).id}>
    <div className="usp-titles">
     <h1 className="usp-tit">{JSON.parse(doc).blogTitle}</h1>

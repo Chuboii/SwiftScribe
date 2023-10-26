@@ -48,13 +48,13 @@ const {setToggleMenu} = useContext(ToggleContext)
   {isSearchBtnClicked && 
   <> 
   <span>Search results for</span>
-  <span style={{color:"orangered"}}>{searchData}</span>
+  <span style={{color:"orangered", marginLeft:".5rem"}}>{searchData}</span>
   </>
 }
 </h1>
-  <div className="gp-header-last">
+  <div className="sp-header-last">
     <Link to={"/search"} style={{borderBottom:isHomeClicked}} onClick={tapHome} className="gp-link"> People </Link>
-    <Link to={"posts"} style={{borderBottom:isAboutClicked, paddingBottom:"1rem"}} onClick={tapAbout} className="gp-link"> Posts </Link>
+    <Link to={"posts"} style={{borderBottom:isAboutClicked, paddingBottom:".5rem"}} onClick={tapAbout} className="gp-link"> Posts </Link>
     </div>
     {<Outlet/>}
    </div>

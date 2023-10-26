@@ -17,7 +17,7 @@ export default function ForYou(){
   const [subHeaderPos, setSubHeaderPos] = useState('relative')
   const [headerPos, setHeaderPos] = useState("relative")
 const [subHeaderTop, setSubHeaderTop] = useState(0)
-const {currentUser, setPostUserId, setUsersProfile} = useContext(UserContext)
+const {currentUser, setPostDetails,setLinkId, setPostUserId, setUsersProfile} = useContext(UserContext)
 const [isDataLoaded, setIsDataLoaded] = useState(false)
 const navigate = useNavigate()
  const [blogPreview, setBlogPreview] = useState(null)
@@ -110,14 +110,30 @@ const navigate = useNavigate()
     
   },[isDataLoaded])
  
-  const enableUserPost = (idx, el) => {
-   localStorage.setItem('usersProfile', idx)
+  const enableUserPost = async (idx, el) => {
+  //  console.log(idx)
+  localStorage.setItem('usersProfile', idx)
    localStorage.setItem('postUserId', JSON.parse(el.blog).userId)
+   localStorage.setItem("suggestId", idx)
    localStorage.setItem('postDetails', el.blog)
+   localStorage.setItem('userDocId', el.blog)
+   
+   
+ 
    const storage = localStorage.getItem('postUserId') 
    setPostUserId(storage)
+   const storage2 = localStorage.getItem('suggestId') 
+   setLinkId(storage2)
+  // const storage4 = localStorage.getItem('xyz') 
+   
+   const storage3 = localStorage.getItem('postDetails') 
+   setPostDetails(JSON.parse(storage3))
    setUsersProfile(idx)
-     navigate("user/post")
+   const user = await db.getDocument("652755cdc76b42b46adb","652755d73451dcffebde", storage) 
+   localStorage.setItem('userDocId', user.user)
+  
+    navigate(`user/post/${idx}`)
+     
  //  console.log(JSON.parse(el.blog));
  }
   return(

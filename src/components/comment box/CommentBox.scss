@@ -1,7 +1,7 @@
 @media screen and (min-width:0) and (max-width:700px) {
   
 .commentbox-container{
-  padding:1rem;
+//  padding:1rem;
   position:fixed;
   bottom:0;
   background:white;
@@ -9,6 +9,7 @@
   left:0;
   right:0;
   overflow-y:scroll;
+  
   height:90vh;
   box-shadow:0 0 10px 0 rgba(0,0,0,.3);
  border-top-left-radius: 20px; 
@@ -19,12 +20,17 @@
     display:flex;
     justify-content: space-between;
   position:sticky;
+  width:100%;
     left:0;
     right:0;
-    padding:1rem;
+    
+    background: rgba(255,255,255,0.4);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.2);
+    padding:1.5rem;
     top:-1rem;
-    background:white;
-    z-index:2;
+z-index: 2;
  .cb-header-response{
    font-size:30px;
    font-weight:700;
@@ -34,10 +40,11 @@
   .cb-main{
     margin-top:2rem;
     margin-bottom:3rem;
+    padding:1rem;
     .cb-main-box{
      
-      padding:1rem 0;
-      margin-top:1rem;
+      padding:.1rem 0;
+     
       border-bottom:1px solid gray;
     .cb-main-header{
       display:flex;

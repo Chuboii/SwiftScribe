@@ -24,8 +24,12 @@ import UserProfilePost from "./routes/user profile home post/UserProfilePost"
 import ErrPage from "./routes/err page/ErrPage"
 import SearchPosts from "./routes/search posts/SearchPosts"
 import SearchPeople from "./routes/search people/SearchPeople"
-function App() {
+import {useState, useContext} from "react"
+import {UserContext} from '/src/context/UserContext'
 
+
+function App() {
+const {linkId} = useContext(UserContext)
   return (
     <>
       
@@ -41,8 +45,8 @@ function App() {
         
 
   <Route path="/" element={<Home/>}>
-          <Route path="user/post" element={<UserPost />} />
-          <Route path="user/profile/post" element={<UserProfilePost/>}/>
+          <Route path={`user/post/${linkId}`} element={<UserPost />} />
+          <Route path={`user/profile/${linkId}`} element={<UserProfilePost/>}/>
      <Route path="notification" element={<Notification/>}/>
     <Route path="settings" element={<Settings/>}/>
      

@@ -10,7 +10,7 @@ import {v4 as uuidv4} from "uuid"
 import {UserContext} from "/src/context/UserContext"
 import {firebaseStorage} from "/src/utils/firebase/firebase.utils"
 import {getDownloadURL, ref, uploadBytesResumable}from "firebase/storage"
-
+import Bg from "/src/components/bg/Bg"
 export default function WritePost() {
   const navigate = useNavigate()
   const [toggleConfirmPublish, setToggleConfirmPublish] = useState(false)
@@ -26,6 +26,7 @@ export default function WritePost() {
 const {currentUser} = useContext(UserContext)
 const [isImageAvailable, setIsImageAvailable] = useState(false)
 const [titleImg, setTitleImg] = useState("")
+const [isImageLoaded,setIsImageLoaded] = useState(false)
 
   const enableConfirmPublish = () => {
     setToggleConfirmPublish(true)
@@ -65,11 +66,15 @@ const [titleImg, setTitleImg] = useState("")
 const uploadTask = uploadBytesResumable(storageRef, file);
 uploadTask.on('state_changed', 
   (snapshot) => {
-
+   setIsImageLoaded(true)
     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
     console.log('Upload is ' + progress + '% done');
+  // console.log(progres)
+   //etProgress(Math.floor(progres))
+   
     switch (snapshot.state) {
       case 'paused':
+       
         console.log('Upload is paused');
         break;
       case 'running':
@@ -90,6 +95,7 @@ const img = document.createElement("img")
    img.classList.add("tit-img")
        img.src =downloadURL
        setIsImageAvailable(true)
+       setIsImageLoaded(false)
       console.log('File available at', downloadURL);
     });
   }
@@ -112,7 +118,7 @@ const storageRef = ref(firebaseStorage, `${currentUser.displayName}${uuidv4()}`)
 const uploadTask = uploadBytesResumable(storageRef, file);
 uploadTask.on('state_changed', 
   (snapshot) => {
-
+setIsImageLoaded(true)
     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
     console.log('Upload is ' + progress + '% done');
     switch (snapshot.state) {
@@ -146,6 +152,7 @@ const img = document.createElement("img")
  setStartWritingValue(board.innerHTML)
    img.classList.add("board-img")
  //  console.log(startWritingValue
+setIsImageLoaded(false)
        setIsImageAvailable(true)
       console.log('File available at', downloadURL);
     });
@@ -190,7 +197,7 @@ sel.addRange(range);
    
    <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
           <div className="wp-insert-cover" >
-         
+    {isImageLoaded && <Bg/>}
    <AddPhotoAlternateOutlinedIcon className="wp-cover-icon" sx={{fontSize:"50px"}}/>
    <input type="file" className="wp-cover-inp" accept="image/*" id="wp-cover-inp-id" onChange={insertTitleImg}/>
    </div>

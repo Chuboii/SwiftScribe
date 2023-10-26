@@ -1,7 +1,7 @@
 import {useState, useEffect,createContext} from "react"
 import {onAuthChanged, signUserOut} from "/src/utils/firebase/firebase.utils"
 import {v4 as uuidv4} from "uuid"
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useLocation} from "react-router-dom"
 
 export const UserContext = createContext()
 
@@ -29,7 +29,11 @@ function getPost() {
   return storage ? JSON.parse(storage) : null
 }
 
+function getLinkId(){
+  const storage = localStorage.getItem("suggestId")
+  return storage ? storage : null
 
+}
 export const UserProvider = ({children})=>{
  const [currentUser, setCurrentUser] = useState(getCurrentUser)
  const [usersProfile, setUsersProfile] = useState(getUsersProfile)
@@ -40,8 +44,9 @@ export const UserProvider = ({children})=>{
  const [isEmail, setIsEmail] = useState(true)
  const [postUserId, setPostUserId] = useState(getPostUserId)
  const [commentCount, setCommentCount] = useState(0)
- const [postDetails] = useState(getPost)
- 
+ const [postDetails, setPostDetails] = useState(getPost)
+ const [linkId, setLinkId] = useState(getLinkId)
+ const location = useLocation()
  const triggerSignout = () =>{
   signUserOut()
   localStorage.setItem("currentUser", JSON.stringify(null))
@@ -65,12 +70,16 @@ export const UserProvider = ({children})=>{
   return () => {
     unsubscribe(); 
   };
-
+   
+  if(location.pathname){
+    navigate("/swiftscribe/signup")
+  }
+  
 }, []);
 //triggerSignout()
 
 
-  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile,setPostUserId, setUsersProfile, isGoogleSignupAvatar, setIsGoogleSignupAvatar, isEmail, postUserId, setIsEmail, setCommentCount, postDetails, commentCount}
+  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile,setPostUserId, setUsersProfile, isGoogleSignupAvatar, setIsGoogleSignupAvatar, isEmail, postUserId, setIsEmail, setCommentCount, postDetails,linkId, setPostDetails, setLinkId, commentCount}
   
   return (
     <UserContext.Provider value={value}>

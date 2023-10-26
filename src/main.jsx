@@ -7,10 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 import {ToggleProvider} from "/src/context/ToggleContext"
 import {SearchDataProvider} from "./context/SearchData"
 import './index.scss'
-
+import {NotificationProvider} from "./context/NotificationContext"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
   <BrowserRouter>
+  <NotificationProvider>
   <ErrProvider>
   <UserProvider>
   <ToggleProvider>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </ToggleProvider>
       </UserProvider>
       </ErrProvider>
+      </NotificationProvider>
       </BrowserRouter>
   </React.StrictMode>
 )

@@ -8,41 +8,65 @@ import {useState, useEffect, useContext} from "react"
 import {UserContext} from "/src/context/UserContext"
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {v4 as uuidv4} from "uuid"
+import {useLocation} from "react-router-dom"
+import {NotificationContext} from "/src/context/NotificationContext"
+
 function getUserDocId() {
   const storage = localStorage.getItem("userDocId")
   return storage ? JSON.parse(storage) : null
 }
 
-export default function LikeBox({enable}){
+
+export default function LikeBox({enable, pos}){
   const [getDocId] = useState(getUserDocId)
-  const {usersProfile,postDetails, postUserId, setCommentCount, commentCount, currentUser} = useContext(UserContext)
+  const {usersProfile,postDetails, postUserId, setCommentCount,linkId, commentCount, currentUser} = useContext(UserContext)
   const [blogLikes, setBlogLikes] = useState(0)
   const [isData, setIsData] = useState(null)
   const [isClicked, setIsClicked] = useState(true)
   const [isLikeAvailable, setIsLikeAvailable] = useState(false)
   const [blogComment, setBlogComment] = useState(null)
-  
+  const {setNotifyUser} = useContext(NotificationContext)
   //console.log(postDetails)
-  
+  const location = useLocation()
   useEffect(()=>{
     const getLikes = async() =>{
-      const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
-const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+     // console.log(postUserId)
+      try{
+      //console.log(linkId)
+      const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId)
+        const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+   
+
 const duplicate = JSON.parse(res.blog).likes.some(el => el.$id === currUser.$id)
+
  setIsLikeAvailable(duplicate)
+ //console.log(JSON.parse(res.blog).comments)
 // console.log(duplicate)
   setBlogLikes(JSON.parse(res.blog).likes.length)
- setBlogComment(JSON.parse(res.blog).commentsCount)
- setCommentCount(JSON.parse(res.blog).commentsCount)
+ setBlogComment(JSON.parse(res.blog).comments)
+ setCommentCount(JSON.parse(res.blog).comments.length)
+  
+      }catch(e){
+        console.log(e)
+      }
     }
     getLikes()
   },[isData, blogComment])
   
+  
+  
+  
+  
+  
+  
   const enableLike = async () =>{
   
  if(isClicked){
+   
     try{
-  const getPrevLikes = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
+    //  console.log(usersProfile)
+  const getPrevLikes = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId)
+ // console.log(getPrevLikes)
   const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
 //  setBlogLikes(c => c + 1)
   
@@ -60,7 +84,7 @@ const duplicate = JSON.parse(res.blog).likes.some(el => el.$id === currUser.$id)
    blog: [JSON.stringify(increLikes[0])]
   }
 //console.log(updateLikes)
- const res =  await db.updateDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile, updateLikes)
+ const res =  await db.updateDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId, updateLikes)
  setIsData(res)
  
   const date = new Date()
@@ -78,7 +102,8 @@ const duplicate = JSON.parse(res.blog).likes.some(el => el.$id === currUser.$id)
    notify: [JSON.stringify(notifyData)]
  }
  
- await db.createDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notice)
+const resN = await db.createDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notice)
+ setNotifyUser(resN)
 // setReload("yeah")
  console.log("notified")
  
@@ -120,8 +145,9 @@ console.log(JSON.parse(res.blog))
        notify: getNotify.notify
      }
      console.log(notifyData)
-    await db.updateDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notifyData)
+  const resN =  await db.updateDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", postUserId, notifyData)
      console.log("notify updated")
+     setNotifyUser(resN)
  }
  else{
    console.log("notify exists already ")
@@ -135,12 +161,33 @@ console.log(JSON.parse(res.blog))
     }
  }
 }
+ 
+ 
+ const handleShare = async () => {
+  try {
+    await navigator.share({
+      title: postDetails.blogTitle,
+      text: postDetails.blogSubTitle,
+      url: location.pathname,
+      image: postDetails.blogTitleImg
+    });
+  //  console.log(location.pathname)
+  } catch (error) {
+    console.error('Sharing failed:', error);
+  }
+};
+
   
   
+  
+  
+  
+  
+ // console.log(pos)
   return (
     <>
     
-   <div className="usp-like-box"> 
+   <div className="usp-like-box" style={{position:pos, bottom:0, left:0, right:0}}> 
    <div className="usp-lc">
    <div className="usp-likes" onClick={enableLike}>
    {isLikeAvailable ? <FavoriteIcon sx={{marginRight:".5rem", color:"red"}}/>  : <FavoriteBorderIcon sx={{marginRight:".5rem", color:"red"}}/> }{blogLikes} </div>
@@ -149,7 +196,7 @@ console.log(JSON.parse(res.blog))
    </div>
    
       <div className="usp-share-more">
-    <ShareSharpIcon  sx={{marginRight:"1rem"}}/>
+    <ShareSharpIcon onClick={handleShare}  sx={{marginRight:"1rem"}}/>
  <MoreHorizIcon/> 
    </div>
    </div>

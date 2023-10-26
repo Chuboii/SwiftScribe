@@ -61,7 +61,7 @@ export default function SearchPeople(){
   return(
     <>
     <div className="searchpeople-container">
-  <p style={{fontWeight:"700"}}>  Recent Search </p>
+  <p style={{fontWeight:"700", marginTop:"1.5rem"}}>  Recent Search (People)</p>
      {userNotFound && <span> User not Found</span>}
   {
           users  ? users.map((user, id) => (

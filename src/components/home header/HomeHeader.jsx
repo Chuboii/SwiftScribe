@@ -12,7 +12,8 @@ import {Outlet, Link, useNavigate} from "react-router-dom"
 import {ToggleContext} from "/src/context/ToggleContext"
 import Aside from '../aside/Aside';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-
+import {db} from "/src/utils/appwrite/appwrite.utils"
+import {NotificationContext} from "/src/context/NotificationContext"
 
 function HomeHeader({pos}) {
     const {toggleMenu, setToggleMenu} = useContext(ToggleContext)
@@ -20,7 +21,23 @@ function HomeHeader({pos}) {
    const [toggleSearchInput, setToggleSearchInput] = useState(false)
    const [deskstopSize, setDesktopSize] = useState(false)
    const navigate= useNavigate()
-   
+ const [data, setData] = useState(null)
+ const {notifyUser} = useContext(NotificationContext)
+useEffect(()=>{
+  
+  const getData = async()=>{
+    const res = await db.getDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", currentUser.uid)
+    setData(res.notify)
+  //console.log(res)
+  }
+  
+  getData()
+  
+ 
+},[notifyUser])
+
+
+
    useEffect(()=>{
      function resizeScreen(){
     const screenWidth = window.innerWidth
@@ -67,7 +84,8 @@ const toggleHome = () =>{
        {deskstopSize && <SearchInput/>}
        {deskstopSize && <DriveFileRenameOutlineOutlinedIcon onClick={() => navigate('/write-blog')} sx={{position:"absolute", right:"10rem", fontSize:"30px", cursor:"pointer"}}/>}
                 <div className="homeheader-second">
-                <Link to={"/notification"}>
+                <Link className="hs-bell" to={"/notification"}>
+                <div className="hs-num"> {data ? data.length : 0}</div>
                <NotificationsNoneOutlinedIcon className='homeheader-noti' style={{color:"black"}}/>
                </Link>
                     <div className='homeheader-image' onClick={enableMenu}>

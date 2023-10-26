@@ -8,6 +8,12 @@ import {db} from '/src/utils/appwrite/appwrite.utils'
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {UserContext} from "/src/context/UserContext"
 import {v4 as uuidv4} from "uuid"
+import HomeSubHeader from "/src/components/home sub header/HomeSubHeader"
+import HomeHeader from "../../components/home header/HomeHeader"
+import {useLocation} from "react-router-dom"
+
+
+
 function getUserDocId() {
   const storage = localStorage.getItem("userDocId")
   return storage ? JSON.parse(storage) : null
@@ -17,19 +23,73 @@ export default function UserPost(){
   //const [postId] = useState(getPostId)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [data, setData] = useState(null)
-  const {usersProfile,postUserId, friendsId, currentUser} = useContext(UserContext)
+  const {usersProfile, postDetails,postUserId, linkId, currentUser} = useContext(UserContext)
   const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
   const [isFollowed, setIsFollowed] = useState(false)
   const [reload , setReload] = useState(false)
  const [userDocId, setUserDocId] = useState(getUserDocId)
+  const [scrollYY, setScrollYY] = useState(0)
+  const [subHeaderPos, setSubHeaderPos] = useState('relative')
+  const [headerPos, setHeaderPos] = useState("relative")
+const [subHeaderTop, setSubHeaderTop] = useState(0)
+const [likeBoxBottom, setLikeBoxBottom] = useState(0)
+const [likeBoxPos, setLikeBoxPos] = useState("relative")
+const [toggleSubHeader, setToggleSubHeader] = useState(false)
+const [toggleHeader, setToggleHeader] = useState(false)
+
+const location = useLocation()
+
+
+function scrollFunction() {
+     const scrollPos = window.scrollY
+   
+    setScrollYY(scrollPos)
+   if (scrollYY > 150) {
+      setToggleSubHeader(true)
+     setSubHeaderPos('fixed')
+     setSubHeaderTop(0)
+    }
+    else {
+      setToggleSubHeader(false)
+   }
+    
+   if (scrollPos <scrollYY) {
+    setToggleHeader(true)
+     setHeaderPos('fixed')
+     setSubHeaderTop(4.5)
+     setLikeBoxPos("fixed")
+  }
+  else {
+    setToggleHeader(false)
+    setLikeBoxPos("relative")
+  }
+
+
+
+  }
+
+  useEffect(() => {
+  
+   
+    window.addEventListener("scroll", scrollFunction)
+
+    
+  }, [scrollYY])
+  
+
+
+
+
+
+
 
   useEffect(() => {
     if (!isDataLoaded) {
       const forYouData = async() => {
         try{
-          const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", usersProfile)
+          const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId)
           //localStorage.setItem("friendsId", null)
 setData(res)
 //console.log(users)
@@ -45,15 +105,15 @@ blog.innerHTML = JSON.parse(res.blog[0]).blogPost
       }
       }
 forYouData()
-
+/*
 const suggestionFriendsHomePage = async() => {
         try{
         const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", `${usersProfile}`)
    const filtered = res.blog.filter(el => {
-     return JSON.parse(el).id === friendsId
+     return JSON.parse(el).id === linkId
    })
 
-          //console.log(filtered)
+          console.log(filtered)
   const arr = {
     blog: filtered
   }
@@ -71,7 +131,7 @@ blog.innerHTML = JSON.parse(arr.blog[0]).blogPost
       }
 }
       
-suggestionFriendsHomePage()
+suggestionFriendsHomePage()*/
     }
     }, [isDataLoaded])
 
@@ -88,13 +148,13 @@ useEffect(() =>{
       }
       try{
       const followingRes = await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
-      
+      console.log(followingRes)
       const a = followingRes.following.map(el =>{
       return JSON.parse(el).id.includes(userDocId.id)
     } )
     
     const b = a.some(el => el === true)
-    console.log(a)
+    console.log(b)
     setIsFollowed(b)
 }
 catch(e){
@@ -321,12 +381,33 @@ catch(e){
 
 
 
+const handleShare = async () => {
 
+  try {
+    
+    await navigator.share({
+      title: postDetails.blogTitle,
+      text: postDetails.blogSubTitle,
+      url: location.pathname,
+      image: postDetails.blogTitleImg
+    });
+  //  console.log(location.pathname)
+  } catch (error) {
+    console.error('Sharing failed:', error);
+  }
+};
+
+  
   return (
     <>
     {toggleCommentBox && <CommentBox toggle={setToggleCommentBox}/>}
     <div className="userpost-container">
-   {data ? data.blog.map(doc => (
+   {data ? data.blog.map(doc =>{
+   const time = new Date(JSON.parse(doc).datePosted)
+   const shorten = time.toLocaleString()
+
+   return (
+     
   <div key={JSON.parse(doc).id}>
    <div className="usp-titles">
     <h1 className="usp-tit">{JSON.parse(doc).blogTitle}</h1>
@@ -337,10 +418,10 @@ catch(e){
     <div className="usp-header-text">
     <p className="usp-header-name"><span >{JSON.parse(doc).displayName}</span>
     <span style={{color:"orangered",display:'block', marginLeft:".5rem"}} onClick={enableFollow} className="gp-header-fbtn"> {isFollowed ? "Following" : "Follow"} </span>  </p>
-    <p className="usp-header-mins"><span style={{marginRight:".5rem"}}> {JSON.parse(doc).readTime} mins read </span> <span> 9 days ago </span> </p>
+    <p className="usp-header-mins"><span style={{marginRight:".5rem"}}> {JSON.parse(doc).readTime} mins read </span> <span>{shorten} </span> </p>
 
     </div>
-    <ShareSharpIcon style={{position:"absolute", right:"1rem"}} className="usp-header-share"/> 
+    <ShareSharpIcon onClick={handleShare} style={{position:"absolute", right:"1rem"}} className="usp-header-share"/> 
     </header>
   
     
@@ -349,10 +430,10 @@ catch(e){
            <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
     <div className="usp-content"> </div>
-<LikeBox enable={enableCommentBox}/>
+<LikeBox pos={likeBoxPos} enable={enableCommentBox}/>
     </main>
     </div>
-    )) : <TextBasedLoader/>
+    )}) : <TextBasedLoader/>
 
   }
     <footer>

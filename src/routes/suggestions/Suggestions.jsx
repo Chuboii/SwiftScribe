@@ -9,7 +9,6 @@ import { UserContext } from "../../context/UserContext"
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {useNavigate} from "react-router-dom"
 
-
 function getUserDocId(){
   const storage = localStorage.getItem("userDocId")
   return storage ? JSON.parse(storage) : null
@@ -29,9 +28,7 @@ export default function Suggestions(){
   const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)
   const [userDocId] = useState(getUserDocId)
   const [isFollowing, setIsFollowing] = useState(false)
-  
-  
-  
+ 
     function scrollFunction() {
        const scrollPos = window.scrollY
      
@@ -79,7 +76,7 @@ export default function Suggestions(){
           const filtered = res.documents.filter(el => {
             return el.$id !== currentUser.uid
           })
-        console.log(filtered)
+     //   console.log(filtered)
 
           setUsers(filtered)
     

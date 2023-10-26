@@ -12,7 +12,7 @@ export default function SearchPosts(){
   const [userNotFound, setUserNotFound] = useState(false)
   const {setUsersProfile} = useContext(UserContext)
   const navigate = useNavigate()
- 
+ const {setLinkId, setPostDetails} = useContext(UserContext)
   useEffect(()=>{
     
     if(searchData){
@@ -46,22 +46,26 @@ export default function SearchPosts(){
   },[searchData, isSearchBtnClicked])
   
 
-  const viewBlog = async(idx, el) =>{
+  const viewBlog = async(idx, el, ell) =>{
   //  console.log(userr)
     setUsersProfile(idx)
    // console.log(idx)
     localStorage.setItem("usersProfile", idx)
     localStorage.setItem("postUserId", el)
+    localStorage.setItem('postDetails', ell.blog)
     const user = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", el)
-    
+    const storage2 = localStorage.getItem('usersProfile') 
+   setLinkId(storage2)
+   const storage3 = localStorage.getItem('postDetails') 
+   setPostDetails(JSON.parse(storage3))
    localStorage.setItem("userDocId", user.user)
-    navigate("/user/post")
+    navigate(`/user/post/${idx}`)
     
   }
   return(
     <>
     <div className="searchposts-container">
-      <p style={{fontWeight:"700"}}>  Recent Search </p>
+      <p style={{fontWeight:"700",marginTop:"1.5rem"}}>  Recent Search (Posts)</p>
      {userNotFound && <span> User not Found</span>}
    {
     data ? data.map(doc =>(
