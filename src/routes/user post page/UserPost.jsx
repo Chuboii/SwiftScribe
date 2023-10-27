@@ -496,7 +496,7 @@ const handleShare = async () => {
          <div className="usp-titleImage">
            <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
-    <div className="usp-content" ref={blog}></div>
+    <div className="usp-content" ref={blog}>1334</div>
 <LikeBox pos={likeBoxPos} enable={enableCommentBox}/>
     </main>
     </div>
