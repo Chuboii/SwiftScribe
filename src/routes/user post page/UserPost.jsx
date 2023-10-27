@@ -21,7 +21,7 @@ function getUserDocId() {
 export default function UserPost(){
   const [toggleCommentBox, setToggleCommentBox] = useState(false)
   //const [postId] = useState(getPostId)
-  const [isDataLoaded, setIsDataLoaded] = useState(null)
+  const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [data, setData] = useState(null)
   const {usersProfile, postDetails,postUserId, linkId, currentUser} = useContext(UserContext)
   const enableCommentBox = () =>{
@@ -95,14 +95,14 @@ setData(res)
 const blog = document.querySelector(".usp-content")
 
 if(res.blog[0] && blog){
-  setIsDataLoaded(res) 
-blog.innerHTML = JSON.parse(res.blog[0]).blogPost
+  setIsDataLoaded(true) 
+blog.innerHTML = "JSON.parse(res.blog[0]).blogPost"
 
 //blog.current.innerHTML = JSON.parse(res.blog[0]).blogPost
-
 }
 else{
   console.log("not found")
+
 }
  //console.log(JSON.parse(res.blog[0]).blogPost)
      //   console.log(res)
@@ -496,7 +496,7 @@ const handleShare = async () => {
          <div className="usp-titleImage">
            <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
-    <div className="usp-content" ref={blog}> </div>
+    <div className="usp-content" ref={blog}></div>
 <LikeBox pos={likeBoxPos} enable={enableCommentBox}/>
     </main>
     </div>
