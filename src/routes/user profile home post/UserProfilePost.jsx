@@ -13,7 +13,7 @@ export default function UserProfilePost(){
   const [toggleCommentBox, setToggleCommentBox] = useState(false)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
     const [data, setData] = useState(null)
-    const {friendsId, currentUser} = useContext(UserContext)
+    const {linkId, currentUser} = useContext(UserContext)
    const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
@@ -28,9 +28,9 @@ export default function UserProfilePost(){
     
           const filtered = res.blog.filter(el => {
             
-    return JSON.parse(el).id === friendsId
+    return JSON.parse(el).id === linkId
    })
- //console.log(filtered)
+ console.log(filtered)
   const arr = {
     blog: filtered
   }

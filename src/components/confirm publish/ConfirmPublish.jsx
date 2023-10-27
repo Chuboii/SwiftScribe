@@ -104,7 +104,9 @@ console.log(getUsername)
           blogPost: mainPost,
           tag: tags,
           likes: 0,
+          likesCount: 0,
           comments: [],
+          commentsCount: 0,
           replies: [],
           readTime: Math.floor(wordCount / wordPerMin),
         }

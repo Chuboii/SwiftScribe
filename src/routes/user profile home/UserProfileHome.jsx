@@ -76,11 +76,12 @@ export default function UserProfileHome() {
  
   const viewBlog = (idx, el) =>{
     setFriendsId(idx)
-    localStorage.setItem("friendsId", idx)
+    localStorage.setItem("suggestId", idx)
    // console.log(idx);
    localStorage.setItem('postDetails', el)
  //  console.log(el)
-   const storage2 = localStorage.getItem('friendsId') 
+// const storage = 
+   const storage2 = localStorage.getItem('suggestId') 
    setLinkId(storage2)
    const storage3 = localStorage.getItem('postDetails') 
    setPostDetails(JSON.parse(storage3))

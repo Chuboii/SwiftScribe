@@ -105,33 +105,7 @@ blog.innerHTML = JSON.parse(res.blog[0]).blogPost
       }
       }
 forYouData()
-/*
-const suggestionFriendsHomePage = async() => {
-        try{
-        const res = await db.getDocument("652755cdc76b42b46adb", "652c619059614689c161", `${usersProfile}`)
-   const filtered = res.blog.filter(el => {
-     return JSON.parse(el).id === linkId
-   })
 
-          console.log(filtered)
-  const arr = {
-    blog: filtered
-  }
-setData(arr)
-const blog = document.querySelector(".usp-content")
-blog.innerHTML = JSON.parse(arr.blog[0]).blogPost
-      //console.log(JSON.parse(res.blog[0]).blogPost)
-          
-        //console.log(res)
-     setIsDataLoaded(false) 
-      }
-      catch(e){
-        
-    //    console.log(e)
-      }
-}
-      
-suggestionFriendsHomePage()*/
     }
     }, [isDataLoaded])
 
