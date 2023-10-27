@@ -31,7 +31,7 @@ export default function UserProfilePost(){
             
     return JSON.parse(el).id === linkId
    })
- onsole.log(filtered)
+// onsole.log(filtered)
   const arr = {
     blog: filtered
   }

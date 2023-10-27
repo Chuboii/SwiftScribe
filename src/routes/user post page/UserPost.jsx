@@ -85,6 +85,7 @@ function scrollFunction() {
 
 
   useEffect(() => {
+    let timeout;
     if (!isDataLoaded) {
       const forYouData = async() => {
         try{
@@ -92,8 +93,14 @@ function scrollFunction() {
           //localStorage.setItem("friendsId", null)
 setData(res)
 
-if(blog.current){
+
+if(res.blog[0] && blog.current){
+  timeout = setTimeout(()=>{
 blog.current.innerHTML = JSON.parse(res.blog[0]).blogPost
+}, 1000)
+}
+else{
+  console.log("not found")
 }
  //console.log(JSON.parse(res.blog[0]).blogPost)
      //   console.log(res)
@@ -107,6 +114,8 @@ blog.current.innerHTML = JSON.parse(res.blog[0]).blogPost
 forYouData()
 
     }
+    
+    return timeout
     }, [isDataLoaded])
 
 //console.log(data)
@@ -127,7 +136,7 @@ useEffect(() =>{
     setIsFollowed(b)
 }
 catch(e){
-  console.log(e)
+//  console.log(e)
 }
       
      }
