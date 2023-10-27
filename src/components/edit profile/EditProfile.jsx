@@ -42,6 +42,7 @@ const [isLoaded, setIsLoaded] = useState(false)
   
   const updateUserProfile = async() => {
     if(value.name || value.bio || value.username){
+  setIsLoaded(true)
     try{
     const getUserDoc = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
   //const file = document.querySelector("#edit-image-id").files[0]
@@ -67,6 +68,7 @@ await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentU
    console.log("done")
    
    setToggleEdit(false)
+   setIsLoaded(false)
     }
     catch(e){
       console.log(e)
@@ -112,6 +114,7 @@ uploadTask.on('state_changed',
   
   return(
     <>
+    {isLoaded && <Bg/>}
     <div className="editprofile-container">
     <header className="ep-header">
     <CloseIcon onClick={() => setToggleEdit(false)}/>
