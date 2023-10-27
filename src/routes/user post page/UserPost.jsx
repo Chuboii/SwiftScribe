@@ -40,6 +40,8 @@ const [toggleSubHeader, setToggleSubHeader] = useState(false)
 const [toggleHeader, setToggleHeader] = useState(false)
 const location = useLocation()
 const blog = useRef()
+const [blogContent, setBlogContent] = useState('');
+
 
 function scrollFunction() {
      const scrollPos = window.scrollY
@@ -94,11 +96,9 @@ setData(res)
 
 const blog = document.querySelector(".usp-content")
 
-if(res.blog[0] && blog){
-  setIsDataLoaded(true) 
-blog.innerHTML = "JSON.parse(res.blog[0]).blogPost"
-
-//blog.current.innerHTML = JSON.parse(res.blog[0]).blogPost
+if(res.blog[0]){
+  setBlogContent(JSON.parse(res.blog[0]).blogPost);
+    
 }
 else{
   console.log("not found")
@@ -496,7 +496,9 @@ const handleShare = async () => {
          <div className="usp-titleImage">
            <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
-    <div className="usp-content" ref={blog}>1334</div>
+    <div className="usp-content" dangerouslySetInnerHTML={{ __html: blogContent }}>
+  
+    </div>
 <LikeBox pos={likeBoxPos} enable={enableCommentBox}/>
     </main>
     </div>
