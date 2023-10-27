@@ -7,7 +7,7 @@ import {useEffect,useRef, useState, useContext} from "react"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {UserContext} from "/src/context/UserContext"
-
+import RenderHtml from  "/src/components/htmltag/RenderHtml"
 
 export default function UserProfilePost(){
   const [toggleCommentBox, setToggleCommentBox] = useState(false)
@@ -15,6 +15,8 @@ export default function UserProfilePost(){
     const [data, setData] = useState(null)
     const {linkId, currentUser} = useContext(UserContext)
     const blogRef = useRef()
+    const [blogContent, setBlogContent] = useState('');
+
    const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
@@ -36,10 +38,10 @@ export default function UserProfilePost(){
     blog: filtered
   }
           setData(filtered)
+          setBlogContent(JSON.parse(res.blog[0]).blogPost);
+    
  // console.log(JSON.parse(arr.blog[0]).blogPost)
- if(blogRef.current){
-blogRef.current.innerHTML = JSON.parse(res.blog[0]).blogPost
-} //console.log(res)
+ 
      setIsDataLoaded(false) 
       }
       catch(e){
@@ -77,7 +79,8 @@ profilePageHome()
     <main className="usp-main">
     <div className="usp-titleImage"> <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg"/></div>
     
-    <div className="usp-content" ref={blogRef}> </div>
+   
+    <RenderHtml htmlContent={blogContent}/>
 <LikeBox enable={enableCommentBox}/>
     </main>
     </div>

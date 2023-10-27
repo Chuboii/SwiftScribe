@@ -11,6 +11,10 @@ import Followers from "/src/components/followers/Followers"
 import Followings from "/src/components/followings/Followings"
 import {NotificationContext} from "/src/context/NotificationContext"
 
+
+
+
+
 export default function UserProfile(){
   const {setToggleMenu} = useContext(ToggleContext)
  const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)

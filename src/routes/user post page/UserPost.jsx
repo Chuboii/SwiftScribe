@@ -11,7 +11,7 @@ import {v4 as uuidv4} from "uuid"
 import HomeSubHeader from "/src/components/home sub header/HomeSubHeader"
 import HomeHeader from "../../components/home header/HomeHeader"
 import {useLocation} from "react-router-dom"
-
+import RenderHtml from  "/src/components/htmltag/RenderHtml"
 
 
 function getUserDocId() {
@@ -496,9 +496,9 @@ const handleShare = async () => {
          <div className="usp-titleImage">
            <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
-    <div className="usp-content" dangerouslySetInnerHTML={{ __html: blogContent }}>
-  
-    </div>
+
+  <RenderHtml htmlContent={blogContent}/>
+    
 <LikeBox pos={likeBoxPos} enable={enableCommentBox}/>
     </main>
     </div>
