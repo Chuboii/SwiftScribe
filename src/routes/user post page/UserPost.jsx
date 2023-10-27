@@ -92,7 +92,9 @@ function scrollFunction() {
           //localStorage.setItem("friendsId", null)
 setData(res)
 
-blog.current.innerHTML = "jdj"
+if(blog.current){
+blog.current.innerHTML = JSON.parse(res.blog[0]).blogPost
+}
  //console.log(JSON.parse(res.blog[0]).blogPost)
      //   console.log(res)
      setIsDataLoaded(res) 

@@ -3,7 +3,7 @@ import ShareSharpIcon from '@mui/icons-material/ShareSharp';
 import CommentBox from "/src/components/comment box/CommentBox"
 import img from '/src/assets/swiftscribe logo.jpg'
 import LikeBox from "/src/components/like box/LikeBox"
-import {useEffect, useState, useContext} from "react"
+import {useEffect,useRef, useState, useContext} from "react"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {UserContext} from "/src/context/UserContext"
@@ -14,6 +14,7 @@ export default function UserProfilePost(){
   const [isDataLoaded, setIsDataLoaded] = useState(false)
     const [data, setData] = useState(null)
     const {linkId, currentUser} = useContext(UserContext)
+    const blogRef = useRef()
    const enableCommentBox = () =>{
     setToggleCommentBox(true)
   }
@@ -30,16 +31,15 @@ export default function UserProfilePost(){
             
     return JSON.parse(el).id === linkId
    })
- console.log(filtered)
+ onsole.log(filtered)
   const arr = {
     blog: filtered
   }
           setData(filtered)
  // console.log(JSON.parse(arr.blog[0]).blogPost)
-const blog = document.querySelector(".usp-content")
-blog.innerHTML = JSON.parse(res.blog[0]).blogPost
-
-        //console.log(res)
+ if(blogRef.current){
+blogRef.current.innerHTML = JSON.parse(res.blog[0]).blogPost
+} //console.log(res)
      setIsDataLoaded(false) 
       }
       catch(e){
@@ -77,7 +77,7 @@ profilePageHome()
     <main className="usp-main">
     <div className="usp-titleImage"> <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg"/></div>
     
-    <div className="usp-content"> </div>
+    <div className="usp-content" ref={blogRef}> </div>
 <LikeBox enable={enableCommentBox}/>
     </main>
     </div>
