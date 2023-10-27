@@ -3,7 +3,7 @@ import ShareSharpIcon from '@mui/icons-material/ShareSharp';
 import CommentBox from "/src/components/comment box/CommentBox"
 import img from '/src/assets/swiftscribe logo.jpg'
 import LikeBox from "/src/components/like box/LikeBox"
-import {useEffect, useState, useContext} from "react"
+import {useEffect, useRef, useState, useContext} from "react"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import TextBasedLoader from "/src/components/loaders/TextBasedLoader"
 import {UserContext} from "/src/context/UserContext"
@@ -21,7 +21,7 @@ function getUserDocId() {
 export default function UserPost(){
   const [toggleCommentBox, setToggleCommentBox] = useState(false)
   //const [postId] = useState(getPostId)
-  const [isDataLoaded, setIsDataLoaded] = useState(false)
+  const [isDataLoaded, setIsDataLoaded] = useState(null)
   const [data, setData] = useState(null)
   const {usersProfile, postDetails,postUserId, linkId, currentUser} = useContext(UserContext)
   const enableCommentBox = () =>{
@@ -38,9 +38,8 @@ const [likeBoxBottom, setLikeBoxBottom] = useState(0)
 const [likeBoxPos, setLikeBoxPos] = useState("relative")
 const [toggleSubHeader, setToggleSubHeader] = useState(false)
 const [toggleHeader, setToggleHeader] = useState(false)
-
 const location = useLocation()
-
+const blog = useRef()
 
 function scrollFunction() {
      const scrollPos = window.scrollY
@@ -92,12 +91,11 @@ function scrollFunction() {
           const res = await db.getDocument("652755cdc76b42b46adb", "652ebb6ad8417bfdac54", linkId)
           //localStorage.setItem("friendsId", null)
 setData(res)
-//console.log(users)
-const blog = document.querySelector(".usp-content")
-blog.innerHTML = JSON.parse(res.blog[0]).blogPost
-//console.log(JSON.parse(res.blog[0]).blogPost)
+
+blog.current.innerHTML = "jdj"
+ //console.log(JSON.parse(res.blog[0]).blogPost)
      //   console.log(res)
-     setIsDataLoaded(false) 
+     setIsDataLoaded(res) 
       }
       catch(e){
         
@@ -114,12 +112,7 @@ forYouData()
 useEffect(() =>{
     
     const getData = async() =>{
-   try{
-      const res = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
-     // setData(res)
-      }catch(e){
-        console.log(e)
-      }
+   
       try{
       const followingRes = await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
       console.log(followingRes)
@@ -490,7 +483,7 @@ const handleShare = async () => {
          <div className="usp-titleImage">
            <img src={JSON.parse(doc).blogTitleImg} className="usp-titleImg" /></div>
     
-    <div className="usp-content"> </div>
+    <div className="usp-content" ref={blog}> </div>
 <LikeBox pos={likeBoxPos} enable={enableCommentBox}/>
     </main>
     </div>
