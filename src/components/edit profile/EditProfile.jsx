@@ -11,12 +11,15 @@ import {useNavigate} from "react-router-dom"
 import {v4 as uuidv4} from "uuid"
 import {updateProfile} from "firebase/auth"
 import {auth} from "/src/utils/firebase/firebase.utils"
+import Bg from "/src/components/bg/Bg"
 
 export default function EditProfile(){
   const { setToggleEdit} = useContext(ToggleContext)
   const {currentUser, userDocId} = useContext(UserContext)
   const [userInfo, setUserInfo] = useState(null)
 //  const [userDoc] = useState(getUserDocId)
+const [isLoaded, setIsLoaded] = useState(false)
+
   const [value, setValue] = useState({
     name: userDocId.displayName,
     bio:userDocId.bio,
@@ -27,10 +30,12 @@ export default function EditProfile(){
   
   const changeValues = (e) =>{
    // console.log(e.target.value)
+   if(e.target.value.length <= 50) {
     setValue((prevValue) => ({
   ...prevValue,
   [e.target.name]: e.target.value 
 }));
+}
 //console.log(value.name)
   }
   
@@ -70,6 +75,7 @@ await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentU
   }
   
   const changeImage = async (e) => {
+   setIsLoaded(true)
     const file = e.target.files[0]
   const storageRef = ref(firebaseStorage, `${currentUser.displayName}${uuidv4()}`);
 
@@ -95,6 +101,7 @@ uploadTask.on('state_changed',
 
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       setImageUrl(downloadURL)
+      setIsLoaded(false)
       console.log('File available at', downloadURL);
     });
   }
@@ -117,7 +124,10 @@ uploadTask.on('state_changed',
     <div className="ep-profile-box">
     <p style={{marginBottom:".5rem"}}> photo </p>
     <div  className="ep-pro-box">
+    <div style={{position:"relative", width:"70px", marginRight:"1rem"}}>
     <img className="ep-img" src={imageUrl ? imageUrl : currentUser.photoURL}/>
+    {isLoaded && <Bg/>}
+    </div>
     <div className="ep-pro-sec">
     <div className="ep-pro-upper">
     <p className="ep-pro-btn" > <input onChange={changeImage} type="file" id="edit-image-id" style={{position:"absolute", opacity:"0"}} /> Update </p>
@@ -136,21 +146,21 @@ uploadTask.on('state_changed',
         <p> Name* </p>
      <input value={value.name} onChange={changeValues} name="name" className="ep-name-inp"/>
      <p className="ep-name-p"> Appears on your Profile page, and your byline.
-     <span> 11/50</span>
+     <span> {value.name.length}/50</span>
      </p>
      </div>
     <div className="ep-name-wrap">
       <p> Username* </p>
-     <input value={value.username} onChange={changeValues} name="username"  className="ep-username-inp"/>
+     <input maxLength="10"  value={value.username} onChange={changeValues} name="username"  className="ep-username-inp"/>
      <p className="ep-name-p"> Appears on your Profile page, as your byline and as your responses.
-       <span> 11/50</span>
+       <span> {value.username.length}/50</span>
      </p>
      </div>
     <div className="ep-name-wrap">
         <p> Bio </p>
-     <input value={value.bio} onChange={changeValues} name="bio"  className="ep-username-inp"/>
+     <input value={value.bio} onChange={changeValues} name="bio" className="ep-username-inp"/>
      <p className="ep-name-p"> Appears on your Profile, search pages and suggestions
-     <span> 11/150</span>
+     <span> {value.bio.length}/150</span>
  </p>
      </div>
     </div>
