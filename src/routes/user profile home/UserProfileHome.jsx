@@ -92,7 +92,7 @@ export default function UserProfileHome() {
   return(
     <>
  {toggleHeader && <HomeHeader pos={headerPos}/>}
-  {toggleSubHeader && <HomeSubHeader pos={subHeaderPos } t={subHeaderTop} />}
+ 
 
    <div className="userprofilehome-container">
         {blogPreview ? blogPreview.blog.map(doc => (

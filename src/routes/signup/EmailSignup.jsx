@@ -8,7 +8,7 @@ import {ErrContext} from "/src/context/ErrContext"
 import {useContext, useState, useEffect} from "react"
 import Err from "/src/components/alert/err/Err"
 import {UserContext} from "/src/context/UserContext"
-
+import Bg from "/src/components/bg/Bg"
 
 function EmailSignup() {
   const {register,handleSubmit, formState:{errors}} = useForm({mode:"onChange"})
@@ -16,6 +16,7 @@ function EmailSignup() {
   const { setIsGoogleSignupAvatar, setIsEmail} = useContext(UserContext)
  const [isSuccess, setIsSuccess] = useState(false)
  const navigate = useNavigate()
+ const [isLoading, setIsLoading] = useState(false)
  useEffect(()=>{
  setIsErrToggled(false)
 },[])
@@ -47,11 +48,15 @@ function EmailSignup() {
 const submitForm = async (data) =>{
   setIsGoogleSignupAvatar(false)
   setIsEmail(true)
+  
   const {email, password, confirmPassword} = data
 if(password === confirmPassword){
   try{
+    setIsLoading(true)
     await signUpWithEmail(email, password)
+    setIsLoading(false)
     setIsSuccess(true)
+   
     setTimeout(()=>{
         navigate("/swiftscribe/callback/setting-up")
     }, 2000)
@@ -61,18 +66,21 @@ if(password === confirmPassword){
     if(e.code === "auth/email-already-in-use"){
       setErrMsg("Email already in use")
       setIsErrToggled(true)
+      setIsLoading(false)
     }
   }
 }
 else {
   setErrMsg("Passwords does not match")
   setIsErrToggled(true)
+  setIsLoading(false)
 }
 }
     return (
         <>
         {isErrToggled && <Err/>}
         {isSuccess && <Success/>}
+        {isLoading && <Bg/>}
             <form action="" className="emailsignup-container" onSubmit={handleSubmit(submitForm)}>
 
                 <h1 className="emailsignup-title">Sign up with email</h1>

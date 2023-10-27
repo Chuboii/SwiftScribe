@@ -7,14 +7,14 @@ import Success from "/src/components/alert/success/Success"
 import {ErrContext} from "/src/context/ErrContext"
 import {useContext, useState, useEffect} from "react"
 import Err from "/src/components/alert/err/Err"
-
+import Bg from "/src/components/bg/Bg"
 
 function EmailSignin() {
    const {register,handleSubmit, formState:{errors}} = useForm({mode:"onChange"})
 const {setErrMsg, isErrToggled,setIsErrToggled} = useContext(ErrContext)
  const [isSuccess, setIsSuccess] = useState(false)
 const navigate = useNavigate()
- 
+ const [isLoading, setIsLoading] = useState(false)
   
 useEffect(()=>{
  setIsErrToggled(false)
@@ -45,7 +45,9 @@ useEffect(()=>{
   const submitForm = async (data) =>{
     const {email, password} = data
   try{
+    setIsLoading(true)
     await signInWithEmail(email, password)
+    setIsLoading(false)
     setIsSuccess(true)
     
     setTimeout(()=>{
@@ -55,6 +57,7 @@ useEffect(()=>{
   catch(e){
     console.log(e)
     if(e.code === "auth/invalid-login-credentials"){
+      setIsLoading(false)
       setErrMsg("Invalid login details")
       setIsErrToggled(true)
     }
@@ -65,6 +68,7 @@ useEffect(()=>{
         <>
         {isSuccess && <Success/>}
         {isErrToggled && <Err/>}
+        {isLoading && <Bg/>}
             <form action="" className="emailsignin-container" onSubmit={handleSubmit(submitForm)}>
 
                 <h1 className="emailsignin-title">Sign in with email</h1>

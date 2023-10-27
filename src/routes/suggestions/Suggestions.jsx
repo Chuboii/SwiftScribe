@@ -24,7 +24,7 @@ export default function Suggestions(){
     const [headerPos, setHeaderPos] = useState("relative")
   const [subHeaderTop, setSubHeaderTop] = useState(0)
   const [users, setUsers] = useState(null)
-  const {currentUser, setUsersProfile} = useContext(UserContext)
+  const {currentUser,setPostUserId , setUsersProfile} = useContext(UserContext)
   const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)
   const [userDocId] = useState(getUserDocId)
   const [isFollowing, setIsFollowing] = useState(false)
@@ -124,6 +124,9 @@ const displayUserProfile = async(idx, user) =>{
 //  console.log(idx)
  setUsersProfile(idx)
   localStorage.setItem("usersProfile", idx)
+  localStorage.setItem("postUserId", idx)
+  const storage= localStorage.getItem("postUserId")
+ setPostUserId(storage)
   localStorage.setItem("userDocId", user.user)
   navigate("/user")
 }

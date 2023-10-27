@@ -6,8 +6,9 @@ import {useContext, useState, useRef} from "react"
 import {db, storage} from "/src/utils/appwrite/appwrite.utils"
 import { updateProfile } from 'firebase/auth'
 import { useNavigate } from "react-router-dom"
-
-
+import {ErrContext} from "/src/context/ErrContext"
+import Err from "/src/components/alert/err/Err"
+import Bg from "/src/components/bg/Bg"
 export default function SettingUp(){
   const {currentUser,isEmail, isGoogleSignupAvatar} = useContext(UserContext)
   const [value, setValue] = useState({
@@ -18,14 +19,18 @@ export default function SettingUp(){
   const ref = useRef()
   const [fileName] = useState("uploader")
   const navigate = useNavigate()
-   
+   const {setErrMsg, isErrToggled,setIsErrToggled} = useContext(ErrContext)
+ const [isLoading, setIsLoading] = useState(false)
   const submitForm = async (e) =>{
     e.preventDefault()
   const {name, bio, username} = value
     const date = new Date()
-    if (name && bio && username ) {
+    if (name || bio && username ) {
+      
       try {
+        setIsLoading(true)
         if (currentUser.photoURL === null) {
+          
           await storage.createFile(
             '6527ea2a83ff9adab8e7',
             currentUser.uid,
@@ -40,9 +45,11 @@ export default function SettingUp(){
             photoURL: imageUrl.href
           }
           )
+          setIsLoading(false)
         }
         else {
          try{ 
+           setIsLoading(true)
           await storage.createFile(
             '6527ea2a83ff9adab8e7',
             currentUser.uid,
@@ -55,12 +62,15 @@ export default function SettingUp(){
             displayName: value.name,
             photoURL: imageUrl.href === null ? currentUser.photoURL : imageUrl.href
           })
+          setIsLoading(true)
          } catch(e){
-           if(e.message === `Missing required parameter: "file""`){
+           if(e.code === 0){
+             
              await updateProfile(currentUser, {
             displayName: value.name,
             photoURL:  currentUser.photoURL
           })
+          setIsLoading(false)
            }
          }
           
@@ -78,6 +88,7 @@ export default function SettingUp(){
          isFollowing: false,
          displayName: currentUser.displayName,
          email: currentUser.email,
+         userId: currentUser.uid,
          photoURL: currentUser.photoURL
 })]}
      
@@ -88,6 +99,16 @@ export default function SettingUp(){
       }
    catch(e){
      console.log(e)
+    if(e.message === `Missing required parameter: "file"`){
+      setErrMsg("You must add an avatar")
+       setIsErrToggled(true)
+       setIsLoading(false)
+    }
+    else if(e.message === `Network request failed`){
+      setErrMsg("Unable to connect, check your internet and try again.")
+       setIsErrToggled(true)
+       setIsLoading(false)
+    }
    }
     }
     else {
@@ -106,6 +127,8 @@ export default function SettingUp(){
   
   return(
     <>
+    {isErrToggled && <Err/>}
+    {isLoading && <Bg/>}
     <div className="setting-up-container">
         <h2 style={{ marginTop: "3rem" }} className="setting-up-title"> SwiftScribe</h2>
     

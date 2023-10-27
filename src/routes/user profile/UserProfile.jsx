@@ -7,7 +7,9 @@ import {Link, Outlet} from "react-router-dom"
 import {db} from '/src/utils/appwrite/appwrite.utils'
 import { UserContext } from "../../context/UserContext"
 import Skeleton from '@mui/material/Skeleton';
-
+import Followers from "/src/components/followers/Followers"
+import Followings from "/src/components/followings/Followings"
+import {NotificationContext} from "/src/context/NotificationContext"
 
 export default function UserProfile(){
   const {setToggleMenu} = useContext(ToggleContext)
@@ -16,6 +18,10 @@ export default function UserProfile(){
  const [user, setUser] = useState(null)
  const [isHomeClicked, setIsHomeClicked] = useState("2px solid")
   const [isAboutClicked, setIsAboutClicked] = useState("none")
+  const [toggleFollower, setToggleFollower] = useState(false)
+  const [toggleFollowing, setToggleFollowing] = useState(false)
+  const {notifyUser} = useContext(NotificationContext)
+ 
   useEffect(() => {
    
     if (!isLoadedFromServer) {
@@ -30,7 +36,7 @@ export default function UserProfile(){
       getUsers()
       setIsLoadedFromServer(true)
     }
- },[isLoadedFromServer, user])
+ },[isLoadedFromServer, user, notifyUser])
   
 const tapHome = () =>{
     setIsHomeClicked("2px solid")
@@ -41,10 +47,19 @@ const tapHome = () =>{
     setIsHomeClicked("none")
   }
   
+  const enableFollowerBox = ()=>{
+    setToggleFollower(true)
+  }
  
- 
+ const enableFollowingBox = ()=>{
+    setToggleFollowing(true)
+  }
+  
+  
   return (
     <>
+   {toggleFollower && <Followers toggle={setToggleFollower}/>}
+{toggleFollowing &&  <Followings toggle={setToggleFollowing}/>}
     <div className="userprofile-container" onClick={() => setToggleMenu(false)}>
     <header className="up-header">
     <div className="up-header-top">
@@ -55,8 +70,8 @@ const tapHome = () =>{
     <p className="up-name"> {currentUser.displayName} </p>
     <p className="up-username" style={{display:"flex", alignItems:"center"}}> <span>@</span>{user ? JSON.parse(user.user).username.toLowerCase() : (  <Skeleton sx={{width:"100px"}} animation="wave"/>)}</p>
     <div className="followers-box"> 
-    <p className="up-followers">{user ? JSON.parse(user.user).followers : ""} Followers</p>
-    <p className="up-following">{user ? JSON.parse(user.user).following : ""} Following</p>
+    <p onClick={enableFollowerBox} className="up-followers">{user ? JSON.parse(user.user).followers : ""} Followers</p>
+    <p onClick={enableFollowingBox} className="up-following">{user ? JSON.parse(user.user).following : ""} Following</p>
     </div>
     </div>
     <MoreHorizIcon sx={{position:"absolute", right:"1rem"}}/>

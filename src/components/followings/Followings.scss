@@ -1,0 +1,73 @@
+.followings-container{
+  position:fixed;
+  bottom:0;
+  background:white;
+  z-index:1112;
+  opacity:1;
+  left:0;
+  right:0;
+  overflow-y:scroll;
+  height:80vh;
+  box-shadow:0 0 10px 0 rgba(0,0,0,.3);
+ border-top-left-radius: 20px; 
+ border-top-right-radius: 20px; 
+ 
+ 
+ .fol-header{
+   display:flex;
+   align-items: center;
+   position:sticky;
+   left:0;
+   top:0;
+   right:0;
+   z-index:7;
+   padding:1.5rem;
+   justify-content: space-between;
+   background: rgba(255,255,255,0.4);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.2);
+
+ }
+ .fol-main{
+   
+   padding:.5rem 1rem;
+  .fol-box{
+    display:flex;
+    
+    margin:.5rem 0;
+    padding:.7rem;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    background: rgba(255,255,255,0.4);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.2);
+align-items: center;
+border-radius:10px;
+position:relative;
+    .fool-img{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      object-fit:cover;
+      margin-right:1rem;
+    }
+    .fol-bio{
+      width:150px;
+    }
+    .fol-name{
+      width:150px;
+      
+    }
+    .fol-btn{
+      position:absolute;
+      right:1rem;
+      background:white;
+      border:1px solid orangered;
+      color:orangered;
+      padding:.5rem 1rem;
+      border-radius:30px;
+    }
+  }
+  }
+}

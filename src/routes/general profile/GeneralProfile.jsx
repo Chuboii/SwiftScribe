@@ -15,7 +15,7 @@ function getUserDocId() {
 
 
 export default function GeneralProfile(){
-  const {usersProfile, currentUser} = useContext(UserContext)
+  const {usersProfile, postUserId, currentUser} = useContext(UserContext)
   const [isHomeClicked, setIsHomeClicked] = useState("2px solid")
   const [isAboutClicked, setIsAboutClicked] = useState("none")
   const parsedUser = usersProfile ? usersProfile : ""
@@ -40,8 +40,9 @@ export default function GeneralProfile(){
     
     const getData = async() =>{
       try{
-      const res = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile)
+      const res = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", postUserId)
       setData(res)
+      console.log(postUserId)
       }catch(e){
         console.log(e)
       }
@@ -82,7 +83,7 @@ const followingObj = JSON.parse(otherUser.user)
  
  await db.createDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, followingData)
  setIsImageLoaded(false)
- setIsFollowed(true)
+// setIsFollowed(true)
  console.log("following created successfully")
  
  const date = new Date()
@@ -113,7 +114,7 @@ const followingObj = JSON.parse(otherUser.user)
       try{
     
      const getNotify = await db.getDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", usersProfile)
-     console.log(getNotify)
+     //console.log(getNotify)
      const date = new Date()
  //    const data = JSON.parse(getNotify.notify)
      const duplicate = getNotify.notify.some(el => JSON.parse(el).uid === currentUser.uid)
@@ -162,10 +163,56 @@ const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffe
       const updatedData = {  
          following: existingFollowingDoc.following
          }
-     await db.updateDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, updatedData)
+   const ress2 =  await db.updateDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, updatedData)
   //   console.log("following updated")
-setIsImageLoaded(false)
-    setIsFollowed(true)
+//setIsImageLoaded(false)
+   // setIsFollowed(true)
+ //   setReload(ress2)
+  const existingFollowingDoc2 =  await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
+ 
+const followingMap =  [JSON.parse(currUser.user)].map(el =>{
+   return JSON.stringify({...el, following: existingFollowingDoc2.following.length})
+})
+ 
+ const parsedUpdatedFollowingUser = JSON.parse(followingMap)
+ 
+ const updateFollowingUser ={
+   user:[JSON.stringify(parsedUpdatedFollowingUser)]
+ }
+  const ress3 = await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid, updateFollowingUser)
+   setReload(ress3)
+  console.log('following user updated')
+ setIsImageLoaded(false)
+  
+ 
+ }
+ else {
+   console.log("following exists already")
+   
+   
+   
+          const otherUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile)
+       
+        const existingFollowingDoc = await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
+
+const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+//console.log(otherUser)
+ //   const data = JSON.parse(otherUser.user)
+
+// existingFollowingDoc.following.push(JSON.stringify(data))
+const removeFollowing =  existingFollowingDoc.following.filter(el => JSON.parse(el).id !== JSON.parse(otherUser.user).id)
+ 
+     const updatedData = {  
+         following: [...removeFollowing]
+         }
+    //  console.log(updatedData)
+         
+     const res2 = await db.updateDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid, updatedData)
+    console.log("following reduced updated")
+//setIsImageLoaded(false)
+    //setIsFollowed(true)
+   // setReload(res2)
+   
   const existingFollowingDoc2 =  await db.getDocument("652755cdc76b42b46adb", "653007869312ccf2fa4c", currentUser.uid)
  
 const followingMap =  [JSON.parse(currUser.user)].map(el =>{
@@ -180,38 +227,13 @@ const followingMap =  [JSON.parse(currUser.user)].map(el =>{
     await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid, updateFollowingUser)
   console.log('following user updated')
   
-  //notify update
-/*
-try{
-     const getNotify = await db.getDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", usersProfile)
-     
-     const date = new Date()
-     const nData = {
-       uid: currentUser.uid,
-     id: uuidv4(),
-   photo: currentUser.photoURL, 
-   name: currentUser.displayName,
-   task: "Just followed you",
-   time: date
-     }
-     
-     getNotify.notify.push(JSON.stringify(nData))
-   
-     const notifyData = {
-       notify: [getNotify.notify]
-     }
-   
-    await db.updateDocument("652755cdc76b42b46adb", "65367cd8d42ee9bde7bb", usersProfile, notifyData)
-     console.log("notify updated")
-}
-catch(e){
-  console.log(e)
-}*/
-     
+  
  
- }
- else {
-   console.log("following exists already")
+   
+   
+   
+   
+   
  }
    }
         }
@@ -248,9 +270,10 @@ const followersMap =  [JSON.parse(clickedUser.user)].map(el =>{
    user:[JSON.stringify(parsedUpdatedFollowersUser)]
  }
  
- await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile, updatedFollowersUser)
+const res2 =  await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile, updatedFollowersUser)
  console.log("follower user updated successfuly")
-setReload(!reload)
+setReload(res2)
+setIsImageLoaded(false)
 // window.location.reload() 
 }
 catch(e){
@@ -287,12 +310,52 @@ const followersMap =  [JSON.parse(clickedUser.user)].map(el =>{
    user:[JSON.stringify(parsedUpdatedFollowersUser)]
  }
  
- await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile, updatedFollowersUser)
- setReload(!reload)
+const res3 = await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile, updatedFollowersUser)
+ setReload(res3)
  console.log("follower user updated successfuly")
  }
  else{
   console.log("follower added already!")
+  
+   const existingFollowersDoc = await db.getDocument("652755cdc76b42b46adb", "6530077807326e78f379", usersProfile)
+  const clickedUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile)
+const currUser = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
+
+  
+  const data = JSON.parse(currUser.user)
+//console.log(existingFollowersDoc)
+const removeFollower =  existingFollowersDoc.followers.filter(el => JSON.parse(el).id !== JSON.parse(currUser.user).id)
+
+ console.log(removeFollower)
+   
+      const updatedFollowersData = {  
+         followers: [...removeFollower]
+         }
+   
+  const res3 =   await db.updateDocument("652755cdc76b42b46adb", "6530077807326e78f379", usersProfile,updatedFollowersData)
+    // setReload(res3)
+       console.log("follower updated successfully")
+const existingFollowersDoc2 =  await db.getDocument("652755cdc76b42b46adb", "6530077807326e78f379", usersProfile)
+ 
+const followersMap =  [JSON.parse(clickedUser.user)].map(el =>{
+   return JSON.stringify({...el, followers: existingFollowersDoc2.followers.length})
+})
+ 
+ const parsedUpdatedFollowersUser = JSON.parse(followersMap)
+ 
+ const updatedFollowersUser ={
+   user:[JSON.stringify(parsedUpdatedFollowersUser)]
+ }
+ 
+const res4 = await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", usersProfile, updatedFollowersUser)
+ setReload(res4)
+ setIsImageLoaded(false)
+ console.log("follower user updated successfuly")
+ 
+
+  
+ 
+  
  }
 }
 }

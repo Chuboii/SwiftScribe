@@ -11,17 +11,21 @@ import { db } from "/src/utils/appwrite/appwrite.utils"
 import Success from "/src/components/alert/success/Success"
 import {ErrContext} from "/src/context/ErrContext"
 import Err from "/src/components/alert/err/Err"
-
+import Bg from "/src/components/bg/Bg"
 export default function Signup() {
     const navigate = useNavigate()
 const {currentUser,setIsEmail, setIsGoogleSignupAvatar} = useContext(UserContext)
 const [isSuccess, setIsSuccess] = useState(false)
 const {errMsg, setErrMsg, isErrToggled, setIsErrToggled} = useContext(ErrContext)
+const [isLoading, setIsLoading] = useState(false)
 const googleBtn = async() =>{
  try{
+   setIsLoading(true)
      const { user } = await signInWithGoogle()
   await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", user.uid)
+  setIsLoading(false)
   setIsSuccess(true)
+  
   setTimeout(() => {
     navigate('/') 
   }, 2000);
@@ -31,6 +35,7 @@ const googleBtn = async() =>{
   catch(e){
     console.log(e)
        if(e.message === "Document with the requested ID could not be found."){
+         setIsLoading(false)
            setIsSuccess(true)
            setTimeout(() => {
             navigate("/swiftscribe/callback/setting-up")
@@ -40,6 +45,7 @@ const googleBtn = async() =>{
          
        }
        else if(e.code === "auth/popup-closed-by-user"){
+         setIsLoading(false)
          setIsErrToggled(true)
          setErrMsg("Connection Timeout")
        }
@@ -48,13 +54,15 @@ const googleBtn = async() =>{
 const facebookBtn = async() =>{
 
  try{
+   setIsLoading(true)
      await signInWithFacebook()
      await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
-
+setIsLoading(true)
   }
   catch(e){
      console.log(e)
      if(e.message === "Document with the requested ID could not be found."){
+       setIsLoading(false)
          setTimeout(() => {
             navigate("/swiftscribe/callback/setting-up")
 
@@ -66,6 +74,7 @@ const facebookBtn = async() =>{
         <>
             {isSuccess && <Success/>}
             {isErrToggled && <Err/> }
+            {isLoading && <Bg/>}
             <div className="signup-container">
                 <h3 className='signup-title'>Join SwiftScribe</h3>
             

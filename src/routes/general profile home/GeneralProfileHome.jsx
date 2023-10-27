@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom"
 export default function GeneralProfileHome(){
   const [toggleHeader, setToggleHeader] = useState(false)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
-  const {usersProfile,setLinkId, setPostDetails, setPostUserId, setUsersProfile, setFriendsId} = useContext(UserContext)
+  const {usersProfile,setLinkId, setPostDetails, setPostUserId, postUserId, setUsersProfile, setFriendsId} = useContext(UserContext)
   const [data, setData] = useState(null)
   const navigate = useNavigate()
   
@@ -36,7 +36,7 @@ export default function GeneralProfileHome(){
           const res = await db.listDocuments("652755cdc76b42b46adb", "652ebb6ad8417bfdac54")
       //  console.log(res.documents)
       const filtered = res.documents.filter(el =>{
-          return JSON.parse(el.blog).userId === usersProfile
+          return JSON.parse(el.blog).userId === postUserId
         })
        
       // console.log(filtered)
