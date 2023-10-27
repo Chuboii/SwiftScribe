@@ -34,6 +34,12 @@ function getLinkId(){
   return storage ? storage : null
 
 }
+
+function getUserDocId() {
+  const storage = localStorage.getItem("userDocId")
+  return storage ? JSON.parse(storage) : null
+}
+
 export const UserProvider = ({children})=>{
  const [currentUser, setCurrentUser] = useState(getCurrentUser)
  const [usersProfile, setUsersProfile] = useState(getUsersProfile)
@@ -46,6 +52,7 @@ export const UserProvider = ({children})=>{
  const [commentCount, setCommentCount] = useState(0)
  const [postDetails, setPostDetails] = useState(getPost)
  const [linkId, setLinkId] = useState(getLinkId)
+ const [userDocId, setUserDocId] = useState(getUserDocId)
  const location = useLocation()
  const triggerSignout = () =>{
   signUserOut()
@@ -79,7 +86,7 @@ export const UserProvider = ({children})=>{
 //triggerSignout()
 
 
-  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile,setPostUserId, setUsersProfile, isGoogleSignupAvatar, setIsGoogleSignupAvatar, isEmail, postUserId, setIsEmail, setCommentCount, postDetails,linkId, setPostDetails, setLinkId, commentCount}
+  const value = {currentUser, triggerSignout, setCurrentUser, friendsId, setFriendsId, usersProfile,setPostUserId, setUsersProfile, isGoogleSignupAvatar, setIsGoogleSignupAvatar, isEmail, postUserId, setIsEmail, setCommentCount, postDetails,linkId, setPostDetails, setLinkId, commentCount, userDocId, setUserDocId}
   
   return (
     <UserContext.Provider value={value}>

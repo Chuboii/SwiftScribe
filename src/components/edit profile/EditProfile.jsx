@@ -11,20 +11,16 @@ import {useNavigate} from "react-router-dom"
 import {v4 as uuidv4} from "uuid"
 import {updateProfile} from "firebase/auth"
 import {auth} from "/src/utils/firebase/firebase.utils"
-function getUserDocId() {
-  const storage = localStorage.getItem("userDocId")
-  return storage ? JSON.parse(storage) : null
-}
 
 export default function EditProfile(){
   const { setToggleEdit} = useContext(ToggleContext)
-  const {currentUser} = useContext(UserContext)
+  const {currentUser, userDocId} = useContext(UserContext)
   const [userInfo, setUserInfo] = useState(null)
-  const [userDoc] = useState(getUserDocId)
+//  const [userDoc] = useState(getUserDocId)
   const [value, setValue] = useState({
-    name: userDoc.displayName,
-    bio:userDoc.bio,
-    username: userDoc.username
+    name: userDocId.displayName,
+    bio:userDocId.bio,
+    username: userDocId.username
   })
   const [imageUrl, setImageUrl] = useState(null)
   const navigate = useNavigate()

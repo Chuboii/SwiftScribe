@@ -143,7 +143,7 @@ const navigate = useNavigate()
       {toggleSubHeader && <HomeSubHeader pos={subHeaderPos } t={subHeaderTop} />}
    <div className="foryou-container" onClick={() => setToggleMenu(false)}>
         {
-          blogPreview ? blogPreview.documents.map(el => {
+          blogPreview ? blogPreview.documents.slice().reverse().map(el => {
          
           return (
             <div key={el.$id} className="fy-box" onClick={() => {
@@ -153,7 +153,7 @@ const navigate = useNavigate()
                 el.blog.map(doc => (
             <div key={JSON.parse(doc).id}>
             <header className="fy-header">
-              <img src={JSON.parse(doc).photo} alt="profile-pic" className="fy-header-img" />
+              <img style={{objectFit:'cover'}} src={JSON.parse(doc).photo} alt="profile-pic" className="fy-header-img" />
               <p className="fy-name">
                 @{JSON.parse(doc).displayName}
               </p>

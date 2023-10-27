@@ -8,7 +8,7 @@ import EditProfile from "/src/components/edit profile/EditProfile"
 import {ToggleContext} from "/src/context/ToggleContext"
 export default function Settings(){
   const [isLoadedFromServer, setIsLoadedFromServer] = useState(false)
- const {currentUser} = useContext(UserContext)
+ const {currentUser, setUserDocId} = useContext(UserContext)
  const [user, setUser] = useState(null)
  const parsedUser = user ? JSON.parse(user.user) : ""
  const {toggleEdit, setToggleEdit} = useContext(ToggleContext)
@@ -22,6 +22,8 @@ export default function Settings(){
         setUser(res)
         console.log(res);
       localStorage.setItem("userDocId", res.user)
+      const storage = localStorage.getItem("userDocId")
+      setUserDocId(storage ? JSON.parse(storage) : null)
       }
 
       getUsers()
