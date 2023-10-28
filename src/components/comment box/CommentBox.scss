@@ -250,7 +250,31 @@ z-index: 2;
 
     }
   }
-  
+  .cb-form{
+    width:100%;
+    position:fixed;
+    bottom:0;
+    left:0;
+    padding:.5rem;
+    display: flex;
+    align-items: center;
+    background:white;
+    .cb-form-input{
+      width:80%;
+      padding:.9rem .5rem;
+      border-radius:40px;
+      border:1px solid;
+    }
+    .cb-form-btn{
+      display: flex ;
+      align-items: center;
+      justify-content: center;
+      margin-left:.5rem;
+      color:orangered;
+       background: transparent;
+      
+    }
+  }
   
 }
 }

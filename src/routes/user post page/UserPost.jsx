@@ -483,7 +483,7 @@ const handleShare = async () => {
     <header className="usp-header">
     <img src={JSON.parse(doc).photo} className="usp-header-pro"/>
     <div className="usp-header-text">
-    <p className="usp-header-name"><span >{JSON.parse(doc).displayName}</span>
+    <p className="usp-header-name"><span >@{JSON.parse(doc).displayName}</span>
     <span style={{color:"orangered",display:'block', marginLeft:".5rem"}} onClick={enableFollow} className="gp-header-fbtn"> {isFollowed ? "Following" : "Follow"} </span>  </p>
     <p className="usp-header-mins"><span style={{marginRight:".5rem"}}> {JSON.parse(doc).readTime} mins read </span> <span>{shorten} </span> </p>
 

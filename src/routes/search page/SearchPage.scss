@@ -33,10 +33,30 @@
 @media screen and (min-width:700px) {
     .searchpage-container{
         width: 65%;
-        padding: 1rem 3.5rem;
+        padding: 1rem;
+        padding-right: 3rem;
 
         .sp-h1{
             margin: 1rem 0;
         }
+        .sp-header-last{
+          
+            position:relative;
+            top:1rem;
+            border-bottom:1px solid gray;
+            padding-bottom:.5rem;
+            .gp-link{
+              color: black;
+              margin-right:1rem;
+              &:first-child{
+              border-bottom:2px solid;
+              padding-bottom:.5rem;
+              }
+              &:last-child{
+              border-bottom:2px solid;
+              padding-bottom:.5rem;
+              }
+            }
+            }
     }
 }

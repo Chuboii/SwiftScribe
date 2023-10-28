@@ -99,6 +99,20 @@
         color:gray;
         margin-top:.5rem;
       }
+      .followers-box{
+        display: flex;
+        align-items: center;
+      .up-following, .up-followers{
+        margin-right:.5rem;
+        margin-top:.5rem;
+        background:orangered;
+        color: white;
+        padding:1rem;
+        border-radius:10px;
+        width: 200px;
+        box-shadow:0 0 10px 0 rgba(0,0,0,.1);
+      }
+    }
       }
     }
     .up-header-last{

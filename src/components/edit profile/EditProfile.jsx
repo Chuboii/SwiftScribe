@@ -19,11 +19,11 @@ export default function EditProfile(){
   const [userInfo, setUserInfo] = useState(null)
 //  const [userDoc] = useState(getUserDocId)
 const [isLoaded, setIsLoaded] = useState(false)
-
+const [isLoadedTwo, setIsLoadedTwo] = useState(false)
   const [value, setValue] = useState({
-    name: userDocId.displayName,
-    bio:userDocId.bio,
-    username: userDocId.username
+    name: userDocId ? userDocId.displayName : '',
+    bio:userDocId ? userDocId.bio : '',
+    username:userDocId ? userDocId.username : ''
   })
   const [imageUrl, setImageUrl] = useState(null)
   const navigate = useNavigate()
@@ -42,7 +42,7 @@ const [isLoaded, setIsLoaded] = useState(false)
   
   const updateUserProfile = async() => {
     if(value.name || value.bio || value.username){
-  setIsLoaded(true)
+  setIsLoadedTwo(true)
     try{
     const getUserDoc = await db.getDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentUser.uid)
   //const file = document.querySelector("#edit-image-id").files[0]
@@ -68,7 +68,7 @@ await db.updateDocument("652755cdc76b42b46adb", "652755d73451dcffebde", currentU
    console.log("done")
    
    setToggleEdit(false)
-   setIsLoaded(false)
+   setIsLoadedTwo(false)
     }
     catch(e){
       console.log(e)
@@ -114,7 +114,7 @@ uploadTask.on('state_changed',
   
   return(
     <>
-    {isLoaded && <Bg/>}
+    {isLoadedTwo && <Bg/>}
     <div className="editprofile-container">
     <header className="ep-header">
     <CloseIcon onClick={() => setToggleEdit(false)}/>
@@ -146,21 +146,21 @@ uploadTask.on('state_changed',
     <div className="ep-name-box"> 
 
     <div className="ep-name-wrap">
-        <p> Name* </p>
+        <h4> Name* </h4>
      <input value={value.name} onChange={changeValues} name="name" className="ep-name-inp"/>
      <p className="ep-name-p"> Appears on your Profile page, and your byline.
      <span> {value.name.length}/50</span>
      </p>
      </div>
     <div className="ep-name-wrap">
-      <p> Username* </p>
+      <h4> Username* </h4>
      <input maxLength="10"  value={value.username} onChange={changeValues} name="username"  className="ep-username-inp"/>
      <p className="ep-name-p"> Appears on your Profile page, as your byline and as your responses.
        <span> {value.username.length}/50</span>
      </p>
      </div>
     <div className="ep-name-wrap">
-        <p> Bio </p>
+        <h4> Bio </h4>
      <input value={value.bio} onChange={changeValues} name="bio" className="ep-username-inp"/>
      <p className="ep-name-p"> Appears on your Profile, search pages and suggestions
      <span> {value.bio.length}/150</span>

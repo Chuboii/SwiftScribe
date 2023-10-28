@@ -12,7 +12,9 @@ export default function SearchPosts(){
   const [userNotFound, setUserNotFound] = useState(false)
   const {setUsersProfile} = useContext(UserContext)
   const navigate = useNavigate()
- const {setLinkId, setPostDetails} = useContext(UserContext)
+  const { setLinkId, setPostDetails } = useContext(UserContext)
+  
+
   useEffect(()=>{
     
     if(searchData){
@@ -21,7 +23,7 @@ export default function SearchPosts(){
        const res = await db.listDocuments("652755cdc76b42b46adb", "652ebb6ad8417bfdac54")
       
      const filtered = res.documents.filter(el =>{
-        return JSON.parse(el.blog).blogTitle.includes(searchData)
+        return JSON.parse(el.blog).blogTitle.toLowerCase().includes(searchData)
       })
     console.log(filtered)
  
@@ -76,7 +78,7 @@ export default function SearchPosts(){
    <img src={JSON.parse(doc.blog).photo} alt="profile-pic" className="gph-header-img"/>
   
    <p className="gph-post-time">
-   1 day ago
+   @{JSON.parse(doc.blog).displayName}
    </p>
    </header>
    <main className="gph-main">
@@ -89,7 +91,7 @@ export default function SearchPosts(){
    <p className="gph-read-time">{JSON.parse(doc.blog).readTime} mins read </p>
    </footer>
    </div>
- )) : ""
+ )) : <TextBasedLoader/>
  }
     </div>
     </>

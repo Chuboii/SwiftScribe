@@ -1,7 +1,7 @@
 import "./GeneralProfile.scss"
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {Link, Outlet} from "react-router-dom"
-import img from "/src/assets/swiftscribe logo.jpg"
+import img from "/src/assets/logo.jpg"
 import Skeleton from '@mui/material/Skeleton';
 import {useContext, useState, useEffect} from "react"
 import {UserContext} from "/src/context/UserContext"

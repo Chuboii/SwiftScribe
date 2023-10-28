@@ -169,6 +169,13 @@ transition:all .5s;
         font-size: 30px;
         margin-left: 1rem;
       }
+      .wp-btn-link{
+        background-color: orangered;
+        color: white;
+        padding: .8rem 3rem;
+        border-radius: 20px;
+        margin-left: 1rem;
+      }
     }
   }
     
@@ -334,8 +341,8 @@ transition:all .5s;
       .wp-footer-box{
         display:flex;
 flex-direction: column;
-overflow:hidden;
-height:30px;
+
+height: 10px;
 transition:all .5s;
             .wp-bold, .wp-italic{
              font-size:30px;
@@ -363,6 +370,14 @@ transition:all .5s;
             
             .wp-footer-url{
               font-size: 30px;
+              margin-left: 1rem;
+            }
+
+            .wp-btn-link{
+              background-color: orangered;
+              color: white;
+              padding: .8rem 3rem;
+              border-radius: 20px;
               margin-left: 1rem;
             }
           

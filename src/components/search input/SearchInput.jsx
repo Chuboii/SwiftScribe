@@ -23,7 +23,7 @@ useEffect(()=>{
    setSearchData(value)
    navigate("/search")
    setIsSearchBtnClicked(true)
-   setValue("")
+
 }
   
 const changeValue = (e) =>{

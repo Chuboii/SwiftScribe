@@ -1,6 +1,6 @@
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import logo from '/src/assets/swiftscribe logo.jpg'
+import logo from '/src/assets/logo.jpg'
 import './HomeHeader.scss'
 import HomeSubHeader from '../home sub header/HomeSubHeader';
 import NavigationMenu from '../navigation menu/NavigationMenu';

@@ -26,7 +26,7 @@ export default function SearchPeople(){
        const res = await db.listDocuments("652755cdc76b42b46adb", "652755d73451dcffebde")
       
       const filtered = res.documents.filter(el =>{
-        return JSON.parse(el.user).displayName.includes(searchData)
+        return JSON.parse(el.user).displayName.toLowerCase().includes(searchData.toLowerCase())
       })
       
     console.log(filtered)
@@ -84,7 +84,7 @@ export default function SearchPeople(){
               }}> View Profile</button>
         </div>
           )) : 
-            userNotFound ? "" : "" 
+            userNotFound ? "" :<TextBasedLoader/>
             }
  
     </div>

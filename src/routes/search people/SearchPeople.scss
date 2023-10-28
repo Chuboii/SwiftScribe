@@ -52,8 +52,9 @@
 
 @media screen and (min-width:700px) {
   .searchpeople-container{
-    padding:1rem 3.5rem;
-    width: 65%;
+    padding:1rem;
+    padding-right: 3.5rem;
+    width: 100%;
     .suggestions-h3{
       margin:2rem 0;
       font-size: 30px;
@@ -63,10 +64,12 @@
     .suggestions-box{
       display:flex;
       cursor: pointer;
-      align-items: flex-start;
+      align-items: center;
       margin-top:2rem;
       position: relative;
-    
+    width: 100%;
+    justify-content: space-between;
+
       .suggestions-image{
         width:50px;
 height:50px;
@@ -93,10 +96,9 @@ height:50px;
       .suggestions-btn{
         background:orangered;
         color:white;
-        padding:.5rem 1rem;
+        padding:.8rem 1rem;
         border-radius:40px;
-        position: absolute;
-        right: 3.5rem;
+
         }
     }
   }

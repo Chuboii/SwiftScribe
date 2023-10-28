@@ -220,7 +220,7 @@ sel.addRange(range);
         </div>
         <div className="wp-second">
           <footer className="wp-footer">
-      <div className="wp-footer-box" style={{height: toggleUrlBox ? "100px" : "45px"}}>
+      <div className="wp-footer-box" style={{height: toggleUrlBox ? "160px" : "45px"}}>
       
     
       <div style={{display:"flex", alignItems:"center"}}>
@@ -240,7 +240,7 @@ sel.addRange(range);
               <LinkOutlinedIcon className="wp-footer-url" onClick={() => setToggleUrlBox(!toggleUrlBox)}/>
               </div>
               
-              <div>
+              <div style={{display:'flex', alignItems:"center", flexDirection:'column'}}>
                  <input placeholder="Add link"  className="wp-url" type="url" value={content.linkValue} onChange={changeValues}
                    name="linkValue"
                  />
