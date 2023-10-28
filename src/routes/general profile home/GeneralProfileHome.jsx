@@ -42,7 +42,7 @@ export default function GeneralProfileHome(){
       // console.log(filtered)
      
     setData(filtered)
-     
+ //    console.log(JSON.parse(filtered[0].blog))
 
           
      setIsDataLoaded(false) 
@@ -98,7 +98,7 @@ const viewBlog = (idx, el) =>{
    <img src={JSON.parse(doc.blog).photo} alt="profile-pic" className="gph-header-img"/>
   
    <p className="gph-post-time">
-   1 day ago
+  @{JSON.parse(doc.blog).displayName}
    </p>
    </header>
    <main className="gph-main">

@@ -69,7 +69,7 @@ profilePageHome()
     <img src={JSON.parse(doc).photo} className="usp-header-pro"/>
     <div className="usp-header-text">
     <p className="usp-header-name"><span >{JSON.parse(doc).displayName}</span> <span style={{color:"orangered", marginLeft:".5rem"}}> Follow </span>  </p>
-    <p className="usp-header-mins"><span style={{marginRight:".5rem"}}> {JSON.parse(doc).readTime} mins read </span> <span> 9 days ago </span> </p>
+    <p className="usp-header-mins"><span style={{marginRight:".5rem"}}> {JSON.parse(doc).readTime} mins read </span> <span> {JSON.parse(doc).datePosted}</span> </p>
 
     </div>
     <ShareSharpIcon style={{position:"absolute", right:"1rem"}} className="usp-header-share"/> 
