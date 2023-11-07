@@ -10,7 +10,7 @@ export default function SearchPeople(){
   const {searchData, isSearchBtnClicked} = useContext(SearchDataContext)
   const [userNotFound, setUserNotFound] = useState(false)
   const navigate = useNavigate()
-  const {setUsersProfile} = useContext(UserContext)
+  const {setUsersProfile,setPostUserId, setUserDocId} = useContext(UserContext)
 /*
   useEffect(()=>{
     setUsers(null)
@@ -29,9 +29,12 @@ export default function SearchPeople(){
         return JSON.parse(el.user).displayName.toLowerCase().includes(searchData.toLowerCase())
       })
       
-    console.log(filtered)
+    //  console.log(searchData)
+//console.log(filtered)
    if(filtered.length > 0){
      setUsers(filtered)
+           
+    
      setUserNotFound(false)
    }
    else{
@@ -53,16 +56,22 @@ export default function SearchPeople(){
   const displayUserProfile = async(idx, user)=>{
     setUsersProfile(idx)
   localStorage.setItem("usersProfile", idx)
+  localStorage.setItem("postUserId", idx)
+  const storage2 = localStorage.getItem("postUserId")
+  setPostUserId(storage2)
   localStorage.setItem("userDocId", user.user)
+  const storage = localStorage.getItem("userDocId")
+  setUserDocId(storage)
   navigate("/user")
   }
   
-  
+  console.log(users)
   return(
     <>
+     {users ? users.length === 0 ? "user not found" : "" : ""}
     <div className="searchpeople-container">
   <p style={{fontWeight:"700", marginTop:"1.5rem"}}>  Recent Search (People)</p>
-     {userNotFound && <span> User not Found</span>}
+
   {
           users  ? users.map((user, id) => (
           
@@ -83,8 +92,7 @@ export default function SearchPeople(){
                 followBtn(user, user.$id, id)
               }}> View Profile</button>
         </div>
-          )) : 
-            userNotFound ? "" :<TextBasedLoader/>
+          )) : ""
             }
  
     </div>

@@ -18,16 +18,16 @@ export default function Settings(){
     if (!isLoadedFromServer) {
       const getUsers = async () => {
         const res = await db.getDocument('652755cdc76b42b46adb', '652755d73451dcffebde', currentUser.uid)
-
+setIsLoadedFromServer(true)
         setUser(res)
-        console.log(res);
+       // console.log(res);
       localStorage.setItem("userDocId", res.user)
       const storage = localStorage.getItem("userDocId")
       setUserDocId(storage ? JSON.parse(storage) : null)
       }
 
       getUsers()
-      setIsLoadedFromServer(true)
+      
     }
  },[isLoadedFromServer, user])
  

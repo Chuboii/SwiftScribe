@@ -23,7 +23,7 @@ export default function SearchPosts(){
        const res = await db.listDocuments("652755cdc76b42b46adb", "652ebb6ad8417bfdac54")
       
      const filtered = res.documents.filter(el =>{
-        return JSON.parse(el.blog).blogTitle.toLowerCase().includes(searchData)
+        return JSON.parse(el.blog).blogTitle.toLowerCase().includes(searchData.toLowerCase())
       })
     console.log(filtered)
  

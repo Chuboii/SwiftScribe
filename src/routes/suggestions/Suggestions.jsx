@@ -79,25 +79,6 @@ export default function Suggestions(){
      //   console.log(filtered)
 
           setUsers(filtered)
-    
-          /*
-         const followingRes = await db.getDocument('652755cdc76b42b46adb','653007869312ccf2fa4c', currentUser.uid)
-   setIsFollowing(JSON.parse(followingRes.following))
-   */
-     //    console.log(followingRes)
-/* const mapFollowing = followingRes.following.map(el => {
-     return JSON.parse(el).id.includes(userDocId.id)
-});
-console.log(mapFollowing)
-
-console.log(isFollowingPresent)
-if(isFollowingPresent){
-  setIsFollowing(isFollowingPresent)
-}*/
-      //   console.log(filterFollowing)
-     
-     //    console.log(followingRes)
-         // console.log(filtered);
         }
       catch (e) {
         console.log(e)

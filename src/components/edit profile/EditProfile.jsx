@@ -13,6 +13,7 @@ import {updateProfile} from "firebase/auth"
 import {auth} from "/src/utils/firebase/firebase.utils"
 import Bg from "/src/components/bg/Bg"
 
+
 export default function EditProfile(){
   const { setToggleEdit} = useContext(ToggleContext)
   const {currentUser, userDocId} = useContext(UserContext)
@@ -21,9 +22,9 @@ export default function EditProfile(){
 const [isLoaded, setIsLoaded] = useState(false)
 const [isLoadedTwo, setIsLoadedTwo] = useState(false)
   const [value, setValue] = useState({
-    name: userDocId ? userDocId.displayName : '',
-    bio:userDocId ? userDocId.bio : '',
-    username:userDocId ? userDocId.username : ''
+    name: currentUser ? currentUser.displayName : [],
+    bio:userDocId ? userDocId.bio : [],
+    username:userDocId ? userDocId.username : []
   })
   const [imageUrl, setImageUrl] = useState(null)
   const navigate = useNavigate()
@@ -36,6 +37,7 @@ const [isLoadedTwo, setIsLoadedTwo] = useState(false)
   [e.target.name]: e.target.value 
 }));
 }
+console.log(currentUser)
 //console.log(value.name)
   }
   
